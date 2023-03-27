@@ -1,0 +1,127 @@
+/* Player */
+.player {
+  margin: 0;
+  padding: 1em;
+  background-color: var(--light-dark);
+  border-top: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--dark-gray);
+  width: 100%;
+}
+
+.player button {
+  border: none;
+  background-color: transparent;
+}
+
+/* Player Component Svgs */
+.player svg path {
+  fill: var(--gray);
+  stroke: var(--gray);
+}
+
+.player svg rect {
+  stroke: var(--gray);
+}
+
+.player svg,
+.player svg path,
+.player svg rect {
+  transition: 0.2s;
+}
+
+.player svg:active {
+  transform: scale(0.95);
+}
+
+.pause-play svg path,
+.player svg:hover path {
+  fill: var(--white);
+  stroke: var(--white);
+}
+
+.pause-play svg rect,
+.player svg:hover rect {
+  stroke: var(--white);
+}
+
+.favorite-music > svg path {
+  fill: none !important;
+}
+
+.favorite-active > svg path {
+  fill: var(--cyan) !important;
+  stroke: var(--cyan) !important;
+}
+
+/* Progress Bar */
+input[type="range"] {
+  -webkit-appearance: none;
+  background-color: var(--dark-gray);
+  border-radius: 5px;
+  background-image: linear-gradient(var(--white), var(--white));
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 10px 0 var(--dark);
+  opacity: 0;
+}
+
+input[type="range"]:hover {
+  background-image: linear-gradient(var(--cyan), var(--cyan));
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+input[type="range"]::-moz-range-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+input[type="range"]::-ms-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.active-opt > svg path,
+.active-opt > svg path:hover {
+  fill: var(--cyan) !important;
+  stroke: var(--cyan) !important;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  /* Progress Bar */
+  input[type="range"] {
+    height: 7px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+  }
+
+  input[type="range"].m-progress {
+    width: 650px;
+  }
+
+  input[type="range"].v-progress {
+    width: 150px;
+  }
+}

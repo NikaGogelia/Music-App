@@ -1,0 +1,32 @@
+/* Root Layout */
+.root-layout,
+main {
+  height: 100%;
+}
+
+.root-layout {
+  animation: fadeIn;
+  animation-duration: 1.5s;
+}
+
+.root-layout aside,
+.root-layout > footer {
+  position: fixed;
+}
+
+.root-layout aside {
+  top: 0;
+  left: 0;
+  width: 85px;
+  height: 100%;
+}
+
+.root-layout > footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.root-layout > main {
+  margin-left: 120px;
+}

@@ -1,0 +1,46 @@
+/* Navbar */
+.navigation {
+  border-right: 1px solid var(--dark-gray);
+  height: 100%;
+}
+
+.nav-link {
+  color: var(--gray);
+}
+
+.nav-link:hover {
+  color: var(--white);
+}
+
+.active {
+  color: var(--cyan) !important;
+}
+
+.nav-link > svg path {
+  fill: var(--gray);
+  transition: 0.3s;
+}
+
+.active > svg path,
+.active:hover svg path {
+  fill: var(--cyan) !important;
+}
+
+.nav-link:hover > svg path {
+  fill: var(--white);
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .navigation {
+    padding: 1em 0;
+  }
+
+  .nav-links {
+    margin-top: 3em;
+  }
+
+  .nav-link {
+    margin: 1.5em 0;
+  }
+}

@@ -1,0 +1,106 @@
+/* Introduction */
+body .introduction {
+  overflow: hidden;
+}
+
+strong {
+  color: var(--cyan);
+}
+
+.introduction {
+  position: relative;
+  height: 100%;
+  background: rgb(0, 255, 255);
+  background: var(--gradient);
+}
+
+.introduction > div {
+  animation: fadeIn;
+  animation-duration: 2s;
+}
+
+.introduction-info-container {
+  position: relative;
+}
+
+.liquid-shape {
+  z-index: 3;
+}
+
+.shape,
+.liquid-shape,
+.introduction-button {
+  position: absolute;
+}
+
+.shape:nth-of-type(1) {
+  top: -10em;
+  left: -15em;
+}
+
+.shape:nth-of-type(2) {
+  bottom: -20em;
+  right: -25em;
+}
+
+.liquid-shape {
+  animation: liquid-anim 10s linear infinite;
+}
+
+@keyframes liquid-anim {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.3);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.introduction-button {
+  bottom: 2.5em;
+  z-index: 4;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .liquid-shape {
+    width: 70em;
+    height: 70em;
+  }
+
+  .introduction-info > img {
+    width: 9em;
+    height: 9em;
+  }
+
+  .shape:nth-of-type(1) {
+    width: 45em;
+    height: 45em;
+  }
+
+  .shape:nth-of-type(2) {
+    width: 55em;
+    height: 55em;
+  }
+
+  .introduction-info > * {
+    margin: 0.5em 0;
+  }
+
+  .introduction-info > h2 {
+    font-size: 2.3em;
+  }
+
+  .introduction-info > h1 {
+    font-size: 2.6em;
+  }
+
+  .introduction-button {
+    padding: 0.8em 2em;
+  }
+}

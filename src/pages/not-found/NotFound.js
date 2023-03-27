@@ -5,7 +5,7 @@ function NotFound() {
   return (
     <div className="page-not-found">
       <h1>Page Not Found</h1>
-      <Link to="/home">Go to home page</Link>
+      <Link to="/player/home">Go to home page</Link>
     </div>
   );
 }

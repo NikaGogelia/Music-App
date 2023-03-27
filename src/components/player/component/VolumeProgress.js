@@ -15,7 +15,11 @@ function VolumeProgress() {
 
   return (
     <div className="volume-progress d-flex align-items-center">
-      <button className="volume-toggler" onClick={() => setVolume(!volume)}>
+      <button
+        className="volume-toggler"
+        onClick={() => setVolume(!volume)}
+        title={volume ? "Mute" : "Unmute"}
+      >
         {volume ? (
           <svg
             width={18}

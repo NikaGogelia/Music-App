@@ -5,10 +5,11 @@ function MoreOptions() {
   const [shuffle, setShuffle] = useState(false);
 
   return (
-    <div className="more-options-">
+    <div className="more-options">
       <button
         className={`repeat ${repeat ? "active-opt" : ""}`}
         onClick={() => setRepeat(!repeat)}
+        title={`${repeat ? "Disable" : "Enable"} Repeat`}
       >
         <svg
           width={20}
@@ -34,6 +35,7 @@ function MoreOptions() {
       <button
         className={`shuffle ${shuffle ? "active-opt" : ""}`}
         onClick={() => setShuffle(!shuffle)}
+        title={`${shuffle ? "Disable" : "Enable"} Shuffle`}
       >
         <svg
           width={20}

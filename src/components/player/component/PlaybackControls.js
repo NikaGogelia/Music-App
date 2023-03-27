@@ -5,7 +5,7 @@ function PlaybackControls() {
 
   return (
     <div className="playback-controls d-flex align-items-center">
-      <button className="left-arrow">
+      <button className="left-arrow playback-arrow" title="Previous">
         <svg
           width="30"
           height="26"
@@ -30,7 +30,11 @@ function PlaybackControls() {
           />
         </svg>
       </button>
-      <button className="pause-play" onClick={() => setPlay(!play)}>
+      <button
+        className="pause-play"
+        onClick={() => setPlay(!play)}
+        title={play ? "Pause" : "Play"}
+      >
         {play ? (
           <svg
             width="60"
@@ -81,7 +85,7 @@ function PlaybackControls() {
           </svg>
         )}
       </button>
-      <button className="right-arrow">
+      <button className="right-arrow playback-arrow" title="Next">
         <svg
           width="30"
           height="26"

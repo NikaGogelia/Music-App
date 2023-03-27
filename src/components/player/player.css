@@ -1,7 +1,6 @@
 /* Player */
 .player {
   margin: 0;
-  padding: 1em;
   background-color: var(--light-dark);
   border-top: 1px solid var(--dark-gray);
   border-bottom: 1px solid var(--dark-gray);
@@ -11,6 +10,24 @@
 .player button {
   border: none;
   background-color: transparent;
+}
+
+.m-desc > a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.m-desc > a:hover {
+  text-decoration: underline;
+}
+
+.m-desc > a > p {
+  color: var(--gray);
+}
+
+.m-position {
+  font-weight: 600;
+  color: var(--gray);
 }
 
 /* Player Component Svgs */
@@ -107,9 +124,13 @@ input[type="range"]::-ms-track {
 
 /* Desktop */
 @media only screen and (min-width: 1024px) {
+  .player {
+    padding: 0.8em 1em;
+  }
+
   /* Progress Bar */
   input[type="range"] {
-    height: 7px;
+    height: 6px;
   }
 
   input[type="range"]::-webkit-slider-thumb {
@@ -117,11 +138,81 @@ input[type="range"]::-ms-track {
     width: 15px;
   }
 
+  .music-description > img,
+  .m-desc {
+    margin-right: 0.8em;
+  }
+
+  .music-description > img {
+    width: 3.7em;
+    height: 3.7em;
+  }
+
+  .m-desc > * {
+    margin: 0em;
+  }
+
+  .m-desc > a:first-of-type {
+    margin-bottom: 0.4em;
+  }
+
+  .m-desc > a > h4 {
+    font-size: 1.1em;
+    margin: 0;
+  }
+
+  .m-desc > a > p {
+    font-size: 0.8em;
+    margin: 0;
+  }
+
+  .favorite-music > svg {
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .pause-play {
+    margin: 0 0.5em;
+  }
+
+  .pause-play > svg {
+    width: 2.7em;
+    height: 2.7em;
+  }
+
+  .playback-arrow > svg {
+    width: 1.8em;
+    height: 1.8em;
+  }
+
+  .music-progress {
+    margin-top: 0.5em;
+  }
+
+  .m-progress {
+    margin: 0 0.5em;
+  }
+
   input[type="range"].m-progress {
-    width: 650px;
+    width: 40em;
+  }
+
+  .m-position {
+    font-size: 0.9em;
+  }
+
+  .more-options > * {
+    margin: 0 0.1em;
+  }
+
+  .more-options > button > svg,
+  .volume-toggler > svg {
+    width: 1.2em;
+    height: 1.2em;
   }
 
   input[type="range"].v-progress {
-    width: 150px;
+    width: 9em;
+    margin-left: 0.1em;
   }
 }

@@ -5,7 +5,7 @@ function MusicProgress() {
 
   return (
     <div className="music-progress d-flex align-items-center">
-      <div className="current-position">0:00</div>
+      <div className="current-position m-position">0:00</div>
       <input
         style={{ backgroundSize: `${musicP - 0.5}% ` }}
         type="range"
@@ -17,7 +17,7 @@ function MusicProgress() {
         value={musicP}
         onChange={(e) => setMusicP(e.target.value)}
       />
-      <div className="time">3:00</div>
+      <div className="time m-position">3:00</div>
     </div>
   );
 }

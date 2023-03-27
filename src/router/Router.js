@@ -17,8 +17,8 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Introduction />} />
-      <Route path="home" element={<RootLayout />}>
-        <Route index element={<Home />} />
+      <Route path="player" element={<RootLayout />}>
+        <Route path="home" element={<Home />} />
         <Route path="search" element={<Search />} />
         <Route path="library" element={<Library />} />
         <Route path="likes" element={<Likes />} />

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Howl } from "howler";
+import { Link } from "react-router-dom";
 
 function MusicDescription() {
   const [favorite, setFavorite] = useState(false);
 
   const sound = new Howl({
-    src: ["./assets/sounds/ting.mp3"],
+    src: ["/assets/sounds/ting.mp3"],
   });
 
   useEffect(() => {
@@ -19,16 +20,21 @@ function MusicDescription() {
       <img
         width={65}
         height={60}
-        src="./assets/images/album.png"
+        src="/assets/images/album.png"
         alt="music-img"
       />
-      <div className="m-desc">
-        <h4>Remember</h4>
-        <p>Pop Smoke, Nigo</p>
+      <div className="m-desc d-flex flex-column justify-content-center">
+        <Link>
+          <h4>Remember</h4>
+        </Link>
+        <Link>
+          <p>Pop Smoke, Nigo</p>
+        </Link>
       </div>
       <button
         className={`favorite-music ${favorite ? "favorite-active" : ""}`}
         onClick={() => setFavorite(!favorite)}
+        title={`${favorite ? "Remove From" : "Save To"} Your Library`}
       >
         <svg
           width={21}

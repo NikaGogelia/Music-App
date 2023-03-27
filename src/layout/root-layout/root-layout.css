@@ -17,7 +17,7 @@ main {
 .root-layout aside {
   top: 0;
   left: 0;
-  width: 85px;
+  width: 7em;
   height: 100%;
 }
 
@@ -28,5 +28,5 @@ main {
 }
 
 .root-layout > main {
-  margin-left: 120px;
+  margin-left: 9em;
 }

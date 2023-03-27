@@ -33,14 +33,26 @@
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .navigation {
-    padding: 1em 0;
+    padding: 1.5em 0.5em;
+  }
+
+  .nav-brand img {
+    width: 3em;
+    height: 3em;
   }
 
   .nav-links {
-    margin-top: 3em;
+    margin-top: 2em;
   }
 
   .nav-link {
-    margin: 1.5em 0;
+    margin: 1em 0;
+    font-size: 0.9em;
+  }
+
+  .nav-link > svg {
+    width: 1.7em;
+    height: 1.7em;
+    margin-bottom: 0.3em;
   }
 }

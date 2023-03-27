@@ -7,17 +7,17 @@ function Introduction() {
       <div className="animate__fadeIn d-flex flex-column justify-content-center align-items-center">
         <img
           className="shape"
-          src="./assets/icons/abstract.svg"
+          src="/assets/icons/abstract.svg"
           alt="abstract-shape"
         />
         <img
           className="shape"
-          src="./assets/icons/abstract.svg"
+          src="/assets/icons/abstract.svg"
           alt="abstract-shape"
         />
         <img
           className="liquid-shape"
-          src="./assets/icons/liquid.svg"
+          src="/assets/icons/liquid.svg"
           alt="liquid-shape"
         />
         <div className="introduction-info d-flex flex-column justify-content-center align-items-center">
@@ -27,10 +27,10 @@ function Introduction() {
           <h2>
             Enjoy Your <strong>Life</strong>
           </h2>
-          <img src="./assets/icons/brand-logo.svg" alt="brand-logo" />
+          <img src="/assets/icons/brand-logo.svg" alt="brand-logo" />
           <h1>Music App</h1>
         </div>
-        <Link className="introduction-button button" to="home">
+        <Link className="introduction-button button" to="/player/home">
           Start Listening
         </Link>
       </div>

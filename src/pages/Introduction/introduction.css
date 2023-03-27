@@ -1,8 +1,4 @@
 /* Introduction */
-body .introduction {
-  overflow: hidden;
-}
-
 strong {
   color: var(--cyan);
 }
@@ -34,13 +30,13 @@ strong {
 }
 
 .shape:nth-of-type(1) {
-  top: -10em;
-  left: -15em;
+  top: -18em;
+  left: -18em;
 }
 
 .shape:nth-of-type(2) {
-  bottom: -20em;
-  right: -25em;
+  bottom: -23em;
+  right: -23em;
 }
 
 .liquid-shape {

@@ -21,12 +21,8 @@ function Introduction() {
           alt="liquid-shape"
         />
         <div className="introduction-info d-flex flex-column justify-content-center align-items-center">
-          <h2>
-            Enjoy Your <strong>Music</strong>
-          </h2>
-          <h2>
-            Enjoy Your <strong>Life</strong>
-          </h2>
+          <h2>Feel The Beat</h2>
+          <h2>Energize Your Day With Our App</h2>
           <img src="/assets/icons/brand-logo.svg" alt="brand-logo" />
           <h1>Music App</h1>
         </div>

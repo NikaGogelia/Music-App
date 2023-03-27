@@ -21,12 +21,19 @@ main {
   height: 100%;
 }
 
+.root-layout > main {
+  margin-left: 9em;
+  height: 2000px;
+  width: 2000px;
+}
+
+.root-layout > main > div {
+  width: 100%;
+  overflow: auto;
+}
+
 .root-layout > footer {
   bottom: 0;
   left: 0;
   width: 100%;
-}
-
-.root-layout > main {
-  margin-left: 9em;
 }

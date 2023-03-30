@@ -1,0 +1,8 @@
+/* All Music */
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .all-music .music-card {
+    margin: 1em 2em;
+  }
+}

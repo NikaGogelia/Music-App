@@ -12,6 +12,7 @@ import Home from "../pages/home/Home";
 import Search from "../pages/search/Search";
 import Library from "../pages/library/Library";
 import Likes from "../pages/likes/Likes";
+import AllMusic from "../pages/all-music/AllMusic";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
         <Route path="search" element={<Search />} />
         <Route path="library" element={<Library />} />
         <Route path="likes" element={<Likes />} />
+        <Route path="all/:id" element={<AllMusic />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </>

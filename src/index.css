@@ -59,6 +59,7 @@ h3 {
 
 /* Button */
 .button {
+  letter-spacing: 1.5px;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
@@ -70,6 +71,7 @@ h3 {
   );
   background-size: 500% 400%;
   color: var(--white);
+  border: none;
   border-radius: 50px;
   transition: 0.6s all;
 }
@@ -95,5 +97,44 @@ h3 {
 @media only screen and (min-width: 1024px) {
   .swiper-wrapper {
     padding: 1em 0.3em;
+  }
+}
+
+/* Text Slide Animation */
+.text-carousel {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.text-carousel > * {
+  transform: translateX(0%);
+  -webkit-animation: slide 20s linear infinite;
+  animation: slide 20s linear infinite;
+}
+
+.text-carousel:hover > * {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+@-webkit-keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
   }
 }

@@ -1,0 +1,14 @@
+/* Slider Content */
+.slider-content {
+  -webkit-animation: fadeInLeft;
+  animation: fadeInLeft;
+  -webkit-animation-duration: 2.5s;
+  animation-duration: 2.5s;
+}
+
+.mySwiper {
+  -webkit-animation: fadeIn;
+  animation: fadeIn;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}

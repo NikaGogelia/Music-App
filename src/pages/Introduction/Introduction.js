@@ -1,7 +1,9 @@
 import "./introduction.css";
-import { Link } from "react-router-dom";
+import { useGlobalContext } from "../../context/GlobalContext";
 
 function Introduction() {
+  const { handleAuth } = useGlobalContext();
+
   return (
     <div className="introduction d-flex flex-column justify-content-center align-items-center">
       <div className="animate__fadeIn d-flex flex-column justify-content-center align-items-center">
@@ -26,9 +28,9 @@ function Introduction() {
           <img src="/assets/icons/brand-logo.svg" alt="brand-logo" />
           <h1>Music App</h1>
         </div>
-        <Link className="introduction-button button" to="/player/home">
+        <button onClick={handleAuth} className="introduction-button button">
           Start Listening
-        </Link>
+        </button>
       </div>
     </div>
   );

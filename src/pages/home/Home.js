@@ -1,17 +1,24 @@
 import "./home.css";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../../context/GlobalContext";
-import SliderContent from "../../components/SliderContent";
+import SliderContent from "../../components/slider-content/SliderContent";
+import Loader from "../../components/loader/Loader";
 
 function Home() {
-  const { baseApi, fetchData, accessToken } = useGlobalContext();
+  const { loader, setLoader, user, favGenres } = useGlobalContext();
+
   const [greet, setGreet] = useState("");
-  const [genres, setGenres] = useState([]);
 
-  const greeting = new Date();
-  const hours = greeting.getHours();
+  const date = new Date();
+  const hours = date.getHours();
 
-  // Set Greet
+  // Loader
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => setLoader(false), 2000);
+  }, [setLoader]);
+
+  // Set Greet Message
   useEffect(() => {
     if (hours >= 5 && hours <= 12) {
       setGreet("Morning");
@@ -24,42 +31,48 @@ function Home() {
     }
   }, [hours]);
 
-  // Get Only Few Of Genres Randomly
-  function randomGenre(arr, count) {
-    const result = [];
-    for (let i = 0; i < count; i++) {
-      const randomIndex = Math.floor(Math.random() * arr.length);
-      result.push(arr[randomIndex]);
-      arr.splice(randomIndex, 1);
-    }
-    return result;
-  }
-
-  // Get Music Genres For Recommended Component
-  useEffect(() => {
-    if (accessToken !== "") {
-      fetchData(`${baseApi}/v1/recommendations/available-genre-seeds`).then(
-        (res) => setGenres(randomGenre(res?.genres, 4))
-      );
-    }
-  }, [baseApi, fetchData, accessToken]);
-
+  if (loader) return <Loader />;
   return (
     <div className="home">
-      <h1>Good {greet}</h1>
+      <h1>
+        Good {greet} {user?.display_name}
+      </h1>
       <SliderContent
+        content="album"
         name="popular-new-releases"
-        apiParams="/v1/browse/new-releases?limit=10"
-        all="/v1/browse/new-releases?limit=30"
         dataKey="albums.items"
+        path="/v1/browse/new-releases?limit=10"
+        allPath="/v1/browse/new-releases?limit=30"
       />
       <SliderContent
+        content="album"
         name="recommends-for-you"
-        apiParams={`/v1/recommendations?seed_genres=${genres.join(
-          ","
-        )}&limit=10`}
         dataKey="tracks"
-        all={`/v1/recommendations?seed_genres=${genres.join(",")}&limit=30`}
+        path={`/v1/recommendations?seed_genres=${favGenres.join(",")}&limit=10`}
+        allPath={`/v1/recommendations?seed_genres=${favGenres.join(
+          ","
+        )}&limit=30`}
+      />
+      <SliderContent
+        content="artist"
+        name="your-Favorite-artists"
+        dataKey="items"
+        path="/v1/me/top/artists?limit=10&time_range=short_term"
+        allPath="/v1/me/top/artists?time_range=short_term"
+      />
+      <SliderContent
+        content="track"
+        name="your-Favorite-tracks"
+        dataKey="items"
+        path="/v1/me/top/tracks?limit=10&time_range=short_term"
+        allPath="/v1/me/top/tracks?time_range=short_term"
+      />
+      <SliderContent
+        content="category"
+        name="brows-all"
+        dataKey="categories.items"
+        path="/v1/browse/categories?limit=10&locale=GE"
+        allPath="/v1/browse/categories?limit=30&locale=GE"
       />
     </div>
   );

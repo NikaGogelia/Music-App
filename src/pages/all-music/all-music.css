@@ -2,7 +2,7 @@
 
 /* Desktop */
 @media only screen and (min-width: 1024px) {
-  .all-music .music-card {
+  .all-music .card {
     margin: 1em 2em;
   }
 }

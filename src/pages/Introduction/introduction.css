@@ -11,7 +11,9 @@ strong {
 }
 
 .introduction > div {
+  -webkit-animation: fadeIn;
   animation: fadeIn;
+  -webkit-animation-duration: 2s;
   animation-duration: 2s;
 }
 
@@ -40,7 +42,22 @@ strong {
 }
 
 .liquid-shape {
+  -webkit-animation: liquid-anim 10s linear infinite;
   animation: liquid-anim 10s linear infinite;
+}
+
+@-webkit-keyframes liquid-anim {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.3);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
 
 @keyframes liquid-anim {
@@ -97,6 +114,7 @@ strong {
   }
 
   .introduction-button {
-    padding: 0.8em 2em;
+    font-size: 1em;
+    padding: 1em 2em;
   }
 }

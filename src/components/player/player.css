@@ -1,9 +1,9 @@
 /* Player */
 .player {
   margin: 0;
-  background-color: var(--light-dark);
-  border-top: 1px solid var(--dark-gray);
-  border-bottom: 1px solid var(--dark-gray);
+  background-color: transparent;
+  /* border-top: 1px solid var(--dark-gray); */
+  /* border-bottom: 1px solid var(--dark-gray); */
   width: 100%;
 }
 
@@ -128,7 +128,6 @@ input[type="range"]::-ms-track {
     padding: 0.8em 1em;
   }
 
-  /* Progress Bar */
   input[type="range"] {
     height: 6px;
   }
@@ -144,8 +143,8 @@ input[type="range"]::-ms-track {
   }
 
   .music-description > img {
-    width: 3.7em;
-    height: 3.7em;
+    width: 3.2em;
+    height: 3.2em;
   }
 
   .m-desc > * {
@@ -157,32 +156,32 @@ input[type="range"]::-ms-track {
   }
 
   .m-desc > a > h4 {
-    font-size: 1.1em;
+    font-size: 1em;
     margin: 0;
   }
 
-  .m-desc > a > p {
-    font-size: 0.8em;
+  .m-desc > span > a {
+    font-size: 0.7em;
     margin: 0;
   }
 
   .favorite-music > svg {
-    width: 1.3em;
+    width: 1.2em;
     height: 1.3em;
   }
 
   .pause-play {
-    margin: 0 0.5em;
+    margin: 0 0.2em;
   }
 
   .pause-play > svg {
-    width: 2.7em;
-    height: 2.7em;
+    width: 2.2em;
+    height: 2.2em;
   }
 
   .playback-arrow > svg {
-    width: 1.8em;
-    height: 1.8em;
+    width: 1.5em;
+    height: 1.5em;
   }
 
   .music-progress {
@@ -198,7 +197,7 @@ input[type="range"]::-ms-track {
   }
 
   .m-position {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 
   .more-options > * {
@@ -207,8 +206,8 @@ input[type="range"]::-ms-track {
 
   .more-options > button > svg,
   .volume-toggler > svg {
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.1em;
+    height: 1.1em;
   }
 
   input[type="range"].v-progress {

@@ -78,10 +78,6 @@
 }
 
 .card .card-title {
-  white-space: nowrap;
-}
-
-.card .card-title {
   text-transform: capitalize;
 }
 
@@ -118,11 +114,13 @@
   }
 
   .card .card-title {
-    font-size: 1.2em;
+    font-size: 1.35em;
+    margin: 0.5em 0 0.3em;
   }
 
   .category-card .card-title {
     font-size: 1.8em;
+    margin: 0;
   }
 
   .card .card-text {

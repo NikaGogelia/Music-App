@@ -16,8 +16,8 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
 
   const [data, setData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [perView, setPerView] = useState(5);
-  const [space, setSpace] = useState(20);
+  const [perView, setPerView] = useState(4);
+  const [space, setSpace] = useState(10);
 
   // Set Window Width
   useEffect(() => {
@@ -36,7 +36,7 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
   useEffect(() => {
     if (windowWidth <= 1700) {
       setPerView(4);
-      setSpace(15);
+      setSpace(20);
     }
     if (windowWidth <= 1400) {
       setPerView(3);

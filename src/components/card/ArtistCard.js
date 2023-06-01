@@ -1,10 +1,17 @@
 import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Typography from "@mui/material/Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ArtistCard({ images, name, type }) {
   const { url } = images[0];
-  const titleWidth = 23;
+
+  const textStyles = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "block",
+    maxWidth: "100%",
+  };
 
   return (
     <div className="artist-card card animate__fadeIn">
@@ -31,10 +38,17 @@ function ArtistCard({ images, name, type }) {
         </svg>
       </button>
       <div className="card-body">
-        <h4 className="card-title">
-          {name.length > titleWidth ? name.slice(0, titleWidth) + "..." : name}
-        </h4>
-        <p className="card-text">{type}</p>
+        <Typography noWrap sx={textStyles} className="card-title" variant="h4">
+          {name}
+        </Typography>
+        <Typography
+          noWrap
+          sx={textStyles}
+          className="card-text"
+          variant="body1"
+        >
+          {type}
+        </Typography>
       </div>
     </div>
   );

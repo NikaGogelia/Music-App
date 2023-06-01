@@ -5,7 +5,7 @@ import SliderContent from "../../components/slider-content/SliderContent";
 import Loader from "../../components/loader/Loader";
 
 function Home() {
-  const { loader, setLoader, user, favGenres } = useGlobalContext();
+  const { loader, setLoader, favGenres } = useGlobalContext();
 
   const [greet, setGreet] = useState("");
 
@@ -35,7 +35,7 @@ function Home() {
   return (
     <div className="home">
       <h1>
-        Good {greet} {user?.display_name}
+        Good {greet}
       </h1>
       <SliderContent
         content="album"

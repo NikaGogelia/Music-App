@@ -3,10 +3,10 @@
 :root {
   /* Colors */
   --white: #fcfcfc;
-  --dark-gray: #4c4e54;
+  --dark-gray: #212121;
   --gray: #9898a6;
-  --dark: #171719;
-  --light-dark: #212124;
+  --dark: #000000;
+  --light-dark: #131313;
   --cyan: #00ffff;
   --dark-cyan: #047da1;
   --gradient: linear-gradient(

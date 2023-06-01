@@ -26,14 +26,14 @@ function RootLayout() {
   }, [ACCESS_TOKEN_KEY, setAccessToken]);
 
   return (
-    <div className="root-layout animate__fadeIn">
-      <main className="d-flex">
+    <div className="root-layout animate__fadeIn d-flex flex-column">
+      <main className="d-inline-flex">
         <aside>
           <Navbar />
         </aside>
         <Outlet />
       </main>
-      <footer>
+      <footer className="d-inline-flex">
         <Player />
       </footer>
     </div>

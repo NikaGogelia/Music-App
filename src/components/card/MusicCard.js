@@ -1,11 +1,17 @@
 import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Typography from "@mui/material/Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function MusicCard({ album, images, name, artists, content }) {
   const { url } = content === "track" ? album?.images[0] : images[0];
-  const titleWidth = 23;
-  const textWidth = 2;
+
+  const textStyles = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "block",
+    maxWidth: "100%",
+  };
 
   return (
     <div className="music-card card animate__fadeIn">
@@ -32,24 +38,21 @@ function MusicCard({ album, images, name, artists, content }) {
         </svg>
       </button>
       <div className="card-body">
-        <h4 className="card-title">
-          {name.length > titleWidth ? name.slice(0, titleWidth) + "..." : name}
-        </h4>
-        <p className="card-text">
-          {artists.length > textWidth
-            ? artists
-                .splice(0, textWidth + 1)
-                .map((artist) =>
-                  artists.indexOf(artist) === artists.length - 1
-                    ? artist.name
-                    : artist.name + ", "
-                ) + "And More"
-            : artists.map((artist) =>
-                artists.indexOf(artist) === artists.length - 1
-                  ? artist.name
-                  : artist.name + ", "
-              )}
-        </p>
+        <Typography noWrap sx={textStyles} className="card-title" variant="h4">
+          {name}
+        </Typography>
+        <Typography
+          noWrap
+          sx={textStyles}
+          className="card-text"
+          variant="body1"
+        >
+          {artists.map((artist) =>
+            artists.indexOf(artist) === artists.length - 1
+              ? artist.name
+              : artist.name + ", "
+          )}
+        </Typography>
       </div>
     </div>
   );

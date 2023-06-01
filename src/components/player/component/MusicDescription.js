@@ -27,9 +27,10 @@ function MusicDescription() {
         <Link>
           <h4>Remember</h4>
         </Link>
-        <Link>
-          <p>Pop Smoke, Nigo</p>
-        </Link>
+        <span>
+          <Link>Pop Smoke</Link>
+          <Link>Pop Smoke</Link>
+        </span>
       </div>
       <button
         className={`favorite-music ${favorite ? "favorite-active" : ""}`}

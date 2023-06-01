@@ -1,6 +1,7 @@
 /* Root Layout */
 .root-layout {
   height: 100%;
+  background-color: #000;
 }
 
 .root-layout {
@@ -10,31 +11,24 @@
   animation-duration: 1.5s;
 }
 
-.root-layout aside,
-.root-layout > footer {
-  position: fixed;
-}
-
-.root-layout aside {
-  top: 0;
-  left: 0;
-  height: 100%;
-}
-
 .root-layout > main {
-  width: 100%;
-  height: 100vh;
-}
-
-.root-layout > main > div {
-  width: 100vw;
   overflow: auto;
 }
 
-.root-layout > footer {
-  bottom: 0;
-  left: 0;
+.root-layout > main > div {
+  overflow: auto;
   width: 100%;
+  background-color: var(--light-dark);
+}
+
+.root-layout > footer {
+  /* bottom: 0;
+  left: 0; */
+  width: 100%;
+}
+
+footer {
+  z-index: 10;
 }
 
 /* Desktop */
@@ -44,8 +38,17 @@
   }
 
   .root-layout > main > div {
-    margin-left: 7em;
-    margin-bottom: 7em;
+    margin: 0.5em 0.5em 0;
     padding: 1em 3em;
+    border-radius: 10px;
+  }
+
+  .root-layout > main > aside {
+    margin: 0.5em 0.5em 0;
+  }
+
+  .root-layout > main > aside > nav {
+    border-radius: 10px;
+    padding: 1.5em ;
   }
 }

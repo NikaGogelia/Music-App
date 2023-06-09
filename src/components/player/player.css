@@ -129,12 +129,12 @@ input[type="range"]::-ms-track {
   }
 
   input[type="range"] {
-    height: 6px;
+    height: 5px;
   }
 
   input[type="range"]::-webkit-slider-thumb {
-    height: 15px;
-    width: 15px;
+    height: 14px;
+    width: 14px;
   }
 
   .music-description > img,
@@ -175,8 +175,8 @@ input[type="range"]::-ms-track {
   }
 
   .pause-play > svg {
-    width: 2.2em;
-    height: 2.2em;
+    width: 2.3em;
+    height: 2.3em;
   }
 
   .playback-arrow > svg {

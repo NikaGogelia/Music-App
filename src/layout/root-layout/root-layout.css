@@ -13,6 +13,7 @@
 
 .root-layout > main {
   overflow: auto;
+  height: 100%; 
 }
 
 .root-layout > main > div {
@@ -22,8 +23,6 @@
 }
 
 .root-layout > footer {
-  /* bottom: 0;
-  left: 0; */
   width: 100%;
 }
 
@@ -37,18 +36,22 @@ footer {
     width: 7em;
   }
 
-  .root-layout > main > div {
-    margin: 0.5em 0.5em 0;
-    padding: 1em 3em;
-    border-radius: 10px;
+  .root-layout > main > div,
+  .root-layout > main > aside > nav {
+    border-radius: 8px;
   }
 
+  .root-layout > main > div,
   .root-layout > main > aside {
-    margin: 0.5em 0.5em 0;
+    margin: 8px 8px 0;
+  }
+
+  .root-layout > main > div {
+    padding: 1em 2.5em;
+    margin-left: 0 !important;
   }
 
   .root-layout > main > aside > nav {
-    border-radius: 10px;
-    padding: 1.5em ;
+    padding: 1.5em 2em;
   }
 }

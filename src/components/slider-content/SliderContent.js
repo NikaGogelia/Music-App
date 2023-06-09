@@ -5,16 +5,18 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext } from "../../context/GlobalContextProvider";
 import MusicCard from "../card/MusicCard";
 import ArtistCard from "../card/ArtistCard";
 import CategoryCard from "../card/CategoryCard";
+import { useQuery } from "react-query";
+import Loader from "../loader/Loader";
 
 function SliderContent({ content, name, path, allPath, dataKey }) {
   const { baseApi, fetchData, accessToken, headerName, handleDataKey } =
     useGlobalContext();
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [perView, setPerView] = useState(4);
   const [space, setSpace] = useState(10);
@@ -57,20 +59,22 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
     };
   }, [windowWidth]);
 
-  // Fetch Data From Api
-  useEffect(() => {
-    if (accessToken !== "") {
-      fetchData(`${baseApi}${path}`).then((res) =>
-        setData(handleDataKey(dataKey, res))
-      );
+  // GET Album Items, Tracks, Artists
+  const { data, isError } = useQuery(
+    ["music-items", name],
+    () => fetchData(`${baseApi}${path}`),
+    {
+      select: (data) => handleDataKey(dataKey, data),
+      enabled: !!accessToken,
+      refetchOnWindowFocus: false,
+      staleTime: 300000,
     }
-  }, [baseApi, path, dataKey, fetchData, accessToken, handleDataKey]);
+  );
 
   // Render Different Cards On Different Content Types
   const renderSwitch = (data) => {
     switch (content) {
       case "album":
-        return <MusicCard {...data} key={data.id} content={content} />;
       case "track":
         return <MusicCard {...data} key={data.id} content={content} />;
       case "artist":
@@ -81,6 +85,22 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
         break;
     }
   };
+
+  if (isError)
+    return (
+      <div className={`${name} slider-content animate__fadeInLeft`}>
+        <h3>{headerName(name)}</h3>
+        <h5 className="text-danger">An error occurred</h5>
+      </div>
+    );
+
+  if (data?.length === 0)
+    return (
+      <div className={`${name} slider-content animate__fadeInLeft`}>
+        <h3>{headerName(name)}</h3>
+        <h5 className="text-warning">No Items, Refresh Page</h5>
+      </div>
+    );
 
   return (
     <div className={`${name} slider-content animate__fadeInLeft`}>
@@ -110,7 +130,7 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
           let passedData = [];
           switch (name) {
             case "recommends-for-you":
-              passedData = item?.album;
+              passedData = item.album;
               break;
             default:
               passedData = item;

@@ -1,11 +1,13 @@
 import "./home.css";
 import { useState, useEffect } from "react";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext } from "../../context/GlobalContextProvider";
 import SliderContent from "../../components/slider-content/SliderContent";
 import Loader from "../../components/loader/Loader";
+import { useQuery } from "react-query";
 
 function Home() {
-  const { loader, setLoader, favGenres } = useGlobalContext();
+  const { baseApi, accessToken, loader, setLoader, fetchData, randomGenre } =
+    useGlobalContext();
 
   const [greet, setGreet] = useState("");
 
@@ -31,12 +33,22 @@ function Home() {
     }
   }, [hours]);
 
+  // GET Favorite Genres From My Listening Taste
+  const { data: favGenres } = useQuery(
+    "favorite-genres",
+    () => fetchData(`${baseApi}/v1/me/top/artists?limit=50`),
+    {
+      select: (data) => randomGenre(data?.items),
+      enabled: !!accessToken,
+      refetchOnWindowFocus: false,
+      staleTime: 300000,
+    }
+  );
+
   if (loader) return <Loader />;
   return (
     <div className="home">
-      <h1>
-        Good {greet}
-      </h1>
+      <h1>Good {greet}</h1>
       <SliderContent
         content="album"
         name="popular-new-releases"
@@ -48,10 +60,8 @@ function Home() {
         content="album"
         name="recommends-for-you"
         dataKey="tracks"
-        path={`/v1/recommendations?seed_genres=${favGenres.join(",")}&limit=10`}
-        allPath={`/v1/recommendations?seed_genres=${favGenres.join(
-          ","
-        )}&limit=30`}
+        path={`/v1/recommendations?seed_genres=${favGenres}&limit=10`}
+        allPath={`/v1/recommendations?seed_genres=${favGenres}&limit=30`}
       />
       <SliderContent
         content="artist"
@@ -69,7 +79,7 @@ function Home() {
       />
       <SliderContent
         content="category"
-        name="brows-all"
+        name="browse-all"
         dataKey="categories.items"
         path="/v1/browse/categories?limit=10&locale=GE"
         allPath="/v1/browse/categories?limit=30&locale=GE"

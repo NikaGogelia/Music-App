@@ -1,7 +1,7 @@
 import "./all-music.css";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext } from "../../context/GlobalContextProvider";
 import Loader from "../../components/loader/Loader";
 import MusicCard from "../../components/card/MusicCard";
 import ArtistCard from "../../components/card/ArtistCard";

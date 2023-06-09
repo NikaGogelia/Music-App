@@ -1,12 +1,13 @@
 import "./navbar.css";
 import { Link, NavLink } from "react-router-dom";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext } from "../../context/GlobalContextProvider";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Navbar() {
   const { user } = useGlobalContext();
 
   return (
-    <nav className="navigation d-flex flex-column align-items-center">
+    <nav className="navigation d-flex flex-column align-items-center justify-content-between">
       <div>
         <div className="nav-brand d-flex justify-content-center">
           <Link to="/player/home">
@@ -93,7 +94,11 @@ function Navbar() {
         </div>
       </div>
       <div className="profile">
-        <img src={user?.images[0]?.url} alt="profile-img" />
+        <LazyLoadImage
+          effect="blur"
+          src={user?.images[0]?.url}
+          alt="profile-img"
+        />
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import "./introduction.css";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext } from "../../context/GlobalContextProvider";
 
 function Introduction() {
   const { handleAuth } = useGlobalContext();

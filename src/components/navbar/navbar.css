@@ -1,5 +1,6 @@
 /* Navbar */
 .navigation {
+  position: relative;
   background-color: var(--light-dark);
   height: 100%;
 }
@@ -51,22 +52,27 @@
   }
 
   .nav-links {
-    margin-top: 2em;
+    margin-top: 3em;
   }
 
   .nav-link {
-    margin: 1em 0;
-    font-size: 0.9em;
+    margin-bottom: 2.2em;
+    font-size: 0.85em;
+  }
+
+  .nav-link:last-of-type {
+    margin-bottom: 0;
   }
 
   .nav-link > svg {
-    width: 1.6em;
-    height: 1.6em;
+    width: 1.75em;
+    height: 1.75em;
     margin-bottom: 0.3em;
   }
 
-  .profile {
-    margin-top: 23em;
+  .profile,
+  .profile > span,
+  .profile > span > img {
     width: 3em;
     height: 3em;
   }

@@ -1,4 +1,14 @@
 /* Slider Content */
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #00b4b4ff !important;
+}
+
 .slider-content {
   -webkit-animation: fadeInLeft;
   animation: fadeInLeft;
@@ -11,4 +21,11 @@
   animation: fadeIn;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .swiper-wrapper {
+    padding: 1em 0.3em;
+  }
 }

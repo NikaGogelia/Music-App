@@ -1,10 +1,10 @@
 import "./navbar.css";
 import { Link, NavLink } from "react-router-dom";
-import { useGlobalContext } from "../../context/GlobalContextProvider";
+import {useRootContext} from "../../context/RootContextProvider"
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Navbar() {
-  const { user } = useGlobalContext();
+  const { user } = useRootContext();
 
   return (
     <nav className="navigation d-flex flex-column align-items-center justify-content-between">

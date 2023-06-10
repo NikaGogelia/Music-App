@@ -2,8 +2,8 @@ import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const GlobalContext = createContext();
-function GlobalContextProvider({ children }) {
+const RootContext = createContext();
+function RootContextProvider({ children }) {
   // Variables
   const ACCESS_TOKEN_KEY = "spotifyAccessToken";
   const AUTH_URL = "https://accounts.spotify.com/authorize";
@@ -13,14 +13,12 @@ function GlobalContextProvider({ children }) {
     "ugc-image-upload user-follow-modify playlist-modify-private playlist-modify-public user-library-modify user-read-currently-playing user-follow-read user-read-playback-position user-read-playback-state playlist-read-private user-read-recently-played user-top-read user-read-email user-library-read user-read-private app-remote-control user-modify-playback-state";
 
   // Base URl
-  const baseApi = "https://api.spotify.com";
+  const baseApi = "https://api.spotify.com/v1";
 
   // Global State
   const [accessToken, setAccessToken] = useState("");
-  const [loader, setLoader] = useState(true);
 
   // ================= Functions ================= //
-
   // Fetch Data From Api
   const fetchData = async (url, config) => {
     try {
@@ -32,7 +30,7 @@ function GlobalContextProvider({ children }) {
       return data;
     } catch (error) {
       console.error(error);
-      return [];
+      throw new Error(error);
     }
   };
 
@@ -71,7 +69,6 @@ function GlobalContextProvider({ children }) {
   };
 
   // ================= Set Global State ================= //
-
   // Set Access Token
   useEffect(() => {
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
@@ -97,28 +94,26 @@ function GlobalContextProvider({ children }) {
   );
 
   return (
-    <GlobalContext.Provider
+    <RootContext.Provider
       value={{
-        baseApi,
-        fetchData,
         accessToken,
-        handleAuth,
+        baseApi,
         user,
-        loader,
-        setLoader,
-        headerName,
+        handleAuth,
+        fetchData,
         handleDataKey,
+        headerName,
         randomGenre,
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </RootContext.Provider>
   );
 }
 
 // Global Context Custom Hook
-export const useGlobalContext = () => {
-  return useContext(GlobalContext);
+export const useRootContext = () => {
+  return useContext(RootContext);
 };
 
-export default GlobalContextProvider;
+export default RootContextProvider;

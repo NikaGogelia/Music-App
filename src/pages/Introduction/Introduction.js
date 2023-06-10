@@ -1,8 +1,8 @@
 import "./introduction.css";
-import { useGlobalContext } from "../../context/GlobalContextProvider";
+import { useRootContext } from "../../context/RootContextProvider";
 
 function Introduction() {
-  const { handleAuth } = useGlobalContext();
+  const { handleAuth } = useRootContext();
 
   return (
     <div className="introduction d-flex flex-column justify-content-center align-items-center">

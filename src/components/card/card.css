@@ -103,7 +103,7 @@
   .card {
     padding: 1.1em;
     width: 18em;
-    height: 23.5em;
+    height: 23em;
   }
 
   .category-card {
@@ -126,7 +126,7 @@
   }
   
   .artist-card .card-img-top {
-    height: 16.2em;
+    height: 15.8em;
   }
 
   .card .card-body {

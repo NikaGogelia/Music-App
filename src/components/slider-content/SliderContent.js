@@ -3,20 +3,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useRootContext } from "../../context/RootContextProvider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper";
-import { useGlobalContext } from "../../context/GlobalContextProvider";
 import MusicCard from "../card/MusicCard";
 import ArtistCard from "../card/ArtistCard";
 import CategoryCard from "../card/CategoryCard";
-import { useQuery } from "react-query";
-import Loader from "../loader/Loader";
 
-function SliderContent({ content, name, path, allPath, dataKey }) {
-  const { baseApi, fetchData, accessToken, headerName, handleDataKey } =
-    useGlobalContext();
+function SliderContent({ data, error, content, name }) {
+  const { headerName } = useRootContext();
 
-  // const [data, setData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [perView, setPerView] = useState(4);
   const [space, setSpace] = useState(10);
@@ -59,18 +55,6 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
     };
   }, [windowWidth]);
 
-  // GET Album Items, Tracks, Artists
-  const { data, isError } = useQuery(
-    ["music-items", name],
-    () => fetchData(`${baseApi}${path}`),
-    {
-      select: (data) => handleDataKey(dataKey, data),
-      enabled: !!accessToken,
-      refetchOnWindowFocus: false,
-      staleTime: 300000,
-    }
-  );
-
   // Render Different Cards On Different Content Types
   const renderSwitch = (data) => {
     switch (content) {
@@ -86,19 +70,19 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
     }
   };
 
-  if (isError)
+  if (error)
     return (
-      <div className={`${name} slider-content animate__fadeInLeft`}>
+      <div className={`${name} slider-content animate__fadeInLeft error-case`}>
         <h3>{headerName(name)}</h3>
-        <h5 className="text-danger">An error occurred</h5>
+        <h5>An Error Ocurred!</h5>
       </div>
     );
 
   if (data?.length === 0)
     return (
-      <div className={`${name} slider-content animate__fadeInLeft`}>
+      <div className={`${name} slider-content animate__fadeInLeft warning-case`}>
         <h3>{headerName(name)}</h3>
-        <h5 className="text-warning">No Items, Refresh Page</h5>
+        <h5>Try Again, No Items At This Time!</h5>
       </div>
     );
 
@@ -109,9 +93,8 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
         <Link
           to={`/player/all/${name}`}
           state={{
-            api: `${baseApi}${allPath}`,
+            data: data,
             pageName: name,
-            dataKey: dataKey,
             content: content,
           }}
         >
@@ -126,7 +109,7 @@ function SliderContent({ content, name, path, allPath, dataKey }) {
         modules={[FreeMode, Navigation]}
         className="mySwiper animate__fadeIn"
       >
-        {data?.map((item, index) => {
+        {data?.slice(0, 10)?.map((item, index) => {
           let passedData = [];
           switch (name) {
             case "recommends-for-you":

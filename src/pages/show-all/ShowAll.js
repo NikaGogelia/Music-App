@@ -1,38 +1,22 @@
-import "./all-music.css";
-import { useEffect, useState } from "react";
+import "./show-all.css";
 import { useLocation } from "react-router-dom";
-import { useGlobalContext } from "../../context/GlobalContextProvider";
-import Loader from "../../components/loader/Loader";
+import { useRootContext } from "../../context/RootContextProvider";
 import MusicCard from "../../components/card/MusicCard";
 import ArtistCard from "../../components/card/ArtistCard";
 import CategoryCard from "../../components/card/CategoryCard";
 
-function AllMusic() {
+function ShowAll() {
   const {
-    fetchData,
-    accessToken,
-    loader,
-    setLoader,
     headerName,
-    handleDataKey,
-  } = useGlobalContext();
+  } = useRootContext();
 
   const params = useLocation();
-  const { api, pageName, dataKey, content } = params?.state;
-
-  const [data, setData] = useState([]);
-
-  // Loader
-  useEffect(() => {
-    setLoader(true);
-    setTimeout(() => setLoader(false), 2000);
-  }, [setLoader]);
+  const { data, pageName, content } = params?.state;
 
   // Render Different Cards On Different Content Types
   const renderSwitch = (data) => {
     switch (content) {
       case "album":
-        return <MusicCard {...data} key={data.id} content={content} />;
       case "track":
         return <MusicCard {...data} key={data.id} content={content} />;
       case "artist":
@@ -44,19 +28,11 @@ function AllMusic() {
     }
   };
 
-  // Fetch Data From Api
-  useEffect(() => {
-    if (accessToken !== "") {
-      fetchData(api).then((res) => setData(handleDataKey(dataKey, res)));
-    }
-  }, [api, fetchData, accessToken, dataKey, handleDataKey]);
-
-  if (loader) return <Loader />;
   return (
-    <div className="all-music">
+    <div className="show-all">
       <h1>{headerName(pageName)}</h1>
       <div className="d-flex flex-wrap justify-content-evenly align-items-center">
-        {data?.map((item, index) => {
+        {data?.map((item) => {
           let passedData = [];
           switch (pageName) {
             case "recommends-for-you":
@@ -66,6 +42,7 @@ function AllMusic() {
               passedData = item;
               break;
           }
+
           return renderSwitch(passedData);
         })}
       </div>
@@ -73,4 +50,4 @@ function AllMusic() {
   );
 }
 
-export default AllMusic;
+export default ShowAll;

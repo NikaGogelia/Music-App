@@ -11,7 +11,7 @@
   position: relative;
   background-color: #181818;
   transition: 0.3s ease;
-  cursor: pointer;
+  /* cursor: pointer; */
   border-radius: calc(var(--card-container-border-radius) + 2px);
   -webkit-animation: fadeIn;
   animation: fadeIn;
@@ -103,7 +103,7 @@
   .card {
     padding: 1.1em;
     width: 18em;
-    height: 23em;
+    height: 23.2em;
   }
 
   .category-card {
@@ -126,7 +126,7 @@
   }
   
   .artist-card .card-img-top {
-    height: 15.8em;
+    height: 16em;
   }
 
   .card .card-body {

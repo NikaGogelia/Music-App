@@ -13,19 +13,21 @@ import Search from "../pages/search/Search";
 import Library from "../pages/library/Library";
 import Likes from "../pages/likes/Likes";
 import ShowAll from "../pages/show-all/ShowAll";
+import Playlist from "../pages/playlist/Playlist";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-        <Route path="/" element={<Introduction />} />
-        <Route path="player" element={<RootLayout />}>
-          <Route path="home" element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="library" element={<Library />} />
-          <Route path="likes" element={<Likes />} />
-          <Route path="all/:id" element={<ShowAll />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Introduction />} />
+      <Route path="player" element={<RootLayout />}>
+        <Route path="home" element={<Home />} />
+        <Route path="search" element={<Search />} />
+        <Route path="library" element={<Library />} />
+        <Route path="likes" element={<Likes />} />
+        <Route path="show-all/:id" element={<ShowAll />} />
+        <Route path="playlist/:id" element={<Playlist />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </>
   )
 );

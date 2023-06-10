@@ -3,7 +3,8 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import Typography from "@mui/material/Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function ArtistCard({ images, name, type }) {
+function ArtistCard({ data }) {
+  const { images, name, type } = data;
   const { url } = images[0];
 
   const textStyles = {

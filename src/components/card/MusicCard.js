@@ -2,10 +2,13 @@ import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Typography from "@mui/material/Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 
-function MusicCard({ album, images, name, artists, content }) {
+function MusicCard({ data, content }) {
+  const { id, album, images, name, artists } = data;
   const { url } = content === "track" ? album?.images[0] : images[0];
 
+  // console.log(data);
   const textStyles = {
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -15,12 +18,20 @@ function MusicCard({ album, images, name, artists, content }) {
 
   return (
     <div className="music-card card animate__fadeIn">
-      <LazyLoadImage
-        className="card-img-top"
-        effect="blur"
-        src={url}
-        alt="card-img"
-      />
+      <Link
+        to={`/player/playlist/${id}`}
+        state={{
+          data: data,
+          content: content,
+        }}
+      >
+        <LazyLoadImage
+          className="card-img-top"
+          effect="blur"
+          src={url}
+          alt="card-img"
+        />
+      </Link>
       <button className="play-album">
         <svg
           width={60}

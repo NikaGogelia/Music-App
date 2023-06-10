@@ -60,11 +60,11 @@ function SliderContent({ data, error, content, name }) {
     switch (content) {
       case "album":
       case "track":
-        return <MusicCard {...data} key={data.id} content={content} />;
+        return <MusicCard data={data} key={data.id} content={content} />;
       case "artist":
-        return <ArtistCard {...data} key={data.id} content={content} />;
+        return <ArtistCard data={data} key={data.id} content={content} />;
       case "category":
-        return <CategoryCard {...data} key={data.id} content={content} />;
+        return <CategoryCard data={data} key={data.id} content={content} />;
       default:
         break;
     }
@@ -80,7 +80,9 @@ function SliderContent({ data, error, content, name }) {
 
   if (data?.length === 0)
     return (
-      <div className={`${name} slider-content animate__fadeInLeft warning-case`}>
+      <div
+        className={`${name} slider-content animate__fadeInLeft warning-case`}
+      >
         <h3>{headerName(name)}</h3>
         <h5>Try Again, No Items At This Time!</h5>
       </div>
@@ -91,7 +93,7 @@ function SliderContent({ data, error, content, name }) {
       <div className="d-flex justify-content-between">
         <h3>{headerName(name)}</h3>
         <Link
-          to={`/player/all/${name}`}
+          to={`/player/show-all/${name}`}
           state={{
             data: data,
             pageName: name,

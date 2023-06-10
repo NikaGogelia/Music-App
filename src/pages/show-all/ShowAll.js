@@ -18,11 +18,11 @@ function ShowAll() {
     switch (content) {
       case "album":
       case "track":
-        return <MusicCard {...data} key={data.id} content={content} />;
+        return <MusicCard data={data} key={data.id} content={content} />;
       case "artist":
-        return <ArtistCard {...data} key={data.id} content={content} />;
+        return <ArtistCard data={data} key={data.id} content={content} />;
       case "category":
-        return <CategoryCard {...data} key={data.id} content={content} />;
+        return <CategoryCard data={data} key={data.id} content={content} />;
       default:
         break;
     }

@@ -2,7 +2,8 @@ import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function CategoryCard({ icons, name }) {
+function CategoryCard({ data }) {
+  const {icons, name} = data;
   const { url } = icons[0];
   return (
     <div className="category-card card animate__fadeIn">

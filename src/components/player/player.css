@@ -2,8 +2,6 @@
 .player {
   margin: 0;
   background-color: transparent;
-  /* border-top: 1px solid var(--dark-gray); */
-  /* border-bottom: 1px solid var(--dark-gray); */
   width: 100%;
 }
 
@@ -50,24 +48,15 @@
   transform: scale(0.95);
 }
 
-.pause-play svg path,
+.player .pause-play svg path,
 .player svg:hover path {
   fill: var(--white);
   stroke: var(--white);
 }
 
-.pause-play svg rect,
+.player .pause-play svg rect,
 .player svg:hover rect {
   stroke: var(--white);
-}
-
-.favorite-music > svg path {
-  fill: none !important;
-}
-
-.favorite-active > svg path {
-  fill: var(--cyan) !important;
-  stroke: var(--cyan) !important;
 }
 
 /* Progress Bar */
@@ -165,16 +154,16 @@ input[type="range"]::-ms-track {
     margin: 0;
   }
 
-  .favorite-music > svg {
+  .player .like-button > svg {
     width: 1.2em;
     height: 1.3em;
   }
 
-  .pause-play {
+  .player .pause-play {
     margin: 0 0.2em;
   }
 
-  .pause-play > svg {
+  .player .pause-play > svg {
     width: 2.3em;
     height: 2.3em;
   }

@@ -1,0 +1,34 @@
+/* Album Table Cell */
+.album-table-cell {
+  transition: 0.3s;
+}
+
+.album-table-cell > td:first-of-type {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.album-table-cell > td:last-of-type {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.album-table-cell:hover {
+  background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+.album-cell-title {
+  color: var(--white);
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .album-cell-title {
+    font-size: 1.1em;
+    margin-bottom: 0.3em;
+  }
+
+  .album-cell-artists {
+    font-size: 0.95em;
+  }
+}

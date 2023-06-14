@@ -1,6 +1,7 @@
 import "./navbar.css";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link, NavLink } from "react-router-dom";
-import {useRootContext} from "../../context/RootContextProvider"
+import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Navbar() {

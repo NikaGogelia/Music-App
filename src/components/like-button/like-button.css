@@ -1,0 +1,14 @@
+/* Like Button */
+.like-button {
+  border: none;
+  background-color: transparent;
+}
+
+.like-button > svg path {
+  fill: none !important;
+}
+
+.like-button-active > svg path {
+  fill: var(--cyan) !important;
+  stroke: var(--cyan) !important;
+}

@@ -11,7 +11,6 @@
   position: relative;
   background-color: #181818;
   transition: 0.3s ease;
-  /* cursor: pointer; */
   border-radius: calc(var(--card-container-border-radius) + 2px);
   -webkit-animation: fadeIn;
   animation: fadeIn;
@@ -23,31 +22,29 @@
   background-color: #282828;
 }
 
-.card:hover .play-album {
+.card:hover .pause-play {
   opacity: 1;
   bottom: 7.8em;
 }
 
-.card .play-album {
+.card .pause-play {
   position: absolute;
-  border: none;
-  background-color: transparent;
   bottom: 7em;
   right: 2em;
   opacity: 0;
   transition: 0.3s;
 }
 
-.card .play-album:hover {
+.card .pause-play:hover {
   transform: scale(1.1);
 }
 
-.card .play-album svg path {
+.card .pause-play svg path {
   fill: #5cffff;
   stroke: #5cffff;
 }
 
-.card .play-album svg rect {
+.card .pause-play svg rect {
   stroke: #5cffff;
 }
 
@@ -112,7 +109,7 @@
     height: 18em;
   }
 
-  .card .play-album svg {
+  .card .pause-play svg {
     width: 3.5em;
     height: 3.5em;
   }

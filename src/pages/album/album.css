@@ -1,0 +1,57 @@
+/* Album */
+.album-image {
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+
+.album-details {
+  width: 100%;
+}
+
+.album-details > h1,
+.album-details > h6 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.album-details > h6,
+.album-info {
+  color: var(--gray);
+  font-weight: 700;
+}
+
+.album-info > span:first-of-type > a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.album-info > span:first-of-type > a:hover {
+  text-decoration: underline;
+}
+
+.album-info > span:nth-of-type(2)::before,
+.album-info > span:nth-of-type(3)::before {
+  content: "•";
+  margin: 0px 4px;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .album-image {
+    width: 19em;
+    height: 19em;
+  }
+
+  .album-details {
+    margin-left: 3em;
+  }
+
+  .album-details > h1 {
+    font-size: 5em;
+    margin: 0 0 0.5em;
+  }
+
+  .album-details > h6,
+  .album-info {
+    font-size: 1em;
+  }
+}

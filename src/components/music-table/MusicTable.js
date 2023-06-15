@@ -41,6 +41,7 @@ function MusicTable({ data }) {
                   />
                 </svg>
               </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <div className="table-margin"></div>

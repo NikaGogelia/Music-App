@@ -43,7 +43,7 @@ footer {
 
   .root-layout > main > div,
   .root-layout > main > aside {
-    margin: 8px 8px 0;
+    margin: 8px 8px;
   }
 
   .root-layout > main > div {

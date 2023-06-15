@@ -89,7 +89,14 @@ function RootContextProvider({ children }) {
   // GET User's Data
   const { data: user } = useQuery(
     "current-user",
-    () => fetchData(`https://api.spotify.com/v1/me`),
+    () => fetchData(`${baseApi}/me`),
+    { enabled: !!accessToken, refetchOnWindowFocus: false }
+  );
+
+  // GET User's Playlist
+  const { data: userPlaylist } = useQuery(
+    "playlist-data",
+    () => fetchData(`${baseApi}/me/playlists`),
     { enabled: !!accessToken, refetchOnWindowFocus: false }
   );
 
@@ -99,6 +106,7 @@ function RootContextProvider({ children }) {
         accessToken,
         baseApi,
         user,
+        userPlaylist,
         handleAuth,
         fetchData,
         handleDataKey,

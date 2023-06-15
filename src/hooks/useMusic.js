@@ -14,7 +14,9 @@ export function useMusicQuery(queryKey, id, apiPath, dataKey) {
 
   return useQuery([queryKey, id], () => fetchData(`${baseApi}${apiPath}`), {
     select: (data) => handleDataKey(dataKey, data),
-    enabled: !!accessToken && enabled,
+    enabled: (id = "recommends-for-you"
+      ? !!accessToken && enabled
+      : !!accessToken),
     refetchOnWindowFocus: false,
     staleTime: 300000,
   });

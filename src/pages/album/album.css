@@ -37,8 +37,8 @@
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .album-image {
-    width: 19em;
-    height: 19em;
+    width: 23em;
+    height: 23em;
   }
 
   .album-details {

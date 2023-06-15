@@ -4,26 +4,20 @@
   color: var(--gray) !important;
 }
 
-.table-head th,
-.table-body td {
+.table-head th {
   color: var(--gray) !important;
   font-family: var(--manrope);
 }
 
 .table-head th {
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid var(--border-color);
   font-weight: 700;
-}
-
-.table-body td {
-  border-bottom: none;
-  font-weight: 600;
 }
 
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .table-margin {
-    height: 20px; 
+    height: 20px;
   }
 
   .table-head th {
@@ -34,10 +28,5 @@
   .table-head th > svg {
     width: 1.4em;
     height: 1.3em;
-  }
-
-  .table-body td {
-    font-size: 0.95em;
-    padding: 1em;
   }
 }

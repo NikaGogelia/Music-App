@@ -1,0 +1,34 @@
+/* More Options Button */
+.more-options-button button {
+  border: none;
+  background-color: transparent;
+}
+
+.more-options-menu .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper {
+  background-color: #282828;
+  border-radius: 4px;
+  color: var(--white);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.more-options-menu
+  .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper
+  ul
+  li {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.more-options-menu
+  .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper
+  ul
+  li:last-of-type {
+  border: none;
+}
+
+.album-track-options
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:last-of-type,
+.album-track-options
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:last-of-type
+  > ul {
+  padding: 0 !important;
+}

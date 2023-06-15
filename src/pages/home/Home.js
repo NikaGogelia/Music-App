@@ -7,10 +7,10 @@ import Loader from "../../components/loader/Loader";
 import { useMusicQuery } from "../../hooks/useMusic";
 
 function Home() {
-  const { baseApi, accessToken, fetchData, randomGenre } =
-    useRootContext();
+  const { baseApi, accessToken, fetchData, randomGenre } = useRootContext();
 
   const [greet, setGreet] = useState("");
+  const [loader, setLoader] = useState(true);
 
   const date = new Date();
   const hours = date.getHours();
@@ -27,6 +27,11 @@ function Home() {
       setGreet("Night");
     }
   }, [hours]);
+
+  // Loading
+  useEffect(() => {
+    setTimeout(() => setLoader(false), 1500);
+  }, []);
 
   // GET Favorite Genres From My Listening Taste
   const { data: favGenres } = useQuery(
@@ -75,11 +80,7 @@ function Home() {
   };
 
   // GET Popular New Releases Items
-  const {
-    data: newRelease,
-    isError: newReleasesError,
-    isLoading: newReleaseLoading,
-  } = useMusicQuery(
+  const { data: newRelease, isError: newReleasesError } = useMusicQuery(
     "music-items",
     option.newReleaseData.name,
     option.newReleaseData.apiPath,
@@ -87,23 +88,15 @@ function Home() {
   );
 
   // GET Recommended Music List For User
-  const {
-    data: recommends,
-    isError: recommendsError,
-    isLoading: recommendsLoading,
-  } = useMusicQuery(
+  const { data: recommends, isError: recommendsError } = useMusicQuery(
     "music-items",
     option.recommendsData.name,
     option.recommendsData.apiPath,
-    option.recommendsData.dataKey,
+    option.recommendsData.dataKey
   );
 
   // GET Favorite Artists List of User
-  const {
-    data: favArtists,
-    isError: favArtistsError,
-    isLoading: favArtistsLoading,
-  } = useMusicQuery(
+  const { data: favArtists, isError: favArtistsError } = useMusicQuery(
     "music-items",
     option.favArtistsData.name,
     option.favArtistsData.apiPath,
@@ -111,11 +104,7 @@ function Home() {
   );
 
   // GET Favorite Tracks List of User
-  const {
-    data: favTracks,
-    isError: favTracksError,
-    isLoading: favTracksLoading,
-  } = useMusicQuery(
+  const { data: favTracks, isError: favTracksError } = useMusicQuery(
     "music-items",
     option.favTracksData.name,
     option.favTracksData.apiPath,
@@ -123,26 +112,14 @@ function Home() {
   );
 
   // GET Music Categories List For User
-  const {
-    data: browseAll,
-    isError: browseAllError,
-    isLoading: browseAllLoading,
-  } = useMusicQuery(
+  const { data: browseAll, isError: browseAllError } = useMusicQuery(
     "music-items",
     option.browseAllData.name,
     option.browseAllData.apiPath,
     option.browseAllData.dataKey
   );
 
-  if (
-    newReleaseLoading ||
-    recommendsLoading ||
-    favArtistsLoading ||
-    favTracksLoading ||
-    browseAllLoading
-  )
-    return <Loader />;
-
+  if (loader) return <Loader />;
   return (
     <div className="home">
       <h1>Good {greet}</h1>

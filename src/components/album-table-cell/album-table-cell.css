@@ -3,6 +3,17 @@
   transition: 0.3s;
 }
 
+.album-table-cell:hover {
+  background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+.album-table-cell td {
+  color: var(--gray) !important;
+  border-bottom: none;
+  font-family: var(--manrope);
+  font-weight: 600;
+}
+
 .album-table-cell > td:first-of-type {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
@@ -13,16 +24,33 @@
   border-bottom-right-radius: 6px;
 }
 
-.album-table-cell:hover {
-  background-color: hsla(0, 0%, 100%, 0.1);
+.album-table-cell td > svg {
+  stroke: var(--white);
+  cursor: pointer;
 }
 
 .album-cell-title {
   color: var(--white);
 }
 
+.album-cell-title,
+.album-cell-artists {
+  text-transform: capitalize;
+}
+
 /* Desktop */
 @media only screen and (width >= 1024px) {
+  .album-table-cell td {
+    font-size: 0.95em;
+    padding: 1em;
+  }
+
+  .album-table-cell td > svg,
+  .index {
+    width: 2em;
+    height: 2em;
+  }
+
   .album-cell-title {
     font-size: 1.1em;
     margin-bottom: 0.3em;
@@ -30,5 +58,19 @@
 
   .album-cell-artists {
     font-size: 0.95em;
+  }
+
+  .table-cell-options .like-button svg {
+    width: 1.5em;
+    height: 1.5em; 
+  }
+
+  .table-cell-options .like-button {
+    margin-right: 0.5em;
+  }
+
+  .table-cell-options .more-options-button svg {
+    width: 1.2em;
+    height: 1.2em; 
   }
 }

@@ -29,13 +29,28 @@
   cursor: pointer;
 }
 
-.album-cell-title {
-  color: var(--white);
+.album-cell-title a {
+  color: var(--white) !important;
 }
 
-.album-cell-title,
-.album-cell-artists {
+.album-cell-artists a {
+  color: var(--gray) !important;
+}
+
+.album-cell-title a,
+.album-cell-artists a {
   text-transform: capitalize;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.album-table-cell:hover .album-cell-title a,
+.album-table-cell:hover .album-cell-artists a {
+  color: var(--white) !important;
+}
+
+.album-cell-artists a:hover, .album-cell-title a:hover {
+  text-decoration: underline;
 }
 
 /* Desktop */
@@ -47,8 +62,8 @@
 
   .album-table-cell td > svg,
   .index {
-    width: 2em;
-    height: 2em;
+    width: 2.5em;
+    height: 2.5em;
   }
 
   .album-cell-title {
@@ -62,7 +77,7 @@
 
   .table-cell-options .like-button svg {
     width: 1.5em;
-    height: 1.5em; 
+    height: 1.5em;
   }
 
   .table-cell-options .like-button {
@@ -71,6 +86,6 @@
 
   .table-cell-options .more-options-button svg {
     width: 1.2em;
-    height: 1.2em; 
+    height: 1.2em;
   }
 }

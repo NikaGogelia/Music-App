@@ -34,6 +34,16 @@
   margin: 0px 4px;
 }
 
+.copyrights > p {
+  display: inline-flex;
+  color: var(--gray);
+}
+
+.copyrights > p,
+.copyrights > p:last-of-type {
+  margin: 0;
+}
+
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .album-image {
@@ -52,6 +62,19 @@
 
   .album-details > h6,
   .album-info {
+    font-size: 1em;
+  }
+
+  .copyrights {
+    margin: 1.5em 0 3em;
+  }
+
+  .copyrights > p {
+    margin-bottom: 0.2em;
+    font-size: 0.8em;
+  }
+
+  .copyrights > p:first-of-type {
     font-size: 1em;
   }
 }

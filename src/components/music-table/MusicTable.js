@@ -10,7 +10,6 @@ import AlbumTableCell from "../album-table-cell/AlbumTableCell";
 function MusicTable({ data }) {
   const { items } = data;
 
-  console.log(items);
   return (
     <div className="music-table">
       <TableContainer className="table-container">

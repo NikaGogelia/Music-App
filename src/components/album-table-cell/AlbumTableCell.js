@@ -4,6 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
+import { Link } from "react-router-dom";
 
 function AlbumTableCell({ track }) {
   const { track_number, name, artists, duration_ms } = track;
@@ -67,14 +68,13 @@ function AlbumTableCell({ track }) {
           </div>
         )}
       </TableCell>
-      <TableCell
-        align="left"
-        
-      >
+      <TableCell align="left">
         <div className="d-flex flex-column justify-content-center">
-          <span className="album-cell-title">{name}</span>
+          <span className="album-cell-title"><Link to="">{name}</Link></span>
           <span className="album-cell-artists">
-            {artists.map((artist) => artist.name)}
+            {artists.map((artist) => (
+              <Link to="" key={artist.id}>{artist.name}</Link>
+            ))}
           </span>
         </div>
       </TableCell>
@@ -84,7 +84,7 @@ function AlbumTableCell({ track }) {
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
           <LikeButton />
-          <MoreOptionsButton content={"track-album"}/>
+          <MoreOptionsButton content={"track-album"} />
         </div>
       </TableCell>
     </TableRow>

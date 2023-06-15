@@ -7,23 +7,39 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
+import SliderContent from "../../components/slider-content/SliderContent";
 
 function Album() {
   const params = useLocation();
   const { data: propsData, content } = params?.state;
 
-  const { accessToken, fetchData } = useRootContext();
+  const { accessToken, baseApi, fetchData } = useRootContext();
 
-  const { data: albumData, isFetching } = useQuery(
+  const requestConfig = {
+    refetchOnWindowFocus: false,
+    staleTime: 300000,
+  };
+
+  // GET Album Tracks
+  const { data: albumData, isLoading } = useQuery(
     ["music-album", propsData.name],
     () => fetchData(propsData.href),
     {
       enabled: !!accessToken,
-      refetchOnWindowFocus: false,
-      staleTime: 300000,
+      ...requestConfig,
     }
   );
+
   // console.log(albumData);
+  const { data: moreByArtistData, isError: moreByArtistsError } = useQuery(
+    ["more-by-artist", albumData?.artists[0].name],
+    () => fetchData(`${baseApi}/artists/${artists[0].id}/albums?limit=20`),
+    {
+      enabled: !!accessToken && !!albumData,
+      ...requestConfig,
+    }
+  );
+  console.log(moreByArtistData);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -31,7 +47,7 @@ function Album() {
     return date.toLocaleDateString(undefined, options);
   }
 
-  if (isFetching) return <Loader />;
+  if (isLoading) return <Loader />;
 
   const {
     tracks,
@@ -41,6 +57,7 @@ function Album() {
     album_type,
     release_date,
     total_tracks,
+    copyrights,
   } = albumData;
 
   return (
@@ -57,15 +74,38 @@ function Album() {
           <h1>{name}</h1>
           <div className="album-info d-flex align-items-center">
             <span>
-              <Link to="">{artists.map((artist) => artist.name)}</Link>
+              {artists.map((artist) => (
+                <Link to="" key={artist.id}>
+                  {artist.name}
+                </Link>
+              ))}
             </span>
-            <span title={formatDate(release_date)}>{release_date.slice(0, 4)}</span>
+            <span title={formatDate(release_date)}>
+              {release_date.slice(0, 4)}
+            </span>
             <span>{total_tracks} songs</span>
           </div>
         </div>
       </div>
       <DetailPageOptions />
       <MusicTable data={tracks} />
+      <div className="copyrights d-flex flex-column justify-content-center">
+        <p>{formatDate(release_date)}</p>
+        {copyrights.map((copyright) => (
+          <p key={copyright.text}>{copyright.text}</p>
+        ))}
+      </div>
+      <div className="more-by-artist">
+        <SliderContent
+          content={content}
+          name={`More By ${artists[0].name}`}
+          data={moreByArtistData?.items.filter(
+            (item) =>
+              item.album_group === "album" || item.album_group === "single"
+          )}
+          error={moreByArtistsError}
+        />
+      </div>
     </div>
   );
 }

@@ -49,7 +49,8 @@
   color: var(--white) !important;
 }
 
-.album-cell-artists a:hover, .album-cell-title a:hover {
+.album-cell-artists a:hover,
+.album-cell-title a:hover {
   text-decoration: underline;
 }
 
@@ -71,7 +72,7 @@
     margin-bottom: 0.3em;
   }
 
-  .album-cell-artists {
+  .album-cell-artists .artists-name {
     font-size: 0.95em;
   }
 

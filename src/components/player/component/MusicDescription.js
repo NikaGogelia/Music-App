@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import LikeButton from "../../like-button/LikeButton";
+import ArtistsName from "../../artists-name/ArtistsName";
 
 function MusicDescription() {
   return (
@@ -15,8 +16,7 @@ function MusicDescription() {
           <h4>Remember</h4>
         </Link>
         <span>
-          <Link>Pop Smoke</Link>
-          <Link>Pop Smoke</Link>
+          {/* <ArtistsName artists={} /> */}
         </span>
       </div>
       <LikeButton />

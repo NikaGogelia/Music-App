@@ -1,5 +1,6 @@
 /* Album */
 .album-image {
+  border-radius: 8px;
   box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
 }
 
@@ -57,11 +58,11 @@
 
   .album-details > h1 {
     font-size: 5em;
-    margin: 0 0 0.5em;
+    margin: 0 0 0.4em;
   }
 
   .album-details > h6,
-  .album-info {
+  .album-info, .album-info .artists-name {
     font-size: 1em;
   }
 

@@ -1,26 +1,27 @@
 import "./album.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useQuery } from "react-query";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
 import SliderContent from "../../components/slider-content/SliderContent";
+import ArtistsName from "../../components/artists-name/ArtistsName";
 
 function Album() {
   const params = useLocation();
   const { data: propsData, content } = params?.state;
 
-  const { accessToken, baseApi, fetchData } = useRootContext();
+  const { accessToken, baseApi, fetchData, formatDate } = useRootContext();
 
   const requestConfig = {
     refetchOnWindowFocus: false,
     staleTime: 300000,
   };
 
-  // GET Album Tracks
+  // GET Album Data
   const { data: albumData, isLoading } = useQuery(
     ["music-album", propsData.name],
     () => fetchData(propsData.href),
@@ -30,7 +31,7 @@ function Album() {
     }
   );
 
-  // console.log(albumData);
+  // GET More By Artist Data
   const { data: moreByArtistData, isError: moreByArtistsError } = useQuery(
     ["more-by-artist", albumData?.artists[0].name],
     () => fetchData(`${baseApi}/artists/${artists[0].id}/albums?limit=20`),
@@ -40,12 +41,6 @@ function Album() {
     }
   );
   console.log(moreByArtistData);
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { month: "long", day: "numeric", year: "numeric" };
-    return date.toLocaleDateString(undefined, options);
-  }
 
   if (isLoading) return <Loader />;
 
@@ -74,11 +69,7 @@ function Album() {
           <h1>{name}</h1>
           <div className="album-info d-flex align-items-center">
             <span>
-              {artists.map((artist) => (
-                <Link to="" key={artist.id}>
-                  {artist.name}
-                </Link>
-              ))}
+             <ArtistsName artists={artists}/>
             </span>
             <span title={formatDate(release_date)}>
               {release_date.slice(0, 4)}
@@ -101,7 +92,8 @@ function Album() {
           name={`More By ${artists[0].name}`}
           data={moreByArtistData?.items.filter(
             (item) =>
-              item.album_group === "album" || item.album_group === "single"
+              (item.album_group === "album" && item.name !== name) ||
+              (item.album_group === "single" && item.name !== name)
           )}
           error={moreByArtistsError}
         />

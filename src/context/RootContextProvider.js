@@ -68,6 +68,20 @@ function RootContextProvider({ children }) {
     window.location = `${AUTH_URL}?${params}`;
   };
 
+  // Convert "00-00-00" Date Type Into "month, day, year" Date Type
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    return date.toLocaleDateString(undefined, options);
+  }
+
+  // Add Commas In Number
+  const numberWithCommas = (numberString) => {
+    const number = Number(numberString);
+    const formattedNumber = number.toLocaleString();
+    return formattedNumber;
+  };
+
   // ================= Set Global State ================= //
   // Set Access Token
   useEffect(() => {
@@ -112,6 +126,8 @@ function RootContextProvider({ children }) {
         handleDataKey,
         headerName,
         randomGenre,
+        formatDate,
+        numberWithCommas,
       }}
     >
       {children}

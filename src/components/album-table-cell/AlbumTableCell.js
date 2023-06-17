@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 import { Link } from "react-router-dom";
+import ArtistsName from "../artists-name/ArtistsName";
 
 function AlbumTableCell({ track }) {
   const { track_number, name, artists, duration_ms } = track;
@@ -72,9 +73,7 @@ function AlbumTableCell({ track }) {
         <div className="d-flex flex-column justify-content-center">
           <span className="album-cell-title"><Link to="">{name}</Link></span>
           <span className="album-cell-artists">
-            {artists.map((artist) => (
-              <Link to="" key={artist.id}>{artist.name}</Link>
-            ))}
+            <ArtistsName artists={artists}/>
           </span>
         </div>
       </TableCell>

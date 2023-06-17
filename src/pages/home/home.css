@@ -1,16 +1,4 @@
 /* Home */
-.home > div > div > a {
-  color: var(--gray);
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.home > div > div > a:hover {
-  color: var(--white);
-  text-decoration: underline;
-}
-
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .home > div:first-of-type {

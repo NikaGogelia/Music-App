@@ -1,7 +1,8 @@
 import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import Typography from "@mui/material/Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 import PlayButton from "../play-button/PlayButton";
 
 function ArtistCard({ data }) {
@@ -17,12 +18,20 @@ function ArtistCard({ data }) {
 
   return (
     <div className="artist-card card animate__fadeIn">
-      <LazyLoadImage
-        className="card-img-top"
-        effect="blur"
-        src={url}
-        alt="card-img"
-      />
+      <Link
+        className="image-link"
+        to={`/player/artist/${name}`}
+        state={{
+          data: data,
+        }}
+      >
+        <LazyLoadImage
+          className="card-img-top"
+          effect="blur"
+          src={url}
+          alt="card-img"
+        />
+      </Link>
       <PlayButton />
       <div className="card-body">
         <Typography noWrap sx={textStyles} className="card-title" variant="h4">

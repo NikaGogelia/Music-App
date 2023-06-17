@@ -1,0 +1,26 @@
+/* Artists Name */
+.artists-name {
+  text-transform: capitalize;
+  font-weight: 500;
+  color: var(--gray) !important;
+}
+
+.artists-name a {
+  text-decoration: none;
+}
+
+.artists-name a:hover {
+  text-decoration: underline;
+}
+
+.card .artists-name a {
+  color: var(--gray) !important;
+}
+
+.album-details .artists-name {
+  font-weight: 600;
+}
+
+.album-details .artists-name a {
+  color: var(--white) !important;
+}

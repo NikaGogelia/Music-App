@@ -48,14 +48,22 @@
   stroke: #5cffff;
 }
 
-.card .card-img-top {
+.card .image-link {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
+.card .image-link,
+.card .image-link > span,
+.card .card-img-top {
+  width: 100%;
+}
+
+.music-card .image-link,
 .music-card .card-img-top {
   border-radius: 8px;
 }
 
+.artist-card .image-link,
 .artist-card .card-img-top {
   border-radius: 50%;
 }
@@ -86,13 +94,12 @@
   justify-content: center;
 }
 
-.card .card-title {
+.card .card-title,.card .card-text {
   text-transform: capitalize;
 }
 
-.card .card-text {
+.artist-card .card-text {
   color: var(--gray);
-  text-transform: capitalize;
 }
 
 /* Desktop */
@@ -114,14 +121,10 @@
     height: 3.5em;
   }
 
-  .card .card-img-top {
-    width: 100%;
-  }
-  
   .music-card .card-img-top {
     height: 15em;
   }
-  
+
   .artist-card .card-img-top {
     height: 16em;
   }
@@ -140,7 +143,7 @@
     margin: 0;
   }
 
-  .card .card-text {
+  .card .artists-name {
     font-size: 1.05em;
   }
 }

@@ -1,4 +1,4 @@
-import "./album-table-cell.css";
+import "./music-table-cell.css";
 import { useState } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +7,7 @@ import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 import { Link } from "react-router-dom";
 import ArtistsName from "../artists-name/ArtistsName";
 
-function AlbumTableCell({ track }) {
+function AlbumTableCell({ track, content }) {
   const { track_number, name, artists, duration_ms } = track;
 
   const [hover, setHover] = useState(false);
@@ -18,7 +18,7 @@ function AlbumTableCell({ track }) {
 
   return (
     <TableRow
-      className="album-table-cell"
+      className="album-table-cell music-table-cell"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -71,9 +71,19 @@ function AlbumTableCell({ track }) {
       </TableCell>
       <TableCell align="left">
         <div className="d-flex flex-column justify-content-center">
-          <span className="album-cell-title"><Link to="">{name}</Link></span>
-          <span className="album-cell-artists">
-            <ArtistsName artists={artists}/>
+          <span className="music-cell-title">
+            <Link
+              to={`/player/track/${name}`}
+              state={{
+                data: track,
+                content: "track",
+              }}
+            >
+              {name}
+            </Link>
+          </span>
+          <span className="music-cell-artists">
+            <ArtistsName artists={artists} content={content} />
           </span>
         </div>
       </TableCell>

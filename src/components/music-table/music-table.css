@@ -4,6 +4,11 @@
   color: var(--gray) !important;
 }
 
+.artist .table-head th {
+  padding: 0;
+  border-bottom: 0;
+}
+
 .table-head th {
   color: var(--gray) !important;
   font-family: var(--manrope);
@@ -14,10 +19,25 @@
   font-weight: 700;
 }
 
+.see-more {
+  background-color: transparent;
+  border: none;
+  color: var(--gray);
+  font-weight: 700;
+}
+
+.see-more:hover {
+  color: var(--white);
+}
+
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .table-margin {
     height: 20px;
+  }
+
+  .music-table-header {
+    font-size: 1.5em;
   }
 
   .table-head th {
@@ -28,5 +48,10 @@
   .table-head th > svg {
     width: 1.4em;
     height: 1.3em;
+  }
+
+  .see-more {
+    margin-top: 1em;
+    font-size: 1em;
   }
 }

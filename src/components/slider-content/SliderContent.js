@@ -60,6 +60,7 @@ function SliderContent({ data, error, content, name }) {
     switch (content) {
       case "album":
       case "track":
+      case "playlist":
         return <MusicCard data={data} key={data.id} content={content} />;
       case "artist":
         return <ArtistCard data={data} key={data.id} content={content} />;

@@ -32,18 +32,52 @@ function Artist() {
     }
   );
 
-  console.log(artistData);
-
-  const { data: artist } = useQuery(
-    ["artist", propsData.name],
-    () => fetchData(artistData.href),
+  // GET Artists Popular Tracks
+  const { data: popularTracksData, isError: popularTracksError } = useQuery(
+    ["popular-tracks", propsData.name],
+    () => fetchData(`${baseApi}/artists/${artistData.id}/top-tracks?market=GE`),
     {
       enabled: !!accessToken && !!artistData,
       ...requestConfig,
     }
   );
 
-  console.log(artist);
+  // GET Artist's Discography
+  const { data: discographyData, isError: discographyError } = useQuery(
+    ["discography", propsData.name],
+    () =>
+      fetchData(
+        `${baseApi}/artists/${artistData.id}/albums?include_groups=album,single&market=GE&limit=20`
+      ),
+    {
+      enabled: !!accessToken && !!artistData,
+      ...requestConfig,
+    }
+  );
+
+  // GET Albums Where Artist Appears On
+  const { data: appearsOnData, isError: appearsOnError } = useQuery(
+    ["appears-on", propsData.name],
+    () =>
+      fetchData(
+        `${baseApi}/artists/${artistData.id}/albums?include_groups=appears_on&market=GE&limit=20`
+      ),
+    {
+      enabled: !!accessToken && !!artistData,
+      ...requestConfig,
+    }
+  );
+
+  // GET Artist's Related Artists
+  const { data: relatedArtistsData, isError: relatedArtistsError } = useQuery(
+    ["related-artists", propsData.name],
+    () => fetchData(`${baseApi}/artists/${artistData.id}/related-artists`),
+    {
+      enabled: !!accessToken && !!artistData,
+      ...requestConfig,
+    }
+  );
+  console.log(relatedArtistsData);
 
   if (isLoading) return <Loader />;
 
@@ -78,11 +112,36 @@ function Artist() {
           </h6>
           <h1>{name}</h1>
           <div className="artist-info d-flex align-items-center">
-            <span>{numberWithCommas(followers.total)} monthly listeners</span>
+            <span>{numberWithCommas(followers?.total)} monthly listeners</span>
           </div>
         </div>
       </div>
-      <DetailPageOptions />
+      <DetailPageOptions content={content} />
+      <MusicTable data={popularTracksData} content={content} />
+      <div className="artist-discography">
+        <SliderContent
+          content="album"
+          name="discography"
+          data={discographyData?.items}
+          error={discographyError}
+        />
+      </div>
+      <div className="artist-fans-also-like">
+        <SliderContent
+          content="artist"
+          name="fans-also-like"
+          data={relatedArtistsData?.artists}
+          error={relatedArtistsError}
+        />
+      </div>
+      <div className="artist-appears-on">
+        <SliderContent
+          content="album"
+          name="appears-on"
+          data={appearsOnData?.items}
+          error={appearsOnError}
+        />
+      </div>
     </div>
   );
 }

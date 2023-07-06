@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import PlayButton from "../play-button/PlayButton";
 
-function ArtistCard({ data }) {
+function ArtistCard({ data, content }) {
   const { images, name, type } = data;
   const { url } = images[0];
 
@@ -23,6 +23,7 @@ function ArtistCard({ data }) {
         to={`/player/artist/${name}`}
         state={{
           data: data,
+          content: content
         }}
       >
         <LazyLoadImage

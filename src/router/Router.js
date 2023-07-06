@@ -15,7 +15,8 @@ import Likes from "../pages/likes/Likes";
 import ShowAll from "../pages/show-all/ShowAll";
 import Playlist from "../pages/playlist/Playlist";
 import Album from "../pages/album/Album";
-import Artist from "../pages/artist/Artist"
+import Artist from "../pages/artist/Artist";
+import TrackDetails from "../pages/track-details/TrackDetails";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ export const router = createBrowserRouter(
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path="album/:id" element={<Album />} />
         <Route path="artist/:id" element={<Artist />} />
+        <Route path="track/:id" element={<TrackDetails />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </>

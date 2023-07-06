@@ -34,13 +34,15 @@ function Album() {
   // GET More By Artist Data
   const { data: moreByArtistData, isError: moreByArtistsError } = useQuery(
     ["more-by-artist", albumData?.artists[0].name],
-    () => fetchData(`${baseApi}/artists/${artists[0].id}/albums?limit=20`),
+    () =>
+      fetchData(
+        `${baseApi}/artists/${albumData?.artists[0].id}/albums?include_groups=album,single&limit=20`
+      ),
     {
       enabled: !!accessToken && !!albumData,
       ...requestConfig,
     }
   );
-  console.log(moreByArtistData);
 
   if (isLoading) return <Loader />;
 
@@ -69,7 +71,7 @@ function Album() {
           <h1>{name}</h1>
           <div className="album-info d-flex align-items-center">
             <span>
-             <ArtistsName artists={artists}/>
+              <ArtistsName artists={artists} />
             </span>
             <span title={formatDate(release_date)}>
               {release_date.slice(0, 4)}
@@ -78,8 +80,8 @@ function Album() {
           </div>
         </div>
       </div>
-      <DetailPageOptions />
-      <MusicTable data={tracks} />
+      <DetailPageOptions content={content} />
+      <MusicTable data={tracks} content={content} />
       <div className="copyrights d-flex flex-column justify-content-center">
         <p>{formatDate(release_date)}</p>
         {copyrights.map((copyright) => (
@@ -90,11 +92,7 @@ function Album() {
         <SliderContent
           content={content}
           name={`More By ${artists[0].name}`}
-          data={moreByArtistData?.items.filter(
-            (item) =>
-              (item.album_group === "album" && item.name !== name) ||
-              (item.album_group === "single" && item.name !== name)
-          )}
+          data={moreByArtistData?.items.filter((item) => item.name !== name)}
           error={moreByArtistsError}
         />
       </div>

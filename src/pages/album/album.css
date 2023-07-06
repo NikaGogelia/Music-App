@@ -2,6 +2,7 @@
 .album-image {
   border-radius: 8px;
   box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
 }
 
 .album-details {
@@ -62,7 +63,8 @@
   }
 
   .album-details > h6,
-  .album-info, .album-info .artists-name {
+  .album-info,
+  .album-info .artists-name {
     font-size: 1em;
   }
 

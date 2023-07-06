@@ -14,6 +14,7 @@ function Home() {
 
   const date = new Date();
   const hours = date.getHours();
+  const formattedDate = date.toISOString();
 
   // Set Greet Message
   useEffect(() => {
@@ -71,6 +72,12 @@ function Home() {
       dataKey: "items",
       apiPath: "/me/top/tracks?time_range=short_term",
     },
+    featuredPlaylistData: {
+      content: "playlist",
+      name: "featured-playlists",
+      dataKey: "playlists.items",
+      apiPath: `/browse/featured-playlists?timestamp=${formattedDate}&country=GE&limit=20`,
+    },
     browseAllData: {
       content: "category",
       name: "browse-all",
@@ -111,6 +118,15 @@ function Home() {
     option.favTracksData.dataKey
   );
 
+  // GET Featured Playlists
+  const { data: featuredPlaylists, isError: featuredPlaylistsError } =
+    useMusicQuery(
+      "music-items",
+      option.featuredPlaylistData.name,
+      option.featuredPlaylistData.apiPath,
+      option.featuredPlaylistData.dataKey
+    );
+
   // GET Music Categories List For User
   const { data: browseAll, isError: browseAllError } = useMusicQuery(
     "music-items",
@@ -146,6 +162,12 @@ function Home() {
         name={option.favTracksData.name}
         data={favTracks}
         error={favTracksError}
+      />
+      <SliderContent
+        content={option.featuredPlaylistData.content}
+        name={option.featuredPlaylistData.name}
+        data={featuredPlaylists}
+        error={featuredPlaylistsError}
       />
       <SliderContent
         content={option.browseAllData.content}

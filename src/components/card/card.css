@@ -68,6 +68,10 @@
   border-radius: 50%;
 }
 
+.card-img-top {
+  object-fit: cover;
+}
+
 .category-card {
   background-color: transparent !important;
 }
@@ -94,8 +98,18 @@
   justify-content: center;
 }
 
-.card .card-title,.card .card-text {
+.card .card-title,
+.card .card-text {
   text-transform: capitalize;
+  font-family: var(--manrope);
+}
+
+.card .card-title {
+  font-weight: 800;
+}
+
+.card .card-text {
+  font-weight: 500;
 }
 
 .artist-card .card-text {
@@ -107,7 +121,7 @@
   .card {
     padding: 1.1em;
     width: 18em;
-    height: 23.2em;
+    height: 23.3em;
   }
 
   .category-card {
@@ -122,11 +136,11 @@
   }
 
   .music-card .card-img-top {
-    height: 15em;
+    height: 15.5em;
   }
 
   .artist-card .card-img-top {
-    height: 16em;
+    height: 16.15em;
   }
 
   .card .card-body {

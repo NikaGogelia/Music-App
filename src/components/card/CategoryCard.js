@@ -2,7 +2,7 @@ import "./card.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function CategoryCard({ data }) {
+function CategoryCard({ data, content }) {
   const {icons, name} = data;
   const { url } = icons[0];
   return (

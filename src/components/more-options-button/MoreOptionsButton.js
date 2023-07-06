@@ -31,6 +31,7 @@ function MoreOptionsButton({ content }) {
   const renderMenuSwitch = (type) => {
     switch (type) {
       case "track-album":
+      case "track-artist":
         return (
           <span className="album-track-options">
             <MenuItem onClick={handleClose}>Save To Your Liked Songs</MenuItem>

@@ -14,15 +14,20 @@ const textStyles = {
 };
 
 function MusicCard({ data, content }) {
-  const { album, images, name, artists } = data;
+  const {
+    album,
+    images,
+    name,
+    [content === "playlist" ? "owner" : "artists"]: artistInfo,
+  } = data;
+
   const { url } = content === "track" ? album?.images[0] : images[0];
 
-  // console.log(data);
   return (
     <div className="music-card card animate__fadeIn">
       <Link
         className="image-link"
-        to={`/player/album/${name}`}
+        to={content === "playlist" ? `` : content === "track" ? `/player/track/${name}` : `/player/album/${name}`}
         state={{
           data: data,
           content: content,
@@ -40,7 +45,7 @@ function MusicCard({ data, content }) {
         <Typography noWrap sx={textStyles} className="card-title" variant="h4">
           {name}
         </Typography>
-        <ArtistsName artists={artists} />
+        <ArtistsName artists={artistInfo} content={content} />
       </div>
     </div>
   );

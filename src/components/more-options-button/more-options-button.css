@@ -15,7 +15,9 @@
   .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper
   ul
   li {
-  border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--manrope) !important;
+    font-weight: 500;
 }
 
 .more-options-menu

@@ -1,78 +1,83 @@
-/* Album Table Cell */
-.album-table-cell {
+/* Music Table Cell */
+.music-table-cell {
   transition: 0.3s;
 }
 
-.album-table-cell:hover {
+.music-table-cell:hover {
   background-color: hsla(0, 0%, 100%, 0.1);
 }
 
-.album-table-cell td {
+.music-table-cell td {
   color: var(--gray) !important;
   border-bottom: none;
   font-family: var(--manrope);
   font-weight: 600;
 }
 
-.album-table-cell > td:first-of-type {
+.music-table-cell > td:first-of-type {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-.album-table-cell > td:last-of-type {
+.music-table-cell > td:last-of-type {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
-.album-table-cell td > svg {
+.music-table-cell td > svg {
   stroke: var(--white);
   cursor: pointer;
 }
 
-.album-cell-title a {
+.music-cell-title a {
   color: var(--white) !important;
 }
 
-.album-cell-artists a {
+.music-cell-artists a {
   color: var(--gray) !important;
 }
 
-.album-cell-title a,
-.album-cell-artists a {
+.music-cell-title a,
+.music-cell-artists a {
   text-transform: capitalize;
   text-decoration: none;
   transition: 0.3s;
 }
 
-.album-table-cell:hover .album-cell-title a,
-.album-table-cell:hover .album-cell-artists a {
+.music-table-cell:hover .music-cell-title a,
+.music-table-cell:hover .music-cell-artists a {
   color: var(--white) !important;
 }
 
-.album-cell-artists a:hover,
-.album-cell-title a:hover {
+.music-cell-artists a:hover,
+.music-cell-title a:hover {
   text-decoration: underline;
 }
 
 /* Desktop */
 @media only screen and (width >= 1024px) {
-  .album-table-cell td {
+  .music-table-cell td {
     font-size: 0.95em;
     padding: 1em;
   }
 
-  .album-table-cell td > svg,
+  .music-table-cell td > svg,
   .index {
     width: 2.5em;
     height: 2.5em;
   }
 
-  .album-cell-title {
+  .music-table-cell td img {
+    width: 4em;
+    height: 4em;
+  }
+
+  .music-cell-title {
     font-size: 1.1em;
     margin-bottom: 0.3em;
   }
 
-  .album-cell-artists .artists-name {
+  .music-cell-artists .artists-name {
     font-size: 0.95em;
   }
 

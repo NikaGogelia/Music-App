@@ -13,7 +13,7 @@ function MoreOptionsButton({ content }) {
   const [collapse, setCollapse] = useState(false);
   const open = Boolean(anchorEl);
 
-  const { userPlaylist } = useRootContext();
+  const { user, userPlaylist } = useRootContext();
 
   const handleCollapse = () => {
     setCollapse(!collapse);
@@ -32,6 +32,7 @@ function MoreOptionsButton({ content }) {
     switch (type) {
       case "track-album":
       case "track-artist":
+      case "track":
         return (
           <span className="album-track-options">
             <MenuItem onClick={handleClose}>Save To Your Liked Songs</MenuItem>
@@ -67,15 +68,19 @@ function MoreOptionsButton({ content }) {
                 </ListItemButton>
                 <Collapse in={collapse} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {userPlaylist?.items.map((item) => (
-                      <ListItemButton
-                        key={item.id}
-                        sx={{ pl: 3 }}
-                        onClick={handleClose}
-                      >
-                        {item.name}
-                      </ListItemButton>
-                    ))}
+                    {userPlaylist?.items
+                      .filter(
+                        (item) => item.owner.display_name === user.display_name
+                      )
+                      .map((item) => (
+                        <ListItemButton
+                          key={item.id}
+                          sx={{ pl: 3 }}
+                          onClick={handleClose}
+                        >
+                          {item.name}
+                        </ListItemButton>
+                      ))}
                   </List>
                 </Collapse>
               </List>

@@ -74,6 +74,8 @@ function ArtistTableCell({ track, index }) {
         <LazyLoadImage
           className="artist-table-cell-img"
           effect="blur"
+          width={album?.images[2].width}
+          height={album?.images[2].height}
           src={album?.images[2].url}
           alt="artist-table-cell-img"
         />

@@ -120,8 +120,8 @@
 @media only screen and (min-width: 1024px) {
   .card {
     padding: 1.1em;
-    width: 18em;
-    height: 23.3em;
+    width: 16.5em;
+    height: 22.5em;
   }
 
   .category-card {
@@ -136,11 +136,11 @@
   }
 
   .music-card .card-img-top {
-    height: 15.5em;
+    height: 14.5em;
   }
 
   .artist-card .card-img-top {
-    height: 16.15em;
+    height: 14em;
   }
 
   .card .card-body {

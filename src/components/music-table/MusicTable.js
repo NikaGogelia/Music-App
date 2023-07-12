@@ -88,7 +88,7 @@ function MusicTable({ data, content }) {
   }
 
   return (
-    <div className="music-table">
+    <div className="music-table animate__fadeInLeft">
       {content === "artist" && <h4 className="music-table-header">Popular</h4>}
       <TableContainer className={`table-container ${content}`}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">

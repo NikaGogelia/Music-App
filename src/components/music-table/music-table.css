@@ -1,4 +1,11 @@
 /* Music Table */
+.music-table {
+  -webkit-animation: fadeInLeft;
+  animation: fadeInLeft;
+  -webkit-animation-duration: 2.5s;
+  animation-duration: 1.5s;
+}
+
 .table-container {
   background-color: transparent !important;
   color: var(--gray) !important;

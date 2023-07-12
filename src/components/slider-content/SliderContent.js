@@ -11,8 +11,7 @@ function SliderContent({ data, error, content, name }) {
   const { headerName, renderMusicCardSwitch } = useRootContext();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [perView, setPerView] = useState(4);
-  const [space, setSpace] = useState(10);
+  const [perView, setPerView] = useState(5);
 
   // Set Window Width
   useEffect(() => {
@@ -31,24 +30,19 @@ function SliderContent({ data, error, content, name }) {
   useEffect(() => {
     if (windowWidth <= 1700) {
       setPerView(4);
-      setSpace(20);
     }
     if (windowWidth <= 1400) {
       setPerView(3);
-      setSpace(10);
     }
     if (windowWidth <= 1100) {
       setPerView(2);
-      setSpace(3);
     }
     if (windowWidth < 900) {
       setPerView(1);
-      setSpace(2);
     }
 
     return () => {
       setPerView(5);
-      setSpace(20);
     };
   }, [windowWidth]);
 
@@ -87,7 +81,7 @@ function SliderContent({ data, error, content, name }) {
       </div>
       <Swiper
         slidesPerView={perView}
-        spaceBetween={space}
+        spaceBetween={10}
         freeMode={true}
         navigation={true}
         modules={[FreeMode, Navigation]}
@@ -105,7 +99,9 @@ function SliderContent({ data, error, content, name }) {
           }
 
           return (
-            <SwiperSlide key={index}>{renderMusicCardSwitch(passedData, content)}</SwiperSlide>
+            <SwiperSlide key={index}>
+              {renderMusicCardSwitch(passedData, content)}
+            </SwiperSlide>
           );
         })}
       </Swiper>

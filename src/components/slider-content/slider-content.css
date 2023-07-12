@@ -36,6 +36,14 @@
   color: #00b4b4ff !important;
 }
 
+.swiper-button-prev {
+  left: 0 !important;
+}
+
+.swiper-button-next {
+  right: 0 !important;
+}
+
 .mySwiper {
   -webkit-animation: fadeIn;
   animation: fadeIn;
@@ -46,6 +54,11 @@
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .swiper-wrapper {
-    padding: 1em 0.3em;
+    padding: 1.5em 0 1.5em 2em;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+   font-size: 2.5em !important;
   }
 }

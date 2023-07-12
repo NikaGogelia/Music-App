@@ -1,1 +1,51 @@
 /* Track Details */
+.track-image {
+  border-radius: 8px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.track-details {
+  width: 100%;
+}
+
+.track-details > h1,
+.track-details > h6 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.track-details > h6,
+.track-info {
+  color: var(--gray);
+  font-weight: 700 !important;
+}
+
+.track-info > span:nth-of-type(2)::before,
+.track-info > span:nth-of-type(3)::before {
+  content: "•";
+  margin: 0px 4px;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .track-image {
+    width: 23em;
+    height: 23em;
+  }
+
+  .track-details {
+    margin-left: 3em;
+  }
+
+  .track-details > h1 {
+    font-size: 3em;
+    margin: 0 0 0.4em;
+  }
+
+  .track-details > h6,
+  .track-info,
+  .track-info .artists-name {
+    font-size: 1em;
+  }
+}

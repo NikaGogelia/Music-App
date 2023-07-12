@@ -113,6 +113,8 @@ function RootContextProvider({ children }) {
     () => fetchData(`${baseApi}/me/playlists`),
     { enabled: !!accessToken, refetchOnWindowFocus: false }
   );
+  console.log(userPlaylist)
+  console.log(user)
 
   return (
     <RootContext.Provider

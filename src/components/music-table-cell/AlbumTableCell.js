@@ -6,6 +6,7 @@ import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 import { Link } from "react-router-dom";
 import ArtistsName from "../artists-name/ArtistsName";
+import { useMusicTime } from "../../hooks/useMusicTime";
 
 function AlbumTableCell({ track, content }) {
   const { track_number, name, artists, duration_ms } = track;
@@ -13,8 +14,7 @@ function AlbumTableCell({ track, content }) {
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
-  const seconds = Math.floor((duration_ms / 1000) % 60).toString();
-  const minutes = Math.floor((duration_ms / (1000 * 60)) % 60).toString();
+  const { minutes, seconds } = useMusicTime(duration_ms);
 
   return (
     <TableRow

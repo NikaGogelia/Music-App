@@ -21,15 +21,6 @@
   font-weight: 700;
 }
 
-.album-info > span:first-of-type > a {
-  color: var(--white);
-  text-decoration: none;
-}
-
-.album-info > span:first-of-type > a:hover {
-  text-decoration: underline;
-}
-
 .album-info > span:nth-of-type(2)::before,
 .album-info > span:nth-of-type(3)::before {
   content: "•";

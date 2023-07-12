@@ -7,7 +7,7 @@ function DetailPageOptions({ content }) {
   return (
     <div className="detail-page-options d-flex align-items-center">
       <PlayButton />
-      {content === "album" ? (
+      {content === "album" || content === "track" ? (
         <div className="d-flex align-items-center">
           <LikeButton />
           <MoreOptionsButton content={content} />

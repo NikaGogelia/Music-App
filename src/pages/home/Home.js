@@ -78,12 +78,6 @@ function Home() {
       dataKey: "playlists.items",
       apiPath: `/browse/featured-playlists?timestamp=${formattedDate}&country=GE&limit=20`,
     },
-    browseAllData: {
-      content: "category",
-      name: "browse-all",
-      dataKey: "categories.items",
-      apiPath: "/browse/categories?limit=30&locale=GE",
-    },
   };
 
   // GET Popular New Releases Items
@@ -127,14 +121,6 @@ function Home() {
       option.featuredPlaylistData.dataKey
     );
 
-  // GET Music Categories List For User
-  const { data: browseAll, isError: browseAllError } = useMusicQuery(
-    "music-items",
-    option.browseAllData.name,
-    option.browseAllData.apiPath,
-    option.browseAllData.dataKey
-  );
-
   if (loader) return <Loader />;
   return (
     <div className="home">
@@ -168,12 +154,6 @@ function Home() {
         name={option.featuredPlaylistData.name}
         data={featuredPlaylists}
         error={featuredPlaylistsError}
-      />
-      <SliderContent
-        content={option.browseAllData.content}
-        name={option.browseAllData.name}
-        data={browseAll}
-        error={browseAllError}
       />
     </div>
   );

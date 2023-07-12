@@ -7,6 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
+import { useMusicTime } from "../../hooks/useMusicTime";
 
 function ArtistTableCell({ track, index }) {
   const { name, album, duration_ms } = track;
@@ -14,8 +15,7 @@ function ArtistTableCell({ track, index }) {
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
-  const seconds = Math.floor((duration_ms / 1000) % 60).toString();
-  const minutes = Math.floor((duration_ms / (1000 * 60)) % 60).toString();
+  const {minutes, seconds} = useMusicTime(duration_ms);
 
   return (
     <TableRow

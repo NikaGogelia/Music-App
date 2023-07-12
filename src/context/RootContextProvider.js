@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import MusicCard from "../components/card/MusicCard";
+import ArtistCard from "../components/card/ArtistCard";
 
 const RootContext = createContext();
 function RootContextProvider({ children }) {
@@ -20,7 +22,7 @@ function RootContextProvider({ children }) {
 
   // ================= Functions ================= //
   // Fetch Data From Api
-  const fetchData = async (url, config) => {
+  async function fetchData(url, config) {
     try {
       const response = await axios(url, {
         headers: { Authorization: `Bearer  ${accessToken}` },
@@ -32,22 +34,22 @@ function RootContextProvider({ children }) {
       console.error(error);
       throw new Error(error);
     }
-  };
+  }
 
   // Return Header Name For Sections
-  const headerName = (name) => {
+  function headerName(name) {
     return name
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  };
+  }
 
   // Return Data Key
-  const handleDataKey = (dataKey, res) => {
+  function handleDataKey(dataKey, res) {
     const keyParts = dataKey.split(".");
     const keyData = keyParts?.reduce((acc, curr) => acc[curr], res);
     return keyData;
-  };
+  }
 
   // Return Genres Randomly
   function randomGenre(arr) {
@@ -58,7 +60,7 @@ function RootContextProvider({ children }) {
   }
 
   // Authenticate In Spotify
-  const handleAuth = () => {
+  function handleAuth() {
     const params = new URLSearchParams({
       response_type: "token",
       client_id: CLIENT_ID,
@@ -66,7 +68,7 @@ function RootContextProvider({ children }) {
       scope: SCOPES,
     });
     window.location = `${AUTH_URL}?${params}`;
-  };
+  }
 
   // Convert "00-00-00" Date Type Into "month, day, year" Date Type
   function formatDate(dateString) {
@@ -76,11 +78,25 @@ function RootContextProvider({ children }) {
   }
 
   // Add Commas In Number
-  const numberWithCommas = (numberString) => {
+  function numberWithCommas(numberString) {
     const number = Number(numberString);
     const formattedNumber = number.toLocaleString();
     return formattedNumber;
-  };
+  }
+
+  // Render Different Cards On Different Content Type
+  function renderMusicCardSwitch(data, content) {
+    switch (content) {
+      case "album":
+      case "track":
+      case "playlist":
+        return <MusicCard data={data} key={data.id} content={content} />;
+      case "artist":
+        return <ArtistCard data={data} key={data.id} content={content} />;
+      default:
+        break;
+    }
+  }
 
   // ================= Set Global State ================= //
   // Set Access Token
@@ -113,8 +129,6 @@ function RootContextProvider({ children }) {
     () => fetchData(`${baseApi}/me/playlists`),
     { enabled: !!accessToken, refetchOnWindowFocus: false }
   );
-  console.log(userPlaylist)
-  console.log(user)
 
   return (
     <RootContext.Provider
@@ -130,6 +144,7 @@ function RootContextProvider({ children }) {
         randomGenre,
         formatDate,
         numberWithCommas,
+        renderMusicCardSwitch,
       }}
     >
       {children}

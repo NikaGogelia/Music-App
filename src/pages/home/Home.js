@@ -2,9 +2,11 @@ import "./home.css";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
-import SliderContent from "../../components/slider-content/SliderContent";
-import Loader from "../../components/loader/Loader";
 import { useMusicQuery } from "../../hooks/useMusic";
+import Loader from "../../components/loader/Loader";
+import SliderContent from "../../components/slider-content/SliderContent";
+import MusicCard from "../../components/card/MusicCard";
+import ArtistCard from "../../components/card/ArtistCard";
 
 function Home() {
   const { baseApi, accessToken, fetchData, randomGenre } = useRootContext();

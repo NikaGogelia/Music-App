@@ -6,12 +6,9 @@ import { Link } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper";
-import MusicCard from "../card/MusicCard";
-import ArtistCard from "../card/ArtistCard";
-import CategoryCard from "../card/CategoryCard";
 
 function SliderContent({ data, error, content, name }) {
-  const { headerName } = useRootContext();
+  const { headerName, renderMusicCardSwitch } = useRootContext();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [perView, setPerView] = useState(4);
@@ -54,22 +51,6 @@ function SliderContent({ data, error, content, name }) {
       setSpace(20);
     };
   }, [windowWidth]);
-
-  // Render Different Cards On Different Content Types
-  const renderSwitch = (data) => {
-    switch (content) {
-      case "album":
-      case "track":
-      case "playlist":
-        return <MusicCard data={data} key={data.id} content={content} />;
-      case "artist":
-        return <ArtistCard data={data} key={data.id} content={content} />;
-      case "category":
-        return <CategoryCard data={data} key={data.id} content={content} />;
-      default:
-        break;
-    }
-  };
 
   if (error)
     return (
@@ -124,7 +105,7 @@ function SliderContent({ data, error, content, name }) {
           }
 
           return (
-            <SwiperSlide key={index}>{renderSwitch(passedData)}</SwiperSlide>
+            <SwiperSlide key={index}>{renderMusicCardSwitch(passedData, content)}</SwiperSlide>
           );
         })}
       </Swiper>

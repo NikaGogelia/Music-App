@@ -17,7 +17,7 @@ function TrackDetails() {
 
   const requestConfig = {
     refetchOnWindowFocus: false,
-    staleTime: 300000,
+    staleTime: 3000000,
   };
 
   // GET Track Details Data
@@ -29,6 +29,8 @@ function TrackDetails() {
       ...requestConfig,
     }
   );
+
+  console.log(trackData)
 
   const { minutes, seconds } = useMusicTime(trackData?.duration_ms);
 

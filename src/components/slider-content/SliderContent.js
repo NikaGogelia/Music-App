@@ -57,11 +57,8 @@ function SliderContent({ data, error, content, name }) {
   if (data?.length === 0)
     return (
       <div
-        className={`${name} slider-content animate__fadeInLeft warning-case`}
-      >
-        <h3>{headerName(name)}</h3>
-        <h5>Try Again, No Items At This Time!</h5>
-      </div>
+        className={`${name} slider-content animate__fadeInLeft warning-case d-none`}
+      ></div>
     );
 
   return (

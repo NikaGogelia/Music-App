@@ -18,7 +18,7 @@ function Album() {
 
   const requestConfig = {
     refetchOnWindowFocus: false,
-    staleTime: 300000,
+    staleTime: 3000000,
   };
 
   // GET Album Data

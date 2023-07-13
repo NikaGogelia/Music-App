@@ -8,7 +8,6 @@ import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
 import SliderContent from "../../components/slider-content/SliderContent";
-import ArtistsName from "../../components/artists-name/ArtistsName";
 
 function Artist() {
   const params = useLocation();
@@ -19,7 +18,7 @@ function Artist() {
 
   const requestConfig = {
     refetchOnWindowFocus: false,
-    staleTime: 300000,
+    staleTime: 3000000,
   };
 
   // GET Artist's Detailed Data
@@ -77,7 +76,10 @@ function Artist() {
       ...requestConfig,
     }
   );
-  console.log(relatedArtistsData);
+
+  appearsOnData?.items.filter(
+    (item) => item.artists.map((item) => item.name)[0] !== "Various Artists"
+  );
 
   if (isLoading) return <Loader />;
 
@@ -138,7 +140,10 @@ function Artist() {
         <SliderContent
           content="album"
           name="appears-on"
-          data={appearsOnData?.items}
+          data={appearsOnData?.items.filter(
+            (item) =>
+              item.artists.map((item) => item.name)[0] !== "Various Artists"
+          )}
           error={appearsOnError}
         />
       </div>

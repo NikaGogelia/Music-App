@@ -44,7 +44,7 @@ function Home() {
       select: (data) => randomGenre(data?.items),
       enabled: !!accessToken,
       refetchOnWindowFocus: false,
-      staleTime: 300000,
+      staleTime: 3000000,
     }
   );
 

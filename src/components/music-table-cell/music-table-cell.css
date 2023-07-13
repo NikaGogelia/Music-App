@@ -33,24 +33,18 @@
   color: var(--white) !important;
 }
 
-.music-cell-artists a {
-  color: var(--gray) !important;
-}
-
-.music-cell-title a,
-.music-cell-artists a {
+.music-table-cell a {
   text-transform: capitalize;
   text-decoration: none;
+  color: var(--gray);
   transition: 0.3s;
 }
 
-.music-table-cell:hover .music-cell-title a,
-.music-table-cell:hover .music-cell-artists a {
-  color: var(--white) !important;
+.music-table-cell:hover a {
+  color: var(--white);
 }
 
-.music-cell-artists a:hover,
-.music-cell-title a:hover {
+.music-table-cell a:hover {
   text-decoration: underline;
 }
 

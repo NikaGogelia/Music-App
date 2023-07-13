@@ -1,25 +1,28 @@
 import "./music-table-cell.css";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRootContext } from "../../context/RootContextProvider";
 import { useMusicTime } from "../../hooks/useMusicTime";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
+import ArtistsName from "../artists-name/ArtistsName";
 
-function ArtistTableCell({ track, index }) {
-  const { name, album, duration_ms } = track;
+function PlaylistTableCell({ track, dateAdded, content, index }) {
+  const { album, name, artists, duration_ms } = track;
 
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
-  const {minutes, seconds} = useMusicTime(duration_ms);
+  const { formatDate } = useRootContext();
+
+  const { minutes, seconds } = useMusicTime(duration_ms);
 
   return (
     <TableRow
-      className="artist-table-cell music-table-cell"
+      className="playlist-table-cell music-table-cell"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -72,38 +75,55 @@ function ArtistTableCell({ track, index }) {
       </TableCell>
       <TableCell align="left">
         <LazyLoadImage
-          className="artist-table-cell-img"
+          className="playlist-table-cell-img"
           effect="blur"
           width={album?.images[2].width}
           height={album?.images[2].height}
           src={album?.images[2].url}
-          alt="artist-table-cell-img"
+          alt="playlist-table-cell-img"
         />
       </TableCell>
       <TableCell align="left">
-        <span className="music-cell-title">
-          <Link
-            to={`/player/track/${name}`}
-            state={{
-              data: track,
-              content: "track",
-            }}
-          >
-            {name}
-          </Link>
-        </span>
+        <div className="d-flex flex-column justify-content-center">
+          <span className="music-cell-title">
+            <Link
+              to={`/player/track/${name}`}
+              state={{
+                data: track,
+                content: "track",
+              }}
+            >
+              {name}
+            </Link>
+          </span>
+          <span className="music-cell-artists">
+            <ArtistsName artists={artists} content={`track-${content}`} />
+          </span>
+        </div>
       </TableCell>
+      <TableCell align="left">
+        <Link
+          to={`/player/album/${album.name}`}
+          state={{
+            data: album,
+            content: "album",
+          }}
+        >
+          {album.name}
+        </Link>
+      </TableCell>
+      <TableCell align="left">{formatDate(dateAdded)}</TableCell>
       <TableCell align="right">
         {minutes}:{seconds.length > 1 ? seconds : 0 + seconds}
       </TableCell>
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
           <LikeButton />
-          <MoreOptionsButton content="track-artist" />
+          <MoreOptionsButton content={"track-playlist"} />
         </div>
       </TableCell>
     </TableRow>
   );
 }
 
-export default ArtistTableCell;
+export default PlaylistTableCell;

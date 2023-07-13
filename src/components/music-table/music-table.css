@@ -39,10 +39,6 @@
 
 /* Desktop */
 @media only screen and (width >= 1024px) {
-  .table-margin {
-    height: 20px;
-  }
-
   .music-table-header {
     font-size: 1.5em;
   }

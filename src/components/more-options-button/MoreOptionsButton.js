@@ -32,6 +32,7 @@ function MoreOptionsButton({ content }) {
     switch (type) {
       case "track-album":
       case "track-artist":
+      case "track-playlist":
       case "track":
         return (
           <span className="album-track-options">
@@ -88,6 +89,7 @@ function MoreOptionsButton({ content }) {
           </span>
         );
       case "album":
+      case "playlist":
         return <MenuItem onClick={handleClose}>Add To Your Library</MenuItem>;
       default:
         break;

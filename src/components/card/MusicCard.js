@@ -27,7 +27,7 @@ function MusicCard({ data, content }) {
     <div className="music-card card animate__fadeIn">
       <Link
         className="image-link"
-        to={content === "playlist" ? `` : content === "track" ? `/player/track/${name}` : `/player/album/${name}`}
+        to={content === "playlist" ? `/player/playlist/${name}` : content === "track" ? `/player/track/${name}` : `/player/album/${name}`}
         state={{
           data: data,
           content: content,

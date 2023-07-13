@@ -84,8 +84,8 @@ function Album() {
       <MusicTable data={tracks} content={content} />
       <div className="copyrights d-flex flex-column justify-content-center">
         <p>{formatDate(release_date)}</p>
-        {copyrights.map((copyright) => (
-          <p key={copyright.text}>{copyright.text}</p>
+        {copyrights.map((copyright, index) => (
+          <p key={copyright.text + index}>{copyright.text}</p>
         ))}
       </div>
       <div className="more-by-artist">

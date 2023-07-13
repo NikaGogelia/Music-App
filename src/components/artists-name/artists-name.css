@@ -18,11 +18,13 @@
 }
 
 .album-details .artists-name,
-.track-details .artists-name {
+.track-details .artists-name,
+.playlist-details .artists-name {
   font-weight: 600;
 }
 
 .album-details .artists-name a,
-.track-details .artists-name a {
+.track-details .artists-name a,
+.playlist-details .artists-name a {
   color: var(--white) !important;
 }

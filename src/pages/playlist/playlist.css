@@ -1,1 +1,58 @@
 /* Playlist */
+.playlist-image {
+  border-radius: 8px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.playlist-details {
+  width: 100%;
+}
+
+.playlist-details > h1,
+.playlist-details > h6 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.playlist-details > h6,
+.playlist-info {
+  color: var(--gray);
+  font-weight: 700;
+}
+
+.playlist-info > span:nth-of-type(2)::before,
+.playlist-info > span:nth-of-type(3)::before {
+  content: "•";
+  margin: 0px 4px;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .playlist-image {
+    width: 23em;
+    height: 23em;
+  }
+
+  .playlist-details {
+    margin-left: 3em;
+  }
+
+  .playlist-details > h1 {
+    font-size: 5em;
+    margin: 0.1em 0 0.4em;
+  }
+
+  .playlist-details > h6:last-of-type {
+    margin-bottom: 1.5em;
+  }
+
+  .playlist-details > h6 {
+    font-size: 1em;
+  }
+
+  .playlist-info,
+  .playlist-info .artists-name {
+    font-size: 1.05em;
+  }
+}

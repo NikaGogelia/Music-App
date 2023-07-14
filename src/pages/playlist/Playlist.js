@@ -31,13 +31,8 @@ function Playlist() {
       ...requestConfig,
     }
   );
-  console.log(playlistData);
 
-  if (isLoading) return <Loader />;
-
-  const { images, name, owner, followers, description, tracks, type } =
-    playlistData;
-
+  // Search Bar
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -75,6 +70,11 @@ function Playlist() {
       },
     },
   }));
+
+  if (isLoading) return <Loader />;
+
+  const { images, name, owner, followers, description, tracks, type } =
+    playlistData;
 
   return (
     <div className="playlist">

@@ -1,5 +1,5 @@
 import "./music-table.css";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,13 +11,14 @@ import AlbumTableCell from "../music-table-cell/AlbumTableCell";
 import ArtistTableCell from "../music-table-cell/ArtistsTableCell";
 import PlaylistTableCell from "../music-table-cell/PlaylistTableCell";
 
-function MusicTable({ data, content }) {
+function MusicTable({ data, content, search }) {
   // Artist Table Features
   const [isShowMore, setIsShowMore] = useState(false);
 
   // Playlist Table Features
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("title");
+  const [nothingFound, setNothingFound] = useState(false);
 
   function handleRequestSort(_, property) {
     const isAsc = orderBy === property && order === "asc";
@@ -53,16 +54,29 @@ function MusicTable({ data, content }) {
     }
   }
 
-  function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
+  function sortedData(array, comparator) {
+    const sorted = array.map((el, index) => [el, index]);
+    sorted.sort((a, b) => {
       const order = comparator(a[0], b[0]);
       if (order !== 0) {
         return order;
       }
       return a[1] - b[1];
     });
-    return stabilizedThis.map((el) => el[0]);
+
+    return sorted
+      .map((el) => el[0])
+      .filter(
+        (item) =>
+          item.track.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.track.album.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.track.artists
+            .find((artist) =>
+              artist.name.toLowerCase().includes(search.toLowerCase())
+            )
+            ?.name.toLowerCase()
+            .includes(search.toLowerCase())
+      );
   }
 
   function getComparator(order, orderBy) {
@@ -150,6 +164,12 @@ function MusicTable({ data, content }) {
 
       // Playlist Table
       case "playlist":
+        const playlistData = sortedData(
+          data?.items,
+          getComparator(order, orderBy)
+        );
+
+        if (playlistData.length === 0) return null;
         return (
           <>
             <TableHead className="table-head">
@@ -160,7 +180,7 @@ function MusicTable({ data, content }) {
                 <TableCell align="center" width="3%"></TableCell>
                 <TableCell
                   align="left"
-                  width="55%"
+                  width="50%"
                   sortDirection={orderBy === "title" ? order : false}
                 >
                   <TableSortLabel
@@ -173,7 +193,7 @@ function MusicTable({ data, content }) {
                 </TableCell>
                 <TableCell
                   align="left"
-                  width="24%"
+                  width="29%"
                   sortDirection={orderBy === "album" ? order : false}
                 >
                   <TableSortLabel
@@ -229,17 +249,15 @@ function MusicTable({ data, content }) {
               </TableRow>
             </TableHead>
             <TableBody className="table-body">
-              {stableSort(data?.items, getComparator(order, orderBy))?.map(
-                (item, index) => (
-                  <PlaylistTableCell
-                    key={item.track.id}
-                    track={item.track}
-                    dateAdded={item.added_at}
-                    content={content}
-                    index={index}
-                  />
-                )
-              )}
+              {playlistData?.map((item, index) => (
+                <PlaylistTableCell
+                  key={item.track.id}
+                  track={item.track}
+                  dateAdded={item.added_at}
+                  content={content}
+                  index={index}
+                />
+              ))}
             </TableBody>
           </>
         );

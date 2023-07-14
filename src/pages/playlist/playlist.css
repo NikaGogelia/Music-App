@@ -27,6 +27,36 @@
   margin: 0px 4px;
 }
 
+.playlist-search-bar,
+.search-bar {
+  border: none;
+  border-radius: 5px;
+  font-family: var(--manrope);
+  font-weight: 500;
+  background-color: #292929;
+  color: var(--gray);
+  transition: 0.3s ease;
+}
+
+.playlist-search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.playlist-search-bar svg {
+  fill: var(--gray);
+}
+
+.search-bar {
+  height: 100%;
+  width: 100%;
+}
+
+.search-bar:focus,
+.search-bar:active {
+  outline: none;
+}
+
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .playlist-image {
@@ -54,5 +84,24 @@
   .playlist-info,
   .playlist-info .artists-name {
     font-size: 1.05em;
+  }
+
+  .playlist-search-bar {
+    padding: 0.5em 0.8em;
+    width: 12em;
+  }
+
+  .playlist-search-bar:hover {
+    width: 17em;
+  }
+
+  .playlist-search-bar svg {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: 0.4em;
+  }
+
+  .playlist-search-bar .search-bar {
+    font-size: 1em;
   }
 }

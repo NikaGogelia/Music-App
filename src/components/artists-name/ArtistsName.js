@@ -22,8 +22,8 @@ function ArtistsName({ artists, content }) {
                 state={{ data: artist, content: "artist" }}
               >
                 {artists.indexOf(artist) === artists.length - 1
-                  ? artist.name
-                  : artist.name + ","}
+                  ? artist?.name
+                  : artist?.name + ","}
               </Link>
             </Fragment>
           ))
@@ -32,7 +32,7 @@ function ArtistsName({ artists, content }) {
           // to={`/player/artist/${artists.display_name}`}
           // state={{ data: artists, content: "artist" }}
           >
-            {artists.display_name}
+            {artists?.display_name}
           </Link>
         )
       ) : (

@@ -1,5 +1,5 @@
 import "./music-table.css";
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,7 +18,6 @@ function MusicTable({ data, content, search }) {
   // Playlist Table Features
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("title");
-  const [nothingFound, setNothingFound] = useState(false);
 
   function handleRequestSort(_, property) {
     const isAsc = orderBy === property && order === "asc";

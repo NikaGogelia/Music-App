@@ -54,8 +54,8 @@ function MusicTable({ data, content, search }) {
   }
 
   function sortedData(array, comparator) {
-    const sorted = array.map((el, index) => [el, index]);
-    sorted.sort((a, b) => {
+    const sorted = array?.map((el, index) => [el, index]);
+    sorted?.sort((a, b) => {
       const order = comparator(a[0], b[0]);
       if (order !== 0) {
         return order;
@@ -64,12 +64,12 @@ function MusicTable({ data, content, search }) {
     });
 
     return sorted
-      .map((el) => el[0])
-      .filter(
+      ?.map((el) => el[0])
+      ?.filter(
         (item) =>
-          item.track.name.toLowerCase().includes(search.toLowerCase()) ||
-          item.track.album.name.toLowerCase().includes(search.toLowerCase()) ||
-          item.track.artists
+          item?.track.name.toLowerCase().includes(search.toLowerCase()) ||
+          item?.track.album.name.toLowerCase().includes(search.toLowerCase()) ||
+          item?.track.artists
             .find((artist) =>
               artist.name.toLowerCase().includes(search.toLowerCase())
             )
@@ -125,7 +125,7 @@ function MusicTable({ data, content, search }) {
               </TableRow>
             </TableHead>
             <TableBody className="table-body">
-              {data?.items.map((item) => (
+              {data?.items?.map((item) => (
                 <AlbumTableCell key={item.id} track={item} content={content} />
               ))}
             </TableBody>
@@ -168,7 +168,7 @@ function MusicTable({ data, content, search }) {
           getComparator(order, orderBy)
         );
 
-        if (playlistData.length === 0) return null;
+        if (playlistData?.length === 0) return null;
         return (
           <>
             <TableHead className="table-head">

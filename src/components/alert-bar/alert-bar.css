@@ -1,0 +1,17 @@
+/* Alert Bar */
+.alert-bar > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00b3c0;
+  border-radius: 8px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .alert-bar > div > div {
+    font-size: 1.2em;
+  }
+}

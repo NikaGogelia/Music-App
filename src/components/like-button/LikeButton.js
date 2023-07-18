@@ -1,24 +1,75 @@
-import "./like-button.css"
+import "./like-button.css";
 import { useEffect, useState } from "react";
-import { Howl } from "howler";
+import { useMutation, useQuery } from "react-query";
+import { useRootContext } from "../../context/RootContextProvider";
+import { useAlertBarContext } from "../../context/AlertBarContextProvider";
+import { useLikeContext } from "../../context/LikeContextProvider";
 
-function LikeButton() {
+function LikeButton({ content, track }) {
   const [like, setLike] = useState(false);
 
-  const sound = new Howl({
-    src: ["/assets/sounds/ting.mp3"],
-  });
+  const { baseApi, accessToken, fetchData } = useRootContext();
+  const { handleOpenAlert } = useAlertBarContext();
+  const likePassedData = useLikeContext();
+
+  // GET Check Track Is Saved Into The Liked Songs Or Not
+  const { data: checkSaved } = useQuery(
+    ["check-saved-track", track?.name],
+    () => fetchData(`${baseApi}/me/tracks/contains?ids=${track?.id}`),
+    { enabled: content === "track" && !!accessToken }
+  );
 
   useEffect(() => {
-    if (like) {
-      sound.play();
+    if (checkSaved?.length !== 0 && content === "track") {
+      if (checkSaved?.length && checkSaved[0] === true) {
+        setLike(true);
+      } else {
+        setLike(false);
+      }
+    } else {
+      setLike(false);
     }
-  });
+  }, [checkSaved, content]);
+
+  // PUT Add Track To Liked Songs
+  const likeTrack = useMutation(["like-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "put" })
+  );
+
+  // DELETE Remove Track From Liked Songs
+  const unlikeTrack = useMutation(["unlike-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
+  );
+
+  const handleSaveTrack = () => {
+    switch (content) {
+      case "track":
+        if (like) {
+          unlikeTrack.mutate(track?.id, {
+            onSuccess: () => setTimeout(() => likePassedData?.refetch(), 1200),
+          });
+        } else {
+          likeTrack.mutate(track?.id, {
+            onSuccess: () => setTimeout(() => likePassedData?.refetch(), 1200),
+          });
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <button
       className={`like-button ${like ? "like-button-active" : ""}`}
-      onClick={() => setLike(!like)}
+      onClick={() => {
+        handleSaveTrack();
+        setTimeout(() => {
+          setLike(!like);
+          handleOpenAlert("liked", !like);
+        }, 1500);
+      }}
       title={`${like ? "Remove From" : "Save To"} Your Library`}
     >
       <svg

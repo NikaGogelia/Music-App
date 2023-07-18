@@ -15,7 +15,7 @@ function ArtistTableCell({ track, index }) {
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
-  const {minutes, seconds} = useMusicTime(duration_ms);
+  const { minutes, seconds } = useMusicTime(duration_ms);
 
   return (
     <TableRow
@@ -98,7 +98,7 @@ function ArtistTableCell({ track, index }) {
       </TableCell>
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
-          <LikeButton />
+          <LikeButton content="track" track={track} />
           <MoreOptionsButton content="track-artist" />
         </div>
       </TableCell>

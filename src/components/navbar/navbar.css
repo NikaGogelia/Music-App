@@ -9,6 +9,7 @@
   color: var(--gray);
   font-family: var(--manrope);
   font-weight: 800;
+  text-align: center;
 }
 
 .nav-link:hover {
@@ -46,7 +47,7 @@
 }
 
 /* Desktop */
-@media only screen and (min-width: 1024px) {
+@media only screen and (width >= 1024px) {
   .nav-brand img {
     width: 3em;
     height: 3em;

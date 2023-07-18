@@ -30,7 +30,7 @@ function TrackDetails() {
     }
   );
 
-  console.log(trackData)
+  console.log(trackData);
 
   const { minutes, seconds } = useMusicTime(trackData?.duration_ms);
 
@@ -63,7 +63,7 @@ function TrackDetails() {
           </div>
         </div>
       </div>
-      <DetailPageOptions content={content} />
+      <DetailPageOptions content={content} track={trackData}/>
     </div>
   );
 }

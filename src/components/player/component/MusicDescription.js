@@ -15,11 +15,9 @@ function MusicDescription() {
         <Link>
           <h4>Remember</h4>
         </Link>
-        <span>
-          {/* <ArtistsName artists={} /> */}
-        </span>
+        <span>{/* <ArtistsName artists={} /> */}</span>
       </div>
-      <LikeButton />
+      <LikeButton track={{}} content="" />
     </div>
   );
 }

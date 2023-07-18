@@ -5,8 +5,6 @@ import { useRootContext } from "../../context/RootContextProvider";
 import { useMusicQuery } from "../../hooks/useMusic";
 import Loader from "../../components/loader/Loader";
 import SliderContent from "../../components/slider-content/SliderContent";
-import MusicCard from "../../components/card/MusicCard";
-import ArtistCard from "../../components/card/ArtistCard";
 
 function Home() {
   const { baseApi, accessToken, fetchData, randomGenre } = useRootContext();

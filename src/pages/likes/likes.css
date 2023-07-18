@@ -1,1 +1,138 @@
 /* Likes */
+.likes-image {
+  border-radius: 8px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.likes-details {
+  width: 100%;
+}
+
+.likes-details > h1,
+.likes-details > h6 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.likes-details > h6,
+.likes-info {
+  color: var(--gray);
+  font-weight: 700;
+}
+
+.likes-info > span:nth-of-type(2)::before,
+.likes-info > span:nth-of-type(3)::before {
+  content: "•";
+  margin: 0px 4px;
+}
+
+.likes-search-bar,
+.search-bar {
+  border: none;
+  border-radius: 20px;
+  font-family: var(--manrope);
+  font-weight: 600;
+  background-color: #292929;
+  color: var(--gray);
+  transition: 0.3s ease;
+}
+
+.likes-search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.likes-search-bar svg {
+  fill: var(--gray);
+}
+
+.search-bar {
+  height: 100%;
+  width: 100%;
+}
+
+.search-bar:focus,
+.search-bar:active {
+  outline: none;
+}
+
+.liked-songs-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.liked-songs-pagination > ul > li > button {
+  color: var(--white) !important;
+  background-color: transparent;
+  border-radius: 100%;
+  font-weight: 600;
+}
+
+.liked-songs-pagination > ul > li > button:hover {
+  background-color: #ffffff1a !important;
+}
+
+.liked-songs-pagination > ul > li > button.Mui-selected {
+  background-color: #ffffff3a !important;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .likes-image {
+    width: 23em;
+    height: 23em;
+  }
+
+  .likes-details {
+    margin-left: 3em;
+  }
+
+  .likes-details > h1 {
+    font-size: 5em;
+    margin: 0 0 0.3em;
+  }
+
+  .likes-details > h6:last-of-type {
+    margin-bottom: 0.5em;
+  }
+
+  .likes-details > h6 {
+    font-size: 1em;
+  }
+
+  .likes-info,
+  .likes-info .artists-name {
+    font-size: 1.05em;
+  }
+
+  .likes-search-bar {
+    padding: 0.5em 0.8em;
+    width: 12em;
+  }
+
+  .likes-search-bar:hover {
+    width: 17em;
+  }
+
+  .likes-search-bar svg {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: 0.6em;
+  }
+
+  .likes-search-bar .search-bar {
+    font-size: 1em;
+  }
+
+  .liked-songs-pagination {
+    margin-top: 1em;
+  }
+
+  .liked-songs-pagination > ul > li > button {
+    width: 2.5em;
+    height: 2.5em;
+    margin: 0 0.3em;
+  }
+}

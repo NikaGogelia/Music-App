@@ -13,7 +13,7 @@
 
 .root-layout > main {
   overflow: auto;
-  height: 100%; 
+  height: 100%;
 }
 
 .root-layout > main > div {
@@ -33,7 +33,7 @@ footer {
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .root-layout aside {
-    width: 7em;
+    width: 7.5em;
   }
 
   .root-layout > main > div,
@@ -52,6 +52,6 @@ footer {
   }
 
   .root-layout > main > aside > nav {
-    padding: 1.5em 2em;
+    padding: 1.5em;
   }
 }

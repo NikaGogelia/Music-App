@@ -6,11 +6,11 @@ function AlertBarContextProvider({ children }) {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const handleOpenAlert = (type, open) => {
+  const handleOpenAlert = (type, liked) => {
     setOpenAlert(true);
     switch (type) {
       case "liked-track":
-        if (open === true) {
+        if (liked === true) {
           setAlertMessage("Added To Your Liked Songs");
         } else {
           setAlertMessage("Removed From Your Liked Songs");
@@ -18,7 +18,7 @@ function AlertBarContextProvider({ children }) {
         break;
       case "liked-album":
       case "liked-playlist":
-        if (open === true) {
+        if (liked === true) {
           setAlertMessage("Saved To Your Library");
         } else {
           setAlertMessage("Removed From Your Library");

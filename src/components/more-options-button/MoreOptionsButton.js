@@ -2,6 +2,7 @@ import "./more-options-button.css";
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
+import { useAlertBarContext } from "../../context/AlertBarContextProvider";
 import { useLikeContext } from "../../context/LikeContextProvider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,6 +21,7 @@ function MoreOptionsButton({ content, track }) {
   const { accessToken, baseApi, user, userPlaylist, fetchData } =
     useRootContext();
   const trackPassedData = useLikeContext();
+  const { handleOpenAlert } = useAlertBarContext();
 
   const handleCollapse = () => {
     setCollapse(!collapse);
@@ -82,6 +84,26 @@ function MoreOptionsButton({ content, track }) {
     }
   }, [checkSaved, content]);
 
+  const handleSaveTrack = () => {
+    if (trackLiked) {
+      unlikeTrack.mutate(track?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            trackPassedData?.refetch();
+            refetch();
+          }, 1200),
+      });
+    } else {
+      likeTrack.mutate(track?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            trackPassedData?.refetch();
+            refetch();
+          }, 1200),
+      });
+    }
+  };
+
   const renderMenuSwitch = (type) => {
     switch (type) {
       case "track-album":
@@ -93,23 +115,10 @@ function MoreOptionsButton({ content, track }) {
             <MenuItem
               onClick={() => {
                 handleClose();
-                if (trackLiked) {
-                  unlikeTrack.mutate(track?.id, {
-                    onSuccess: () =>
-                      setTimeout(() => {
-                        trackPassedData?.refetch();
-                        refetch();
-                      }, 1200),
-                  });
-                } else {
-                  likeTrack.mutate(track?.id, {
-                    onSuccess: () =>
-                      setTimeout(() => {
-                        trackPassedData?.refetch();
-                        refetch();
-                      }, 1200),
-                  });
-                }
+                setTimeout(() => {
+                  handleSaveTrack();
+                  handleOpenAlert("liked-track", !trackLiked)
+                }, 1500);
               }}
             >
               {trackText}

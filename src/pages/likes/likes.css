@@ -131,8 +131,12 @@
   }
 
   .liked-songs-pagination > ul > li > button {
-    width: 2.5em;
-    height: 2.5em;
-    margin: 0 0.3em;
+    width: 2.8em;
+    height: 2.8em;
+    margin: 0 0.35em;
+  }
+
+  .liked-songs-pagination > ul > li > button svg {
+    font-size: 1.5em;
   }
 }

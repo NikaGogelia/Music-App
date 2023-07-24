@@ -93,6 +93,7 @@ function MusicTable({ data, content, search }) {
     switch (content) {
       // Album Table
       case "album":
+        const albumTracks = data?.items;
         return (
           <>
             <TableHead className="table-head">
@@ -125,7 +126,7 @@ function MusicTable({ data, content, search }) {
               </TableRow>
             </TableHead>
             <TableBody className="table-body">
-              {data?.items?.map((item) => (
+              {albumTracks?.map((item) => (
                 <AlbumTableCell key={item.id} track={item} content={content} />
               ))}
             </TableBody>
@@ -134,7 +135,7 @@ function MusicTable({ data, content, search }) {
 
       // Artist Table
       case "artist":
-        const renderedTracks = isShowMore
+        const artistTracks = isShowMore
           ? data?.tracks.slice(0)
           : data?.tracks.slice(0, 5);
         return (
@@ -149,7 +150,7 @@ function MusicTable({ data, content, search }) {
               </TableRow>
             </TableHead>
             <TableBody className="table-body">
-              {renderedTracks?.map((item, index) => (
+              {artistTracks?.map((item, index) => (
                 <ArtistTableCell
                   key={item.id}
                   track={item}
@@ -163,12 +164,12 @@ function MusicTable({ data, content, search }) {
 
       // Playlist Table
       case "playlist":
-        const playlistData = sortedData(
+        const playlistTracks = sortedData(
           data?.items,
           getComparator(order, orderBy)
         );
 
-        if (playlistData?.length === 0) return null;
+        if (playlistTracks?.length === 0) return null;
         return (
           <>
             <TableHead className="table-head">
@@ -248,7 +249,7 @@ function MusicTable({ data, content, search }) {
               </TableRow>
             </TableHead>
             <TableBody className="table-body">
-              {playlistData?.map((item, index) => (
+              {playlistTracks?.map((item, index) => (
                 <PlaylistTableCell
                   key={item.track.id}
                   track={item.track}
@@ -272,7 +273,7 @@ function MusicTable({ data, content, search }) {
       <TableContainer className={`table-container ${content}`}>
         <Table>{renderTableSwitch()}</Table>
       </TableContainer>
-      {content === "artist" && (
+      {content === "artist" && data?.tracks?.length >= 5 && (
         <button className="see-more" onClick={() => setIsShowMore(!isShowMore)}>
           {isShowMore ? "Show Less" : "See More"}
         </button>

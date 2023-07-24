@@ -11,7 +11,7 @@ function AlertBar() {
       open={openAlert}
       onClose={handleCloseAlert}
       message={alertMessage}
-      autoHideDuration={1000} 
+      autoHideDuration={1500} 
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     />
   );

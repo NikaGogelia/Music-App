@@ -119,7 +119,7 @@ function PlaylistTableCell({ track, dateAdded, content, index }) {
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
           <LikeButton content="track" track={track} />
-          <MoreOptionsButton content={"track-playlist"} />
+          <MoreOptionsButton content={"track-playlist"} track={track} />
         </div>
       </TableCell>
     </TableRow>

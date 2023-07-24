@@ -1,7 +1,7 @@
 import "./likes.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useState } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LikeContextProvider from "../../context/LikeContextProvider";
@@ -39,7 +39,7 @@ function Likes() {
     data: likedSongsData,
     isLoading,
     refetch,
-  } = useInfiniteQuery(
+  } = useQuery(
     ["liked-songs", offset],
     () => fetchData(`${baseApi}/me/tracks?limit=${limit}&offset=${offset}`),
     requestConfig
@@ -59,12 +59,12 @@ function Likes() {
           <h6 className="d-flex align-items-center">Playlist</h6>
           <h1>Liked Songs</h1>
           <div className="likes-info d-flex align-items-center">
-            <span>{likedSongsData?.pages[0]?.total} Songs</span>
+            <span>{likedSongsData?.total} Songs</span>
           </div>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center">
-        <DetailPageOptions content="" />
+        <DetailPageOptions />
         <div className="likes-search-bar">
           <svg
             width={16}
@@ -91,17 +91,13 @@ function Likes() {
         </div>
       </div>
       <LikeContextProvider refetch={refetch}>
-        <MusicTable
-          data={likedSongsData?.pages[0]}
-          content="playlist"
-          search={search}
-        />
+        <MusicTable data={likedSongsData} content="playlist" search={search} />
       </LikeContextProvider>
       <Pagination
         className="liked-songs-pagination"
         onChange={handleChangePagination}
         page={page}
-        count={parseInt(Math.ceil(likedSongsData?.pages[0]?.total / 50))}
+        count={parseInt(Math.ceil(likedSongsData?.total / 50))}
       />
     </div>
   );

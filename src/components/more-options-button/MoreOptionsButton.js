@@ -1,6 +1,8 @@
 import "./more-options-button.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
+import { useLikeContext } from "../../context/LikeContextProvider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
@@ -8,12 +10,16 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Collapse from "@mui/material/Collapse";
 
-function MoreOptionsButton({ content }) {
+function MoreOptionsButton({ content, track }) {
+  const [trackText, setTrackText] = useState("");
+  const [trackLiked, setTrackLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [collapse, setCollapse] = useState(false);
   const open = Boolean(anchorEl);
 
-  const { user, userPlaylist } = useRootContext();
+  const { accessToken, baseApi, user, userPlaylist, fetchData } =
+    useRootContext();
+  const trackPassedData = useLikeContext();
 
   const handleCollapse = () => {
     setCollapse(!collapse);
@@ -28,6 +34,54 @@ function MoreOptionsButton({ content }) {
     setCollapse(false);
   };
 
+  // GET Check Track Is Saved Into The Liked Songs Or Not
+  const { data: checkSaved, refetch } = useQuery(
+    ["check-saved-track", track?.name],
+    () => fetchData(`${baseApi}/me/tracks/contains?ids=${track?.id}`),
+    {
+      enabled:
+        (content === "track-playlist" ||
+          content === "track-album" ||
+          content === "track-artist" ||
+          content === "track") &&
+        !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+    }
+  );
+
+  // PUT Add Track To Liked Songs
+  const likeTrack = useMutation(["like-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "put" })
+  );
+
+  // DELETE Remove Track From Liked Songs
+  const unlikeTrack = useMutation(["unlike-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
+  );
+
+  // Set Like State To True Or False
+  useEffect(() => {
+    if (
+      checkSaved?.length !== 0 &&
+      (content === "track-playlist" ||
+        content === "track-album" ||
+        content === "track-artist" ||
+        content === "track")
+    ) {
+      if (checkSaved?.length && checkSaved[0] === true) {
+        setTrackText("Remove From Your Liked Songs");
+        setTrackLiked(true);
+      } else {
+        setTrackText("Save To Your Liked Songs");
+        setTrackLiked(false);
+      }
+    } else {
+      setTrackText("");
+      setTrackLiked(false);
+    }
+  }, [checkSaved, content]);
+
   const renderMenuSwitch = (type) => {
     switch (type) {
       case "track-album":
@@ -36,7 +90,30 @@ function MoreOptionsButton({ content }) {
       case "track":
         return (
           <span className="album-track-options">
-            <MenuItem onClick={handleClose}>Save To Your Liked Songs</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                if (trackLiked) {
+                  unlikeTrack.mutate(track?.id, {
+                    onSuccess: () =>
+                      setTimeout(() => {
+                        trackPassedData?.refetch();
+                        refetch();
+                      }, 1200),
+                  });
+                } else {
+                  likeTrack.mutate(track?.id, {
+                    onSuccess: () =>
+                      setTimeout(() => {
+                        trackPassedData?.refetch();
+                        refetch();
+                      }, 1200),
+                  });
+                }
+              }}
+            >
+              {trackText}
+            </MenuItem>
             <MenuItem>
               <List sx={{ width: "100%" }}>
                 <ListItemButton

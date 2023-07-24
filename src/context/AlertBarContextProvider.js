@@ -9,15 +9,23 @@ function AlertBarContextProvider({ children }) {
   const handleOpenAlert = (type, open) => {
     setOpenAlert(true);
     switch (type) {
-      case "liked":
+      case "liked-track":
         if (open === true) {
           setAlertMessage("Added To Your Liked Songs");
         } else {
           setAlertMessage("Removed From Your Liked Songs");
         }
         break;
+      case "liked-album":
+      case "liked-playlist":
+        if (open === true) {
+          setAlertMessage("Saved To Your Library");
+        } else {
+          setAlertMessage("Removed From Your Library");
+        }
+        break;
       default:
-        setAlertMessage("");
+        setAlertMessage("No Data");
         break;
     }
   };

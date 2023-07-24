@@ -10,7 +10,7 @@ function DetailPageOptions({ content, track }) {
       {content === "album" || content === "track" || content === "playlist" ? (
         <div className="d-flex align-items-center">
           <LikeButton content={content} track={track} />
-          <MoreOptionsButton content={content} />
+          <MoreOptionsButton content={content} track={track}/>
         </div>
       ) : null}
     </div>

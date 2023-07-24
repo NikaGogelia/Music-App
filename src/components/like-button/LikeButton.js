@@ -16,9 +16,24 @@ function LikeButton({ content, track }) {
   const { data: checkSaved } = useQuery(
     ["check-saved-track", track?.name],
     () => fetchData(`${baseApi}/me/tracks/contains?ids=${track?.id}`),
-    { enabled: content === "track" && !!accessToken }
+    {
+      enabled: content === "track" && !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+    }
   );
 
+  // PUT Add Track To Liked Songs
+  const likeTrack = useMutation(["like-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "put" })
+  );
+
+  // DELETE Remove Track From Liked Songs
+  const unlikeTrack = useMutation(["unlike-track", track?.name], (id) =>
+    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
+  );
+
+  // Set Like State To True Or False
   useEffect(() => {
     if (checkSaved?.length !== 0 && content === "track") {
       if (checkSaved?.length && checkSaved[0] === true) {
@@ -31,17 +46,7 @@ function LikeButton({ content, track }) {
     }
   }, [checkSaved, content]);
 
-  // PUT Add Track To Liked Songs
-  const likeTrack = useMutation(["like-track", track?.name], (id) =>
-    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "put" })
-  );
-
-  // DELETE Remove Track From Liked Songs
-  const unlikeTrack = useMutation(["unlike-track", track?.name], (id) =>
-    fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
-  );
-
-  const handleSaveTrack = () => {
+  const handleSave = () => {
     switch (content) {
       case "track":
         if (like) {
@@ -64,10 +69,10 @@ function LikeButton({ content, track }) {
     <button
       className={`like-button ${like ? "like-button-active" : ""}`}
       onClick={() => {
-        handleSaveTrack();
+        handleSave();
         setTimeout(() => {
           setLike(!like);
-          handleOpenAlert("liked", !like);
+          handleOpenAlert(`liked-${content}`, !like);
         }, 1500);
       }}
       title={`${like ? "Remove From" : "Save To"} Your Library`}

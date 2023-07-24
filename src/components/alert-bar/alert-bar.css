@@ -3,15 +3,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #00b3c0;
-  border-radius: 8px;
+  background-color: #2f8bc0;
+  border-radius: 6px;
   color: var(--white);
   font-weight: 600;
 }
 
 /* Desktop */
 @media only screen and (width >= 1024px) {
+  .alert-bar > div {
+    padding: 0.6em 1.5em;
+  }
+
   .alert-bar > div > div {
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 }

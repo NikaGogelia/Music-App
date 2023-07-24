@@ -99,7 +99,7 @@ function ArtistTableCell({ track, index }) {
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
           <LikeButton content="track" track={track} />
-          <MoreOptionsButton content="track-artist" />
+          <MoreOptionsButton content="track-artist" track={track} />
         </div>
       </TableCell>
     </TableRow>

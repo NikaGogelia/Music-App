@@ -93,7 +93,7 @@ function AlbumTableCell({ track, content }) {
       <TableCell align="center" className="table-cell-options">
         <div className="d-flex align-items-center">
           <LikeButton content="track" track={track} />
-          <MoreOptionsButton content={"track-album"} />
+          <MoreOptionsButton content={"track-album"} track={track} />
         </div>
       </TableCell>
     </TableRow>

@@ -54,7 +54,7 @@ function SliderContent({ data, error, content, name }) {
       </div>
     );
 
-  if (data?.length === 0)
+  if (data?.length === 0 || data === undefined)
     return (
       <div
         className={`${name} slider-content animate__fadeInLeft warning-case d-none`}

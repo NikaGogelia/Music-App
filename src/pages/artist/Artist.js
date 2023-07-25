@@ -46,7 +46,7 @@ function Artist() {
     ["discography", propsData.name],
     () =>
       fetchData(
-        `${baseApi}/artists/${artistData.id}/albums?include_groups=album,single&market=GE&limit=20`
+        `${baseApi}/artists/${artistData.id}/albums?include_groups=album,single&market=GE&limit=50`
       ),
     {
       enabled: !!accessToken && !!artistData,
@@ -59,7 +59,7 @@ function Artist() {
     ["appears-on", propsData.name],
     () =>
       fetchData(
-        `${baseApi}/artists/${artistData.id}/albums?include_groups=appears_on&market=GE&limit=20`
+        `${baseApi}/artists/${artistData.id}/albums?include_groups=appears_on&market=GE&limit=50`
       ),
     {
       enabled: !!accessToken && !!artistData,
@@ -91,7 +91,7 @@ function Artist() {
         <LazyLoadImage
           className="artist-image"
           effect="blur"
-          src={images[0].url}
+          src={images[0]?.url}
           alt="artist-img"
         />
         <div className="artist-details d-flex flex-column justify-content-end align-items-start">

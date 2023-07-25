@@ -1,1 +1,38 @@
 /* Search */
+.search-search-bar,
+.search-bar {
+  border: none;
+  border-radius: 30px;
+  font-family: var(--manrope);
+  font-weight: 600;
+  background-color: #292929;
+  color: var(--white) !important;
+  transition: 0.3s ease;
+}
+
+.search-search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-search-bar svg {
+  fill: var(--gray);
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .search-search-bar {
+    padding: 1em;
+    width: 25em;
+  }
+
+  .search-search-bar svg {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: 0.4em;
+  }
+
+  .search-search-bar .search-bar {
+    font-size: 1em;
+  }
+}

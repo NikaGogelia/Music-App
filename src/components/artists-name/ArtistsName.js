@@ -12,7 +12,12 @@ const textStyles = {
 
 function ArtistsName({ artists, content }) {
   return (
-    <Typography noWrap sx={textStyles} className="artists-name" variant="body1">
+    <Typography
+      noWrap
+      sx={textStyles}
+      className="artists-name"
+      variant="body1"
+    >
       {content === "playlist" ? (
         content === "track-playlist" ? (
           artists?.map((artist) => (
@@ -25,6 +30,7 @@ function ArtistsName({ artists, content }) {
                   ? artist?.name
                   : artist?.name + ","}
               </Link>
+              &nbsp;
             </Fragment>
           ))
         ) : (
@@ -46,6 +52,7 @@ function ArtistsName({ artists, content }) {
                 ? artist.name
                 : artist.name + ","}
             </Link>
+            &nbsp;
           </Fragment>
         ))
       )}

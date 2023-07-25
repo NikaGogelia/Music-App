@@ -21,13 +21,17 @@ function MusicCard({ data, content }) {
     [content === "playlist" ? "owner" : "artists"]: artistInfo,
   } = data;
 
-  const { url } = content === "track" ? album?.images[0] : images[0];
-
   return (
     <div className="music-card card animate__fadeIn">
       <Link
         className="image-link"
-        to={content === "playlist" ? `/player/playlist/${name}` : content === "track" ? `/player/track/${name}` : `/player/album/${name}`}
+        to={
+          content === "playlist"
+            ? `/player/playlist/${name}`
+            : content === "track"
+            ? `/player/track/${name}`
+            : `/player/album/${name}`
+        }
         state={{
           data: data,
           content: content,
@@ -36,7 +40,7 @@ function MusicCard({ data, content }) {
         <LazyLoadImage
           className="card-img-top"
           effect="blur"
-          src={url}
+          src={content === "track" ? album?.images[0]?.url : images[0]?.url}
           alt="card-img"
         />
       </Link>

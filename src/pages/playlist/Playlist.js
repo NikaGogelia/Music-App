@@ -85,6 +85,7 @@ function Playlist() {
             type="text"
             name="search"
             autoComplete="off"
+            spellCheck="false"
             onChange={handleSearchChange}
             placeholder="Search in playlist"
             value={search}

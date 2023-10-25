@@ -4,30 +4,41 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useTheme } from "@mui/material/styles";
+import { Box, IconButton, TablePagination } from "@mui/material";
 import LikeContextProvider from "../../context/LikeContextProvider";
 import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
-import Pagination from "@mui/material/Pagination";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
 
 function Likes() {
   const [search, setSearch] = useState("");
-  const [offset, setOffset] = useState(0);
-  const [page, setPage] = useState(1);
+  const [offset, setOffset] = useState(
+    sessionStorage.getItem("likes-table-offset") === null
+      ? 0
+      : parseInt(sessionStorage.getItem("likes-table-offset"))
+  );
+  const [page, setPage] = useState(
+    sessionStorage.getItem("likes-table-page") === null
+      ? 0
+      : parseInt(sessionStorage.getItem("likes-table-page"))
+  );
+  const [rowsPerPage, setRowsPerPage] = useState(
+    sessionStorage.getItem("likes-table-rows") === null
+      ? 10
+      : parseInt(sessionStorage.getItem("likes-table-rows"))
+  );
 
   const { baseApi, accessToken, fetchData } = useRootContext();
-
-  const limit = 50;
 
   const requestConfig = {
     enabled: !!accessToken,
     refetchOnWindowFocus: true,
     staleTime: 0,
-  };
-
-  const handleChangePagination = (_, value) => {
-    setPage(value);
-    setOffset(() => (value - 1) * limit);
   };
 
   const handleSearchChange = (event) => {
@@ -41,9 +52,92 @@ function Likes() {
     refetch,
   } = useQuery(
     ["liked-songs", offset],
-    () => fetchData(`${baseApi}/me/tracks?limit=${limit}&offset=${offset}`),
+    () =>
+      fetchData(`${baseApi}/me/tracks?limit=${rowsPerPage}&offset=${offset}`),
     requestConfig
   );
+
+  // Pagination
+  const handleChangePagination = (_, value) => {
+    const offsetVal = value * rowsPerPage;
+    sessionStorage.setItem("likes-table-page", value);
+    sessionStorage.setItem("likes-table-offset", offsetVal);
+    setPage(value);
+    setOffset(() => offsetVal);
+    refetch();
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    sessionStorage.setItem(
+      "likes-table-rows",
+      parseInt(event.target.value, 10)
+    );
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    setTimeout(() => refetch(), 1000);
+  };
+
+  function TablePaginationActions(props) {
+    const theme = useTheme();
+    const { count, page, rowsPerPage, onPageChange } = props;
+
+    const handleFirstPageButtonClick = (event) => {
+      onPageChange(event, 0);
+    };
+
+    const handleBackButtonClick = (event) => {
+      onPageChange(event, page - 1);
+    };
+
+    const handleNextButtonClick = (event) => {
+      onPageChange(event, page + 1);
+    };
+
+    const handleLastPageButtonClick = (event) => {
+      onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+    };
+
+    return (
+      <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+        <IconButton
+          onClick={handleFirstPageButtonClick}
+          disabled={page === 0}
+          aria-label="first page"
+        >
+          {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+        </IconButton>
+        <IconButton
+          onClick={handleBackButtonClick}
+          disabled={page === 0}
+          aria-label="previous page"
+        >
+          {theme.direction === "rtl" ? (
+            <KeyboardArrowRight />
+          ) : (
+            <KeyboardArrowLeft />
+          )}
+        </IconButton>
+        <IconButton
+          onClick={handleNextButtonClick}
+          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          aria-label="next page"
+        >
+          {theme.direction === "rtl" ? (
+            <KeyboardArrowLeft />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+        </IconButton>
+        <IconButton
+          onClick={handleLastPageButtonClick}
+          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          aria-label="last page"
+        >
+          {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+        </IconButton>
+      </Box>
+    );
+  }
 
   if (isLoading) return <Loader />;
   return (
@@ -93,12 +187,19 @@ function Likes() {
       <LikeContextProvider refetch={refetch}>
         <MusicTable data={likedSongsData} content="playlist" search={search} />
       </LikeContextProvider>
-      <Pagination
-        className="liked-songs-pagination"
-        onChange={handleChangePagination}
-        page={page}
-        count={parseInt(Math.ceil(likedSongsData?.total / 50))}
-      />
+      {likedSongsData?.total === undefined ? null : (
+        <TablePagination
+          className="liked-songs-pagination"
+          rowsPerPageOptions={[10, 20, 50]}
+          component="div"
+          count={likedSongsData?.total}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePagination}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          ActionsComponent={TablePaginationActions}
+        />
+      )}
     </div>
   );
 }

@@ -37,7 +37,10 @@ body {
 
 h1,
 h2,
-h3,h4,h5,h6 {
+h3,
+h4,
+h5,
+h6 {
   font-weight: 900;
 }
 
@@ -83,4 +86,32 @@ h3,h4,h5,h6 {
   color: var(--white);
   background-position: 75% 50%;
   transform: perspective(100px);
+}
+
+/* Menu */
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper {
+  background-color: #242424 !important;
+  color: var(--gray) !important;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper li {
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  font-family: var(--manrope) !important;
+  transition: 0.3s;
+}
+
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper li.Mui-selected {
+  background-color: #333333 !important;
+  color: var(--white);
+}
+
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper li:hover {
+  background-color: #4b4b4b;
+}
+
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper li:last-of-type {
+  border: none;
 }

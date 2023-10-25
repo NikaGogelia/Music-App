@@ -22,7 +22,7 @@ function NotFound() {
         />
         <div className="page-not-found-info d-flex flex-column justify-content-center align-items-center">
           <img src="/assets/icons/brand-logo.svg" alt="brand-logo" />
-          <h1>404 Page Not Found</h1>
+          <h1>Page Not Found</h1>
         </div>
         <Link to="/player/home" className="page-not-found-button button">
           Return To Home

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import PlayButton from "../play-button/PlayButton";
 
 function ArtistCard({ data, content }) {
-  const { images, name, type } = data;
+  const { images, name, id, type } = data;
 
   const textStyles = {
     overflow: "hidden",
@@ -19,7 +19,7 @@ function ArtistCard({ data, content }) {
     <div className="artist-card card animate__fadeIn">
       <Link
         className="image-link"
-        to={`/player/artist/${name}`}
+        to={`/player/artist/${id}`}
         state={{
           data: data,
           content: content,

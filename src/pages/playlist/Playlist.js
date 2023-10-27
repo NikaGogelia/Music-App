@@ -54,7 +54,10 @@ function Playlist() {
         <div className="playlist-details d-flex flex-column justify-content-end align-items-start">
           <h6 className="d-flex align-items-center">{type}</h6>
           <h1>{name}</h1>
-          <h6 className="d-flex align-items-center">{description}</h6>
+          <h6
+            className="d-flex align-items-center"
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></h6>
           <div className="playlist-info d-flex align-items-center">
             <span>
               <ArtistsName artists={owner} content={content} />

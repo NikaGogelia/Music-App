@@ -33,6 +33,7 @@ body {
   color: var(--white);
   font-family: var(--manrope);
   overflow: hidden;
+  min-width: 1024px !important;
 }
 
 h1,

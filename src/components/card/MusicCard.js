@@ -14,45 +14,51 @@ const textStyles = {
 };
 
 function MusicCard({ data, content }) {
-  const {
-    album,
-    images,
-    name,
-    [content === "playlist" ? "owner" : "artists"]: artistInfo,
-  } = data;
+  if (data !== null) {
+    const { [content === "playlist" ? "owner" : "artists"]: artistInfo } = data;
 
-  return (
-    <div className="music-card card animate__fadeIn">
-      <Link
-        className="image-link"
-        to={
-          content === "playlist"
-            ? `/player/playlist/${name}`
-            : content === "track"
-            ? `/player/track/${name}`
-            : `/player/album/${name}`
-        }
-        state={{
-          data: data,
-          content: content,
-        }}
-      >
-        <LazyLoadImage
-          className="card-img-top"
-          effect="blur"
-          src={content === "track" ? album?.images[0]?.url : images[0]?.url}
-          alt="card-img"
-        />
-      </Link>
-      <PlayButton />
-      <div className="card-body">
-        <Typography noWrap sx={textStyles} className="card-title" variant="h4">
-          {name}
-        </Typography>
-        <ArtistsName artists={artistInfo} content={content} />
+    return (
+      <div className="music-card card animate__fadeIn">
+        <Link
+          className="image-link"
+          to={
+            content === "playlist"
+              ? `/player/playlist/${data?.id}`
+              : content === "track"
+              ? `/player/track/${data?.id}`
+              : `/player/album/${data?.id}`
+          }
+          state={{
+            data: data,
+            content: content,
+          }}
+        >
+          <LazyLoadImage
+            className="card-img-top"
+            effect="blur"
+            src={
+              content === "track"
+                ? data?.album?.images[0]?.url
+                : data?.images[0]?.url
+            }
+            alt="card-img"
+          />
+        </Link>
+        <PlayButton />
+        <div className="card-body">
+          <Typography
+            noWrap
+            sx={textStyles}
+            className="card-title"
+            variant="h4"
+          >
+            {data?.name}
+          </Typography>
+          <ArtistsName artists={artistInfo} content={content} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default MusicCard;

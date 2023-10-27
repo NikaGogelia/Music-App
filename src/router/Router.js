@@ -17,6 +17,7 @@ import Playlist from "../pages/playlist/Playlist";
 import Album from "../pages/album/Album";
 import Artist from "../pages/artist/Artist";
 import TrackDetails from "../pages/track-details/TrackDetails";
+import CategoryPlaylist from "../pages/category-playlist/CategoryPlaylist";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
         <Route path="likes" element={<Likes />} />
         <Route path="show-all/:id" element={<ShowAll />} />
         <Route path="playlist/:id" element={<Playlist />} />
+        <Route path="category-playlist/:id" element={<CategoryPlaylist />} />
         <Route path="album/:id" element={<Album />} />
         <Route path="artist/:id" element={<Artist />} />
         <Route path="track/:id" element={<TrackDetails />} />

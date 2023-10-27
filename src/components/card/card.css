@@ -73,19 +73,24 @@
 }
 
 .category-card {
-  background-color: transparent !important;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  text-decoration: none;
+  color: var(--white) !important;
 }
 
 .category-card .lazy-load-image-background {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
+  bottom: 0;
+  right: 0;
+  width: 65%;
+  height: 65%;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  transform: rotate(25deg) translate(18%, -2%);
 }
 
 .category-card .lazy-load-image-background > img {
-  border-radius: 8px;
   width: 100% !important;
   height: 100% !important;
 }

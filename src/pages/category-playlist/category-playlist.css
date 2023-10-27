@@ -1,0 +1,8 @@
+/* Category Playlist */
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .category-playlist .music-card {
+    margin: 1em;
+  }
+}

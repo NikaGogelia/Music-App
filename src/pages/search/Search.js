@@ -5,40 +5,39 @@ import { useRootContext } from "../../context/RootContextProvider";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import SliderContent from "../../components/slider-content/SliderContent";
+import CategoryCard from "../../components/card/CategoryCard";
 
 function Search() {
-  const [search, setSearch] = useState(localStorage.getItem("searchQ"));
-  const [selectType, setSelectType] = useState(localStorage.getItem("selectQ"));
+  const [search, setSearch] = useState(
+    sessionStorage.getItem("searchQ") === null
+      ? ""
+      : sessionStorage.getItem("searchQ")
+  );
+  const [selectType, setSelectType] = useState(
+    sessionStorage.getItem("selectQ") === null
+      ? "all"
+      : sessionStorage.getItem("selectQ")
+  );
 
   const { baseApi, accessToken, fetchData } = useRootContext();
 
   const queryClient = useQueryClient();
 
-  const handleSearchChange = (event) => {
-    localStorage.setItem("searchQ", event.target.value);
-    setSearch(event.target.value);
-  };
-
-  const handleSelectType = (event) => {
-    localStorage.setItem("selectQ", event.target.value);
-    setSelectType(event.target.value);
-  };
-
-  console.log(localStorage.getItem("searchQ"));
-
   useEffect(() => {
-    if (localStorage.getItem("searchQ") === null) {
-      localStorage.setItem("searchQ", "");
+    if (search === "") {
+      queryClient.removeQueries(["search"]);
     }
-  }, []);
 
-  useEffect(() => {
-    if (localStorage.getItem("selectQ") === null) {
-      localStorage.setItem("selectQ", "all");
-    }
-  }, []);
+    return () => {
+      queryClient.removeQueries(["search", search]);
+    };
+  }, [search, queryClient]);
 
-  const { data: searchedItems, isError } = useQuery(
+  const {
+    data: searchedItems,
+    isError: searchItemsError,
+    refetch,
+  } = useQuery(
     ["search", search],
     () =>
       fetchData(
@@ -52,17 +51,33 @@ function Search() {
     }
   );
 
-  useEffect(() => {
-    if (search === "") {
-      queryClient.removeQueries(["search"]);
+  const { data: categoriesList } = useQuery(
+    ["category-playlist-list"],
+    () =>
+      fetchData(`${baseApi}/browse/categories?country=GE&offset=0&limit=50`),
+    {
+      enabled: !!accessToken,
+      refetchOnWindowFocus: false,
+      staleTime: 3000000,
+      select: (res) => res.categories.items,
     }
+  );
 
-    return () => {
-      queryClient.removeQueries(["search", search]);
-    };
-  }, [search, queryClient]);
+  const handleSearchChange = (event) => {
+    sessionStorage.setItem("searchQ", event.target.value);
+    setSearch(event.target.value);
+  };
 
-  console.log(searchedItems);
+  const handleSelectType = (event) => {
+    if (search.length > 0) {
+      sessionStorage.setItem("selectQ", event.target.value);
+      setSelectType(event.target.value);
+      setTimeout(() => refetch(), 1000);
+    } else {
+      sessionStorage.setItem("selectQ", event.target.value);
+      setSelectType(event.target.value);
+    }
+  };
 
   return (
     <div className="search">
@@ -95,6 +110,7 @@ function Search() {
             />
           </div>
           <Select
+            className="search-menu"
             value={selectType}
             onChange={handleSelectType}
             displayEmpty
@@ -108,30 +124,47 @@ function Search() {
           </Select>
         </div>
       </div>
-      <SliderContent
-        content="artist"
-        name="artists"
-        data={searchedItems?.artists?.items}
-        error={isError}
-      />
-      <SliderContent
-        content="album"
-        name="albums"
-        data={searchedItems?.albums?.items}
-        error={isError}
-      />
-      <SliderContent
-        content="playlist"
-        name="playlists"
-        data={searchedItems?.playlists?.items}
-        error={isError}
-      />
-      <SliderContent
-        content="track"
-        name="tracks"
-        data={searchedItems?.tracks?.items}
-        error={isError}
-      />
+      {search.length > 0 ? (
+        <div className="search-content">
+          <SliderContent
+            content="artist"
+            name="artists"
+            data={searchedItems?.artists?.items}
+            error={searchItemsError}
+          />
+          <SliderContent
+            content="album"
+            name="albums"
+            data={searchedItems?.albums?.items}
+            error={searchItemsError}
+          />
+          <SliderContent
+            content="playlist"
+            name="playlists"
+            data={searchedItems?.playlists?.items}
+            error={searchItemsError}
+          />
+          <SliderContent
+            content="track"
+            name="tracks"
+            data={searchedItems?.tracks?.items}
+            error={searchItemsError}
+          />
+        </div>
+      ) : (
+        <div className="category-playlist-list">
+          <h3>Browse All</h3>
+          <div className="d-flex flex-wrap justify-content-center">
+            {categoriesList?.map((category) => (
+              <CategoryCard
+                data={category}
+                content="playlist"
+                key={category.id}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

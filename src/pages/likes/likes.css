@@ -155,4 +155,28 @@
   .liked-songs-pagination .MuiInputBase-root svg {
     font-size: 1.5em;
   }
+
+  .no-songs {
+    margin-top: 6em;
+  }
+
+  .no-songs-icon {
+    width: 5em;
+    height: 5em;
+  }
+
+  .no-songs-header {
+    font-size: 2em;
+    margin: 0.8em;
+  }
+
+  .no-songs-paragraph {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+  }
+
+  .no-songs-button {
+    font-size: 1em;
+    padding: 1em 2em;
+  }
 }

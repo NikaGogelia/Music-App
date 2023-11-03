@@ -158,7 +158,7 @@ function Likes() {
           </div>
         </div>
       </div>
-      {likedSongsData.total > 0 ? (
+      {likedSongsData?.total > 0 ? (
         <>
           <div className="d-flex justify-content-between align-items-center">
             <DetailPageOptions />

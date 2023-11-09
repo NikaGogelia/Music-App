@@ -1,8 +1,13 @@
 /* Artist */
-.artist-image {
+.artist-image,
+.artist .no-image {
   border-radius: 50%;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
   object-fit: cover;
+}
+
+.artist .no-image > svg path {
+  fill: var(--gray);
 }
 
 .artist-details {
@@ -36,6 +41,16 @@
   .artist-image {
     width: 21.5em;
     height: 22.5em;
+  }
+
+  .artist .no-image {
+    width: 32em;
+    height: 22em;
+  }
+
+  .artist .no-image > svg {
+    width: 4em;
+    height: 4em;
   }
 
   .artist-details {

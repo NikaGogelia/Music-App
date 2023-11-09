@@ -1,8 +1,13 @@
 /* Playlist */
-.playlist-image {
+.playlist-image,
+.playlist .no-image {
   border-radius: 8px;
   box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
   object-fit: cover;
+}
+
+.playlist .no-image > svg path {
+  fill: var(--gray);
 }
 
 .playlist-details {
@@ -62,6 +67,26 @@
   .playlist-image {
     width: 23em;
     height: 23em;
+  }
+
+  .playlist .no-image {
+    width: 32em;
+    height: 22em;
+  }
+
+  .playlist .no-image > svg {
+    width: 4em;
+    height: 4em;
+  }
+
+  .playlist-no-data > h3 {
+    font-size: 1.8em;
+    margin-bottom: 1.5em;
+  }
+
+  .no-playlistsongs-button {
+    font-size: 0.9em;
+    padding: 1em 2em;
   }
 
   .playlist-details {

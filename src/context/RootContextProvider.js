@@ -55,7 +55,7 @@ function RootContextProvider({ children }) {
   function randomGenre(arr) {
     const filteredArr = arr.filter((item) => item.genres.length > 0);
     const randomNumber = Math.floor(Math.random() * filteredArr.length);
-    const genreString = filteredArr[randomNumber]?.genres.join(",");
+    const genreString = filteredArr[randomNumber]?.genres[0];
     return genreString.replace(/\s/g, "-");
   }
 

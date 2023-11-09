@@ -20,7 +20,7 @@ function Playlist() {
   const params = useLocation();
   const { data: propsData, content } = params?.state;
 
-  const { accessToken, fetchData, numberWithCommas } = useRootContext();
+  const { accessToken, fetchData, numberWithCommas, user } = useRootContext();
 
   const requestConfig = {
     refetchOnWindowFocus: false,
@@ -66,7 +66,15 @@ function Playlist() {
           />
         )}
         <div className="playlist-details d-flex flex-column justify-content-end align-items-start">
-          <h6 className="d-flex align-items-center">{type}</h6>
+          <h6 className="d-flex align-items-center">
+            {owner.display_name === user.display_name
+              ? playlistData?.public
+                ? "Public"
+                : "Private"
+              : null}
+            &nbsp;
+            {type}
+          </h6>
           <h1>{name}</h1>
           <h6
             className="d-flex align-items-center"
@@ -82,7 +90,14 @@ function Playlist() {
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center">
-        <DetailPageOptions content={content} />
+        <DetailPageOptions
+          content={
+            owner.display_name === user.display_name
+              ? `owner-${content}`
+              : content
+          }
+          ownerPlaylist={owner.display_name === user.display_name}
+        />
         <div className="playlist-search-bar">
           <svg
             width={16}

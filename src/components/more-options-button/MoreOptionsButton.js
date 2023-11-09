@@ -111,13 +111,13 @@ function MoreOptionsButton({ content, track }) {
       case "track-playlist":
       case "track":
         return (
-          <span className="album-track-options">
+          <span className="track-options">
             <MenuItem
               onClick={() => {
                 handleClose();
                 setTimeout(() => {
                   handleSaveTrack();
-                  handleOpenAlert("liked-track", !trackLiked)
+                  handleOpenAlert("liked-track", !trackLiked);
                 }, 1500);
               }}
             >
@@ -176,7 +176,19 @@ function MoreOptionsButton({ content, track }) {
         );
       case "album":
       case "playlist":
-        return <MenuItem onClick={handleClose}>Add To Your Library</MenuItem>;
+        return (
+          <span className="options">
+            <MenuItem onClick={handleClose}>Add To Your Library</MenuItem>
+          </span>
+        );
+      case "owner-playlist":
+        return (
+          <span className="current-user-playlist-options">
+            <MenuItem onClick={handleClose}>Delete Playlist</MenuItem>
+            <MenuItem onClick={handleClose}>Edit Playlist</MenuItem>
+            <MenuItem onClick={handleClose}>Make Private</MenuItem>
+          </span>
+        );
       default:
         break;
     }

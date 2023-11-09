@@ -35,7 +35,7 @@ function CategoryPlaylist() {
   if (isError)
     return (
       <div className="category-playlist">
-        <h1>Category Data Not Found</h1>
+        <h1>Category Playlists Not Found</h1>
       </div>
     );
   return (

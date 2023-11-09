@@ -161,7 +161,7 @@ function Likes() {
       {likedSongsData?.total > 0 ? (
         <>
           <div className="d-flex justify-content-between align-items-center">
-            <DetailPageOptions />
+            <DetailPageOptions content="playlist" likesPlaylist={true} />
             <div className="likes-search-bar">
               <svg
                 width={16}

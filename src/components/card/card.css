@@ -72,6 +72,10 @@
   object-fit: cover;
 }
 
+.card-img-top > svg path {
+  fill: var(--gray);
+}
+
 .category-card {
   position: relative;
   overflow: hidden;
@@ -86,7 +90,7 @@
   right: 0;
   width: 65%;
   height: 65%;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   transform: rotate(25deg) translate(18%, -2%);
 }
 
@@ -146,6 +150,11 @@
 
   .artist-card .card-img-top {
     height: 14em;
+  }
+
+  .card-img-top > svg {
+    width: 3em;
+    height: 3em;
   }
 
   .card .card-body {

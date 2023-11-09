@@ -1,7 +1,7 @@
 /* Search */
 .search-search-bar,
-.search-bar,
-.search-menu {
+.search-search-bar .search-bar,
+.search-search-menu {
   border: none !important;
   outline: none !important;
   border-radius: 30px !important;
@@ -18,11 +18,11 @@
 }
 
 .search-search-bar svg,
-.search-menu svg {
+.search-search-menu svg {
   fill: var(--gray);
 }
 
-.search-menu fieldset {
+.search-search-menu fieldset {
   border: none !important;
 }
 
@@ -47,7 +47,7 @@
     font-size: 1em;
   }
 
-  .search-menu {
+  .search-search-menu {
     width: 7em;
     font-size: 1em !important;
     margin-left: 0.5em;

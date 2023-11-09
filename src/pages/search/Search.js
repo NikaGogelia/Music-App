@@ -110,7 +110,7 @@ function Search() {
             />
           </div>
           <Select
-            className="search-menu"
+            className="search-search-menu"
             value={selectType}
             onChange={handleSelectType}
             displayEmpty

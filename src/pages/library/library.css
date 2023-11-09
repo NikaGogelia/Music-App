@@ -1,1 +1,67 @@
 /* Library */
+.library-search-bar,
+.library-search-bar .search-bar,
+.library-search-menu {
+  border: none !important;
+  outline: none !important;
+  border-radius: 30px !important;
+  font-family: var(--manrope) !important;
+  font-weight: 600 !important;
+  background-color: #292929 !important;
+  color: var(--white) !important;
+  transition: 0.3s ease;
+}
+
+.library-search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.library-search-bar svg,
+.library-search-menu svg {
+  fill: var(--gray);
+}
+
+.library-search-menu fieldset {
+  border: none !important;
+}
+
+.library-list > div:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .library-header {
+    margin-bottom: 2em;
+  }
+
+  .library-search-bar {
+    padding: 1em;
+    width: 25em;
+  }
+
+  .library-search-bar svg {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: 0.4em;
+  }
+
+  .library-search-bar .search-bar {
+    font-size: 1em;
+  }
+
+  .library-search-menu {
+    width: 7em;
+    font-size: 1em !important;
+    margin-left: 0.5em;
+  }
+
+  .searched-content .music-card {
+    margin: 1em;
+  }
+
+  .library-list > div {
+    margin-bottom: 2em;
+  }
+}

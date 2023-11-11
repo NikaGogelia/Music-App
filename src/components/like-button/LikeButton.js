@@ -75,7 +75,9 @@ function LikeButton({ content, track }) {
           handleOpenAlert(`liked-${content}`, !like);
         }, 1500);
       }}
-      title={`${like ? "Remove From" : "Save To"} Your Library`}
+      title={`${like ? "Remove From" : "Save To"} ${
+        content === "track" ? "Liked Songs" : "Your Library"
+      }`}
     >
       <svg
         width={21}

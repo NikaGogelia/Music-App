@@ -39,7 +39,7 @@
 .playlist-search-bar,
 .search-bar {
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   font-family: var(--manrope);
   font-weight: 600;
   background-color: #292929;

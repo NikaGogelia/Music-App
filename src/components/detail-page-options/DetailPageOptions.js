@@ -3,8 +3,14 @@ import PlayButton from "../play-button/PlayButton";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 
-function DetailPageOptions({ content, track, ownerPlaylist, likesPlaylist }) {
-  if (likesPlaylist)
+function DetailPageOptions({
+  content,
+  track,
+  ownerPlaylist,
+  likesPlaylist,
+  artistPage,
+}) {
+  if (likesPlaylist || artistPage)
     return (
       <div className="detail-page-options d-flex align-items-center">
         <PlayButton />

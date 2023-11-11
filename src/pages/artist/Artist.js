@@ -133,7 +133,7 @@ function Artist() {
           </div>
         </div>
       </div>
-      <DetailPageOptions content={content} />
+      <DetailPageOptions content={content} artistPage={true} />
       <MusicTable data={popularTracksData} content={content} />
       <div className="artist-discography">
         <SliderContent

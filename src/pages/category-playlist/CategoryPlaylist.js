@@ -3,6 +3,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import MusicCard from "../../components/card/MusicCard";
 
@@ -50,6 +51,7 @@ function CategoryPlaylist() {
           />
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

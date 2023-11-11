@@ -1,4 +1,8 @@
 /* Album */
+.album {
+  padding-bottom: 0 !important;
+}
+
 .album-image,
 .album .no-image {
   border-radius: 8px;

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { useMusicQuery } from "../../hooks/useMusic";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import SliderContent from "../../components/slider-content/SliderContent";
 
@@ -155,6 +156,7 @@ function Home() {
         data={featuredPlaylists}
         error={featuredPlaylistsError}
       />
+      <Footer />
     </div>
   );
 }

@@ -1,4 +1,8 @@
 /* Artist */
+.artist {
+  padding-bottom: 0 !important;
+}
+
 .artist-image,
 .artist .no-image {
   border-radius: 50%;
@@ -44,7 +48,7 @@
   }
 
   .artist .no-image {
-    width: 32em;
+    width: 29em;
     height: 22em;
   }
 

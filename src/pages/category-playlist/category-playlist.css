@@ -1,4 +1,7 @@
 /* Category Playlist */
+.category-playlist {
+  padding-bottom: 0 !important;
+}
 
 /* Desktop */
 @media only screen and (width >= 1024px) {

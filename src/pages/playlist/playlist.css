@@ -1,4 +1,8 @@
 /* Playlist */
+.playlist {
+  padding-bottom: 0 !important;
+}
+
 .playlist-image,
 .playlist .no-image {
   border-radius: 8px;

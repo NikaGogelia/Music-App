@@ -1,4 +1,8 @@
 /* Library */
+.library {
+  padding-bottom: 0 !important;
+}
+
 .library-search-bar,
 .library-search-bar .search-bar,
 .library-search-menu {

@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
@@ -134,6 +135,7 @@ function Playlist() {
       ) : (
         <MusicTable data={tracks} content={content} search={search} />
       )}
+      <Footer />
     </div>
   );
 }

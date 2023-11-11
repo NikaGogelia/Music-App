@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Loader from "../../components/loader/Loader";
+import Footer from "../../components/footer/Footer";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
 import SliderContent from "../../components/slider-content/SliderContent";
@@ -162,6 +163,7 @@ function Artist() {
           error={appearsOnError}
         />
       </div>
+      <Footer />
     </div>
   );
 }

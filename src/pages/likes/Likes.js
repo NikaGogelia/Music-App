@@ -7,6 +7,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTheme } from "@mui/material/styles";
 import { Box, IconButton, TablePagination } from "@mui/material";
 import LikeContextProvider from "../../context/LikeContextProvider";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
@@ -233,6 +234,7 @@ function Likes() {
           </Link>
         </div>
       )}
+      <Footer />
     </div>
   );
 }

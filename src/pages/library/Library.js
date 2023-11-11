@@ -2,6 +2,7 @@ import "./library.css";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -153,6 +154,7 @@ function Library() {
           />
         </div>
       )}
+      <Footer />
     </div>
   );
 }

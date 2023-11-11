@@ -4,10 +4,6 @@
   background-color: transparent;
 }
 
-.album-track-options
-  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:last-of-type,
-.album-track-options
-  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:last-of-type
-  > ul {
+.playlist-menu {
   padding: 0 !important;
 }

@@ -123,8 +123,8 @@ function MoreOptionsButton({ content, track }) {
             >
               {trackText}
             </MenuItem>
-            <MenuItem>
-              <List sx={{ width: "100%" }}>
+            <MenuItem className="playlist-menu">
+              <List sx={{ width: "100%" }} disablePadding>
                 <ListItemButton
                   onClick={handleCollapse}
                   className="d-flex align-items-center justify-content-between"
@@ -154,7 +154,15 @@ function MoreOptionsButton({ content, track }) {
                   </span>
                 </ListItemButton>
                 <Collapse in={collapse} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
+                  <List
+                    component="div"
+                    disablePadding
+                    sx={{
+                      position: "relative",
+                      overflow: "auto",
+                      maxHeight: 250,
+                    }}
+                  >
                     {userPlaylist?.items
                       .filter(
                         (item) => item.owner.display_name === user.display_name

@@ -1,0 +1,60 @@
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.pagination > div {
+  color: var(--gray);
+  padding: 0;
+}
+
+.MuiTablePagination-spacer {
+  display: block;
+}
+
+.pagination > div > p,
+.pagination .MuiInputBase-root {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.pagination .MuiSvgIcon-root > path {
+  fill: var(--white);
+}
+
+.pagination .Mui-disabled {
+  opacity: 0.5;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .pagination {
+    margin-top: 1em;
+  }
+
+  .pagination > div > p {
+    font-size: 1.2em;
+  }
+
+  .pagination .MuiInputBase-root {
+    font-size: 1.3em;
+  }
+
+  .pagination .MuiSelect-select {
+    padding: 0.5em 1.8em !important;
+  }
+
+  .pagination .MuiButtonBase-root {
+    margin: 0 0.3em;
+  }
+
+  .pagination .MuiButtonBase-root svg {
+    font-size: 1.3em;
+  }
+
+  .pagination .MuiInputBase-root svg {
+    font-size: 1.5em;
+  }
+}

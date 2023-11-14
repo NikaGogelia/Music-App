@@ -2,12 +2,14 @@ import "./search.css";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
+import Loader from "../../components/loader/Loader";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import SliderContent from "../../components/slider-content/SliderContent";
 import CategoryCard from "../../components/card/CategoryCard";
 
 function Search() {
+  const [loader, setLoader] = useState(true);
   const [search, setSearch] = useState(
     sessionStorage.getItem("searchQ") === null
       ? ""
@@ -22,6 +24,11 @@ function Search() {
   const { baseApi, accessToken, fetchData } = useRootContext();
 
   const queryClient = useQueryClient();
+
+  // Loading
+  useEffect(() => {
+    setTimeout(() => setLoader(false), 1500);
+  }, []);
 
   useEffect(() => {
     if (search === "") {
@@ -79,6 +86,7 @@ function Search() {
     }
   };
 
+  if (loader) return <Loader />;
   return (
     <div className="search">
       <div className="search-header d-flex justify-content-between align-items-center">

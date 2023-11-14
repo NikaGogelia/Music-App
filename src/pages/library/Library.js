@@ -10,10 +10,16 @@ import SliderContent from "../../components/slider-content/SliderContent";
 import MusicCard from "../../components/card/MusicCard";
 
 function Library() {
+  const [loader, setLoader] = useState(true);
   const [search, setSearch] = useState("");
   const [selectType, setSelectType] = useState("playlist");
 
   const { baseApi, accessToken, fetchData } = useRootContext();
+
+  // Loading
+  useEffect(() => {
+    setTimeout(() => setLoader(false), 1500);
+  }, []);
 
   const { data: currentUserPlaylists, isError: currentPlaylistError } =
     useQuery(
@@ -49,8 +55,7 @@ function Library() {
     setSelectType(event.target.value);
   };
 
-  console.log(currentUserAlbums);
-
+  if (loader) return <Loader />;
   return (
     <div className="library">
       <div className="library-header d-flex justify-content-between align-items-center">

@@ -1,6 +1,6 @@
 import "./likes.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -13,6 +13,7 @@ import MusicTable from "../../components/music-table/MusicTable";
 import { Link } from "react-router-dom";
 
 function Likes() {
+  const [loader, setLoader] = useState(true);
   const [search, setSearch] = useState("");
   const [offset, setOffset] = useState(
     sessionStorage.getItem("likes-table-offset") === null
@@ -42,19 +43,20 @@ function Likes() {
     setSearch(event.target.value);
   };
 
+  // Loading
+  useEffect(() => {
+    setTimeout(() => setLoader(false), 1500);
+  }, []);
+
   // GET Liked Songs
-  const {
-    data: likedSongsData,
-    isLoading,
-    refetch,
-  } = useQuery(
+  const { data: likedSongsData, refetch } = useQuery(
     ["liked-songs", page],
     () =>
       fetchData(`${baseApi}/me/tracks?limit=${rowsPerPage}&offset=${offset}`),
     requestConfig
   );
 
-  if (isLoading) return <Loader />;
+  if (loader) return <Loader />;
   return (
     <div className="likes">
       <div className="likes-details-container d-flex">

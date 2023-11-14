@@ -180,7 +180,7 @@ function MusicTable({ data, content, search }) {
                 <TableCell align="center" width="3%"></TableCell>
                 <TableCell
                   align="left"
-                  width="50%"
+                  width="60%"
                   sortDirection={orderBy === "title" ? order : false}
                 >
                   <TableSortLabel
@@ -193,7 +193,7 @@ function MusicTable({ data, content, search }) {
                 </TableCell>
                 <TableCell
                   align="left"
-                  width="29%"
+                  width="25%"
                   sortDirection={orderBy === "album" ? order : false}
                 >
                   <TableSortLabel

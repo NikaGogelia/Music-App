@@ -77,9 +77,9 @@ function PlaylistTableCell({ track, dateAdded, content, index }) {
         <LazyLoadImage
           className="playlist-table-cell-img"
           effect="blur"
-          width={album?.images[2].width}
-          height={album?.images[2].height}
-          src={album?.images[2].url}
+          width={album?.images[2]?.width}
+          height={album?.images[2]?.height}
+          src={album?.images[2]?.url}
           alt="playlist-table-cell-img"
         />
       </TableCell>

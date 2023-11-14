@@ -61,29 +61,6 @@
   outline: none;
 }
 
-.liked-songs-pagination > div {
-  color: var(--gray);
-  padding: 0;
-}
-
-.MuiTablePagination-spacer {
-  display: block;
-}
-
-.liked-songs-pagination > div > p,
-.liked-songs-pagination .MuiInputBase-root {
-  margin-bottom: 0;
-  font-weight: 600;
-}
-
-.liked-songs-pagination .MuiSvgIcon-root > path {
-  fill: var(--white);
-}
-
-.liked-songs-pagination .Mui-disabled {
-  opacity: 0.5;
-}
-
 /* Desktop */
 @media only screen and (width >= 1024px) {
   .likes-image {
@@ -130,34 +107,6 @@
 
   .likes-search-bar .search-bar {
     font-size: 1em;
-  }
-
-  .liked-songs-pagination {
-    margin-top: 1em;
-  }
-
-  .liked-songs-pagination > div > p {
-    font-size: 1.2em;
-  }
-
-  .liked-songs-pagination .MuiInputBase-root {
-    font-size: 1.3em;
-  }
-
-  .liked-songs-pagination .MuiSelect-select {
-    padding: 0.5em 1.8em !important;
-  }
-
-  .liked-songs-pagination .MuiButtonBase-root {
-    margin: 0 0.3em;
-  }
-
-  .liked-songs-pagination .MuiButtonBase-root svg {
-    font-size: 1.3em;
-  }
-
-  .liked-songs-pagination .MuiInputBase-root svg {
-    font-size: 1.5em;
   }
 
   .no-songs {

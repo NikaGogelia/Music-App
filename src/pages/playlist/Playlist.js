@@ -10,9 +10,13 @@ import Loader from "../../components/loader/Loader";
 import DetailPageOptions from "../../components/detail-page-options/DetailPageOptions";
 import MusicTable from "../../components/music-table/MusicTable";
 import ArtistsName from "../../components/artists-name/ArtistsName";
+import Pagination from "../../components/pagination/Pagination";
 
 function Playlist() {
   const [search, setSearch] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -21,7 +25,8 @@ function Playlist() {
   const params = useLocation();
   const { data: propsData, content } = params?.state;
 
-  const { accessToken, fetchData, numberWithCommas, user } = useRootContext();
+  const { accessToken, baseApi, fetchData, numberWithCommas, user } =
+    useRootContext();
 
   const requestConfig = {
     refetchOnWindowFocus: false,
@@ -38,9 +43,26 @@ function Playlist() {
     }
   );
 
-  if (isLoading) return <Loader />;
+  // Get Playlist Tracks
+  const {
+    data: playlistTracks,
+    isFetching,
+    refetch,
+  } = useQuery(
+    ["playlist-tracks", `${propsData.name} ${page}`],
+    () =>
+      fetchData(
+        `${baseApi}/playlists/${propsData.id}/tracks?limit=${rowsPerPage}&offset=${offset}`
+      ),
+    {
+      enabled: !!accessToken,
+      ...requestConfig,
+    }
+  );
 
-  const { images, name, owner, followers, description, tracks, type } =
+  if (isLoading || isFetching) return <Loader />;
+
+  const { images, name, owner, followers, description, type, tracks } =
     playlistData;
 
   return (
@@ -125,7 +147,7 @@ function Playlist() {
           />
         </div>
       </div>
-      {tracks.items.length === 0 ? (
+      {playlistTracks?.items.length === 0 ? (
         <div className="playlist-no-data d-flex flex-column justify-content-center align-items-center">
           <h3>Let's find something for your playlist</h3>
           <Link to="/player/search" className="button no-playlistsongs-button">
@@ -133,7 +155,20 @@ function Playlist() {
           </Link>
         </div>
       ) : (
-        <MusicTable data={tracks} content={content} search={search} />
+        <>
+          <MusicTable data={playlistTracks} content={content} search={search} />
+          {playlistTracks?.total === undefined ? null : (
+            <Pagination
+              data={playlistTracks}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              setPage={setPage}
+              setOffset={setOffset}
+              setRowsPerPage={setRowsPerPage}
+              refetch={refetch}
+            />
+          )}
+        </>
       )}
       <Footer />
     </div>

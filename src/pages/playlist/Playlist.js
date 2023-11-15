@@ -60,6 +60,20 @@ function Playlist() {
     }
   );
 
+  const handleChangePagination = (_, value) => {
+    const offsetVal = value * rowsPerPage;
+    setPage(value);
+    setOffset(() => offsetVal);
+    refetch();
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    setOffset(0);
+    setTimeout(() => refetch(), 1500);
+  };
+
   if (isLoading || isFetching) return <Loader />;
 
   const { images, name, owner, followers, description, type, tracks } =
@@ -166,6 +180,8 @@ function Playlist() {
               setOffset={setOffset}
               setRowsPerPage={setRowsPerPage}
               refetch={refetch}
+              handleChangePagination={handleChangePagination}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
             />
           )}
         </>

@@ -10,33 +10,9 @@ function Pagination({
   data,
   rowsPerPage,
   page,
-  setPage,
-  setOffset,
-  setRowsPerPage,
-  refetch,
+  handleChangePagination,
+  handleChangeRowsPerPage,
 }) {
-  const handleChangePagination = (_, value) => {
-    const offsetVal = value * rowsPerPage;
-    sessionStorage.setItem("likes-table-page", value);
-    sessionStorage.setItem("likes-table-offset", offsetVal);
-    setPage(value);
-    setOffset(() => offsetVal);
-    refetch();
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    sessionStorage.setItem(
-      "likes-table-rows",
-      parseInt(event.target.value, 10)
-    );
-    sessionStorage.setItem("likes-table-page", 0);
-    sessionStorage.setItem("likes-table-offset", 0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-    setOffset(0);
-    setTimeout(() => refetch(), 1500);
-  };
-
   function TablePaginationActions(props) {
     const theme = useTheme();
     const { count, page, rowsPerPage, onPageChange } = props;

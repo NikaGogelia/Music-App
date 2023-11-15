@@ -21,19 +21,28 @@ function Library() {
     setTimeout(() => setLoader(false), 1500);
   }, []);
 
-  const { data: currentUserPlaylists, isError: currentPlaylistError } =
-    useQuery(
-      "current-user-playlists",
-      () => fetchData(`${baseApi}/me/playlists?offset=0&limit=50`),
-      {
-        enabled: !!accessToken,
-        refetchOnWindowFocus: false,
-        staleTime: 3000000,
-        select: (res) => res.items,
-      }
-    );
+  // GET Current User Playlists
+  const {
+    data: currentUserPlaylists,
+    isError: currentPlaylistError,
+    refetch: refetchPlaylist,
+  } = useQuery(
+    "current-user-playlists",
+    () => fetchData(`${baseApi}/me/playlists?offset=0&limit=50`),
+    {
+      enabled: !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 3000000,
+      select: (res) => res.items,
+    }
+  );
 
-  const { data: currentUserAlbums, isError: currentAlbumError } = useQuery(
+  // GET Current User Albums
+  const {
+    data: currentUserAlbums,
+    isError: currentAlbumError,
+    refetch: refetchAlbum,
+  } = useQuery(
     "current-user-albums",
     () =>
       fetchData(
@@ -41,11 +50,18 @@ function Library() {
       ),
     {
       enabled: !!accessToken,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       staleTime: 3000000,
       select: (res) => res.items.map((item) => item.album),
     }
   );
+
+  useEffect(() => {
+    return () => {
+      refetchPlaylist();
+      refetchAlbum();
+    };
+  }, [refetchAlbum, refetchPlaylist]);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);

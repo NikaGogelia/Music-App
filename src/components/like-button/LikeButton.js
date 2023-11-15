@@ -5,15 +5,15 @@ import { useRootContext } from "../../context/RootContextProvider";
 import { useAlertBarContext } from "../../context/AlertBarContextProvider";
 import { useLikeContext } from "../../context/LikeContextProvider";
 
-function LikeButton({ content, track }) {
+function LikeButton({ content, track, playlist }) {
   const [like, setLike] = useState(false);
 
-  const { baseApi, accessToken, fetchData } = useRootContext();
+  const { baseApi, accessToken, fetchData, user } = useRootContext();
   const { handleOpenAlert } = useAlertBarContext();
   const likePassedData = useLikeContext();
 
   // GET Check Track Is Saved Into The Liked Songs Or Not
-  const { data: checkSaved } = useQuery(
+  const { data: checkMusicSaved } = useQuery(
     ["check-saved-track", track?.name],
     () => fetchData(`${baseApi}/me/tracks/contains?ids=${track?.id}`),
     {
@@ -33,18 +33,58 @@ function LikeButton({ content, track }) {
     fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
   );
 
+  // GET Check Playlist Is Saved Into The Library Or Not
+  const { data: checkPlaylistSaved } = useQuery(
+    ["check-saved-playlist", playlist?.name],
+    () =>
+      fetchData(
+        `${baseApi}/playlists/${playlist.id}/followers/contains?ids=${user.id}`
+      ),
+    {
+      enabled: content === "playlist" && !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+    }
+  );
+
+  // PUT Add Playlist To Library
+  const likePlaylist = useMutation(["like-playlist", playlist?.name], (id) =>
+    fetchData(`${baseApi}/playlists/${id}/followers`, {
+      method: "put",
+    })
+  );
+
+  // DELETE Remove Playlist From Library
+  const unlikePlaylist = useMutation(
+    ["unlike-playlist", playlist?.name],
+    (id) =>
+      fetchData(`${baseApi}/playlists/${id}/followers`, {
+        method: "delete",
+      })
+  );
+
   // Set Like State To True Or False
   useEffect(() => {
-    if (checkSaved?.length !== 0 && content === "track") {
-      if (checkSaved?.length && checkSaved[0] === true) {
-        setLike(true);
-      } else {
+    switch (content) {
+      case "track":
+        if (checkMusicSaved?.length && checkMusicSaved[0] === true) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
+        break;
+      case "playlist":
+        if (checkPlaylistSaved?.length && checkPlaylistSaved[0] === true) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
+        break;
+      default:
         setLike(false);
-      }
-    } else {
-      setLike(false);
+        break;
     }
-  }, [checkSaved, content]);
+  }, [checkMusicSaved, checkPlaylistSaved, content]);
 
   const handleSave = () => {
     switch (content) {
@@ -59,7 +99,13 @@ function LikeButton({ content, track }) {
           });
         }
         break;
-
+      case "playlist":
+        if (like) {
+          unlikePlaylist.mutate(playlist?.id);
+        } else {
+          likePlaylist.mutate(playlist?.id);
+        }
+        break;
       default:
         break;
     }

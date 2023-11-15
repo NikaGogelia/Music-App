@@ -6,6 +6,7 @@ import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 function DetailPageOptions({
   content,
   track,
+  playlist,
   ownerPlaylist,
   likesPlaylist,
   artistPage,
@@ -29,7 +30,7 @@ function DetailPageOptions({
     <div className="detail-page-options d-flex align-items-center">
       <PlayButton />
       <div className="d-flex align-items-center">
-        <LikeButton content={content} track={track} />
+        <LikeButton content={content} track={track} playlist={playlist} />
         <MoreOptionsButton content={content} track={track} />
       </div>
     </div>

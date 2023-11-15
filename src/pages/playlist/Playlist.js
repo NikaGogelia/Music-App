@@ -133,6 +133,7 @@ function Playlist() {
               ? `owner-${content}`
               : content
           }
+          playlist={playlistData}
           ownerPlaylist={owner.display_name === user.display_name}
         />
         <div className="playlist-search-bar">

@@ -9,6 +9,14 @@ import TableCell from "@mui/material/TableCell";
 import LikeButton from "../like-button/LikeButton";
 import MoreOptionsButton from "../more-options-button/MoreOptionsButton";
 import ArtistsName from "../artists-name/ArtistsName";
+import { Typography } from "@mui/material";
+
+const textStyles = {
+  maxWidth: "25em",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+};
 
 function PlaylistTableCell({ track, dateAdded, content, index }) {
   const { album, name, artists, duration_ms } = track;
@@ -109,7 +117,7 @@ function PlaylistTableCell({ track, dateAdded, content, index }) {
             content: "album",
           }}
         >
-          {album.name}
+          <Typography style={textStyles}>{album.name}</Typography>
         </Link>
       </TableCell>
       <TableCell align="left">{formatDate(dateAdded)}</TableCell>

@@ -4,10 +4,10 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 const textStyles = {
+  maxWidth: "50em",
+  whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
-  display: "block",
-  maxWidth: "100%",
 };
 
 function ArtistsName({ artists, content }) {

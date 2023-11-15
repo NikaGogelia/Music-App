@@ -71,7 +71,7 @@ function Playlist() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
     setOffset(0);
-    setTimeout(() => refetch(), 1500);
+    setTimeout(() => refetch(), 1000);
   };
 
   if (isLoading || isFetching) return <Loader />;

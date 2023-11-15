@@ -75,7 +75,7 @@ function Likes() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
     setOffset(0);
-    setTimeout(() => refetch(), 1500);
+    setTimeout(() => refetch(), 1000);
   };
 
   if (loader) return <Loader />;
@@ -96,7 +96,31 @@ function Likes() {
           </div>
         </div>
       </div>
-      {likedSongsData?.total > 0 ? (
+      {likedSongsData?.items.length === 0 ? (
+        <div className="no-songs d-flex flex-column align-items-center">
+          <svg
+            width={50}
+            height={50}
+            data-encore-id="icon"
+            role="img"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="no-songs-icon"
+          >
+            <path
+              fill="#ffff"
+              d="M15 4v12.167a3.5 3.5 0 1 1-3.5-3.5H13V4h2zm-2 10.667h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z"
+            />
+          </svg>
+          <h1 className="no-songs-header">Songs you like will appear here</h1>
+          <p className="no-songs-paragraph">
+            Save songs by tapping the heart icon.
+          </p>
+          <Link to="/player/search" className="button no-songs-button">
+            Find Songs
+          </Link>
+        </div>
+      ) : (
         <>
           <div className="d-flex justify-content-between align-items-center">
             <DetailPageOptions content="playlist" likesPlaylist={true} />
@@ -142,30 +166,6 @@ function Likes() {
             />
           )}
         </>
-      ) : (
-        <div className="no-songs d-flex flex-column align-items-center">
-          <svg
-            width={50}
-            height={50}
-            data-encore-id="icon"
-            role="img"
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="no-songs-icon"
-          >
-            <path
-              fill="#ffff"
-              d="M15 4v12.167a3.5 3.5 0 1 1-3.5-3.5H13V4h2zm-2 10.667h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z"
-            />
-          </svg>
-          <h1 className="no-songs-header">Songs you like will appear here</h1>
-          <p className="no-songs-paragraph">
-            Save songs by tapping the heart icon.
-          </p>
-          <Link to="/player/search" className="button no-songs-button">
-            Find Songs
-          </Link>
-        </div>
       )}
       <Footer />
     </div>

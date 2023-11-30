@@ -14,7 +14,7 @@ function Library() {
   const [search, setSearch] = useState("");
   const [selectType, setSelectType] = useState("playlist");
 
-  const { baseApi, accessToken, fetchData } = useRootContext();
+  const { baseApi, accessToken, fetchData, user } = useRootContext();
 
   // Loading
   useEffect(() => {
@@ -114,6 +114,12 @@ function Library() {
             <MenuItem value="playlist">Playlist</MenuItem>
             <MenuItem value="album">Album</MenuItem>
           </Select>
+          <button
+            className="button create-playlist-button d-flex align-items-center justify-content-center"
+            title="Create New Playlist"
+          >
+            <img src="/assets/icons/add.svg" alt="add-icon" />
+          </button>
         </div>
       </div>
       {search.length > 0 ? (
@@ -160,9 +166,27 @@ function Library() {
       ) : (
         <div className="library-list">
           <SliderContent
-            data={currentUserPlaylists?.sort((a, b) =>
-              a.name === b.name ? 0 : a.name < b.name ? -1 : 1
-            )}
+            data={currentUserPlaylists
+              ?.filter(
+                (currentUserPlaylist) =>
+                  currentUserPlaylist.owner.display_name === user.display_name
+              )
+              .sort((a, b) =>
+                a.name === b.name ? 0 : a.name < b.name ? -1 : 1
+              )}
+            error={currentPlaylistError}
+            content="playlist"
+            name="Your Playlists"
+          />
+          <SliderContent
+            data={currentUserPlaylists
+              ?.filter(
+                (currentUserPlaylist) =>
+                  currentUserPlaylist.owner.display_name !== user.display_name
+              )
+              .sort((a, b) =>
+                a.name === b.name ? 0 : a.name < b.name ? -1 : 1
+              )}
             error={currentPlaylistError}
             content="playlist"
             name="Your Saved Playlists"

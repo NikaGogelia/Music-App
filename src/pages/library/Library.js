@@ -58,10 +58,12 @@ function Library() {
 
   useEffect(() => {
     return () => {
-      refetchPlaylist();
-      refetchAlbum();
+      if (accessToken) {
+        refetchPlaylist();
+        refetchAlbum();
+      }
     };
-  }, [refetchAlbum, refetchPlaylist]);
+  }, [accessToken, refetchAlbum, refetchPlaylist]);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);

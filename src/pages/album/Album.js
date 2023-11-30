@@ -95,7 +95,7 @@ function Album() {
           </div>
         </div>
       </div>
-      <DetailPageOptions content={content} />
+      <DetailPageOptions content={content} album={albumData} />
       <MusicTable data={tracks} content={content} />
       <div className="copyrights d-flex flex-column justify-content-center">
         <p>{formatDate(release_date)}</p>

@@ -7,6 +7,7 @@ function DetailPageOptions({
   content,
   track,
   playlist,
+  album,
   ownerPlaylist,
   likesPlaylist,
   artistPage,
@@ -22,7 +23,11 @@ function DetailPageOptions({
       <div className="detail-page-options d-flex align-items-center">
         <PlayButton />
         <div className="d-flex align-items-center">
-          <MoreOptionsButton content={content} track={track} />
+          <MoreOptionsButton
+            content={content}
+            track={track}
+            playlist={playlist}
+          />
         </div>
       </div>
     );
@@ -30,8 +35,18 @@ function DetailPageOptions({
     <div className="detail-page-options d-flex align-items-center">
       <PlayButton />
       <div className="d-flex align-items-center">
-        <LikeButton content={content} track={track} playlist={playlist} />
-        <MoreOptionsButton content={content} track={track} />
+        <LikeButton
+          content={content}
+          track={track}
+          playlist={playlist}
+          album={album}
+        />
+        <MoreOptionsButton
+          content={content}
+          track={track}
+          playlist={playlist}
+          album={album}
+        />
       </div>
     </div>
   );

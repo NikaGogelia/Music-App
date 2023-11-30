@@ -24,6 +24,9 @@ function AlertBarContextProvider({ children }) {
           setAlertMessage("Removed From Your Library");
         }
         break;
+      case "delete-owner-playlist":
+        setAlertMessage("Playlist Deleted");
+        break;
       default:
         setAlertMessage("No Data");
         break;

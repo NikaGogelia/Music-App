@@ -1,5 +1,6 @@
 import "./more-options-button.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { useAlertBarContext } from "../../context/AlertBarContextProvider";
@@ -11,12 +12,16 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Collapse from "@mui/material/Collapse";
 
-function MoreOptionsButton({ content, track }) {
+function MoreOptionsButton({ content, track, playlist, album }) {
+  const [liked, setLiked] = useState(false);
   const [trackText, setTrackText] = useState("");
-  const [trackLiked, setTrackLiked] = useState(false);
+  const [playlistText, setPlaylistText] = useState("");
+  const [albumText, setAlbumText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const [collapse, setCollapse] = useState(false);
   const open = Boolean(anchorEl);
+
+  const navigate = useNavigate();
 
   const { accessToken, baseApi, user, userPlaylist, fetchData } =
     useRootContext();
@@ -37,7 +42,7 @@ function MoreOptionsButton({ content, track }) {
   };
 
   // GET Check Track Is Saved Into The Liked Songs Or Not
-  const { data: checkSaved, refetch } = useQuery(
+  const { data: checkTrackSaved, refetch: refetchTrack } = useQuery(
     ["check-saved-track", track?.name],
     () => fetchData(`${baseApi}/me/tracks/contains?ids=${track?.id}`),
     {
@@ -62,35 +67,117 @@ function MoreOptionsButton({ content, track }) {
     fetchData(`${baseApi}/me/tracks?ids=${id}`, { method: "delete" })
   );
 
+  // GET Check Playlist Is Saved Into The Library Or Not
+  const { data: checkPlaylistSaved, refetch: refetchPlaylist } = useQuery(
+    ["check-saved-playlist", playlist?.name],
+    () =>
+      fetchData(
+        `${baseApi}/playlists/${playlist.id}/followers/contains?ids=${user.id}`
+      ),
+    {
+      enabled:
+        (content === "playlist" || content === "owner-playlist") &&
+        !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+    }
+  );
+
+  // PUT Add Playlist To Library
+  const likePlaylist = useMutation(["like-playlist", playlist?.name], (id) =>
+    fetchData(`${baseApi}/playlists/${id}/followers`, {
+      method: "put",
+    })
+  );
+
+  // DELETE Remove Playlist From Library
+  const unlikePlaylist = useMutation(
+    ["unlike-playlist", playlist?.name],
+    (id) =>
+      fetchData(`${baseApi}/playlists/${id}/followers`, {
+        method: "delete",
+      })
+  );
+
+  // GET Check Album Is Saved Into The Library Or Not
+  const { data: checkAlbumSaved, refetch: refetchAlbum } = useQuery(
+    ["check-saved-album", album?.name],
+    () => fetchData(`${baseApi}/me/albums/contains?ids=${album?.id}`),
+    {
+      enabled: content === "album" && !!accessToken,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+    }
+  );
+
+  // PUT Add Album To Library
+  const likeAlbum = useMutation(["like-album", album?.name], (id) =>
+    fetchData(`${baseApi}/me/albums?ids=${id}`, {
+      method: "put",
+    })
+  );
+
+  // DELETE Remove Album From Library
+  const unlikeAlbum = useMutation(["unlike-album", album?.name], (id) =>
+    fetchData(`${baseApi}/me/albums?ids=${id}`, {
+      method: "delete",
+    })
+  );
+
   // Set Like State To True Or False
   useEffect(() => {
-    if (
-      checkSaved?.length !== 0 &&
-      (content === "track-playlist" ||
-        content === "track-album" ||
-        content === "track-artist" ||
-        content === "track")
-    ) {
-      if (checkSaved?.length && checkSaved[0] === true) {
-        setTrackText("Remove From Your Liked Songs");
-        setTrackLiked(true);
-      } else {
-        setTrackText("Save To Your Liked Songs");
-        setTrackLiked(false);
-      }
-    } else {
-      setTrackText("");
-      setTrackLiked(false);
+    switch (content) {
+      case "track-playlist":
+      case "track-album":
+      case "track-artist":
+      case "track":
+        if (checkTrackSaved?.length && checkTrackSaved[0] === true) {
+          setTrackText("Remove From Your Liked Songs");
+          setLiked(true);
+        } else {
+          setTrackText("Save To Your Liked Songs");
+          setLiked(false);
+        }
+        break;
+      case "playlist":
+        if (checkPlaylistSaved?.length && checkPlaylistSaved[0] === true) {
+          setPlaylistText("Remove From Your Library");
+          setLiked(true);
+        } else {
+          setPlaylistText("Save To Your Library");
+          setLiked(false);
+        }
+        break;
+      case "album":
+        if (checkAlbumSaved?.length && checkAlbumSaved[0] === true) {
+          setAlbumText("Remove From Your Library");
+          setLiked(true);
+        } else {
+          setAlbumText("Save To Your Library");
+          setLiked(false);
+        }
+        break;
+      case "owner-playlist":
+        if (checkPlaylistSaved?.length && checkPlaylistSaved[0] === true) {
+          setLiked(true);
+        }
+        break;
+      default:
+        setTrackText("");
+        setPlaylistText("");
+        setAlbumText("");
+        setLiked(false);
+        break;
     }
-  }, [checkSaved, content]);
+  }, [content, checkTrackSaved, checkPlaylistSaved, checkAlbumSaved]);
 
   const handleSaveTrack = () => {
-    if (trackLiked) {
+    if (liked) {
       unlikeTrack.mutate(track?.id, {
         onSuccess: () =>
           setTimeout(() => {
             trackPassedData?.refetch();
-            refetch();
+            refetchTrack();
           }, 1200),
       });
     } else {
@@ -98,7 +185,43 @@ function MoreOptionsButton({ content, track }) {
         onSuccess: () =>
           setTimeout(() => {
             trackPassedData?.refetch();
-            refetch();
+            refetchTrack();
+          }, 1200),
+      });
+    }
+  };
+
+  const handleSavePlaylist = () => {
+    if (liked) {
+      unlikePlaylist.mutate(playlist?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            refetchPlaylist();
+          }, 1200),
+      });
+    } else {
+      likePlaylist.mutate(playlist?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            refetchPlaylist();
+          }, 1200),
+      });
+    }
+  };
+
+  const handleSaveAlbum = () => {
+    if (liked) {
+      unlikeAlbum.mutate(album?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            refetchAlbum();
+          }, 1200),
+      });
+    } else {
+      likeAlbum.mutate(album?.id, {
+        onSuccess: () =>
+          setTimeout(() => {
+            refetchAlbum();
           }, 1200),
       });
     }
@@ -117,7 +240,7 @@ function MoreOptionsButton({ content, track }) {
                 handleClose();
                 setTimeout(() => {
                   handleSaveTrack();
-                  handleOpenAlert("liked-track", !trackLiked);
+                  handleOpenAlert("liked-track", !liked);
                 }, 1500);
               }}
             >
@@ -182,17 +305,54 @@ function MoreOptionsButton({ content, track }) {
             </MenuItem>
           </span>
         );
-      case "album":
       case "playlist":
         return (
           <span className="options">
-            <MenuItem onClick={handleClose}>Add To Your Library</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                setTimeout(() => {
+                  handleSavePlaylist();
+                  handleOpenAlert("liked-playlist", !liked);
+                }, 1500);
+              }}
+            >
+              {playlistText}
+            </MenuItem>
           </span>
         );
+      case "album":
+        return (
+          <span className="options">
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                setTimeout(() => {
+                  handleSaveAlbum();
+                  handleOpenAlert("liked-album", !liked);
+                }, 1500);
+              }}
+            >
+              {albumText}
+            </MenuItem>
+          </span>
+        );
+
       case "owner-playlist":
         return (
           <span className="current-user-playlist-options">
-            <MenuItem onClick={handleClose}>Delete Playlist</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                handleSavePlaylist();
+                handleOpenAlert("delete-owner-playlist");
+                setTimeout(() => {
+                  navigate("/player/library");
+                }, 1500);
+              }}
+            >
+              Delete Playlist
+            </MenuItem>
             <MenuItem onClick={handleClose}>Edit Playlist</MenuItem>
             <MenuItem onClick={handleClose}>Make Private</MenuItem>
           </span>

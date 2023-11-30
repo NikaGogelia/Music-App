@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "react-query";
 import { useRootContext } from "../../context/RootContextProvider";
 import { useAlertBarContext } from "../../context/AlertBarContextProvider";
 import { useLikeContext } from "../../context/LikeContextProvider";
+import { Howl } from "howler";
 
 function LikeButton({ content, track, playlist, album }) {
   const [like, setLike] = useState(false);
@@ -11,6 +12,10 @@ function LikeButton({ content, track, playlist, album }) {
   const { baseApi, accessToken, fetchData, user } = useRootContext();
   const { handleOpenAlert } = useAlertBarContext();
   const likePassedData = useLikeContext();
+
+  const sound = new Howl({
+    src: ["/assets/sounds/ting.mp3"],
+  });
 
   // GET Check Track Is Saved Into The Liked Songs Or Not
   const { data: checkTrackSaved } = useQuery(
@@ -155,6 +160,7 @@ function LikeButton({ content, track, playlist, album }) {
       className={`like-button ${like ? "like-button-active" : ""}`}
       onClick={() => {
         handleSave();
+        sound.play();
         setTimeout(() => {
           setLike(!like);
           handleOpenAlert(`liked-${content}`, !like);

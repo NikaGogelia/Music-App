@@ -15,8 +15,8 @@ function ArtistsName({ artists, content }) {
     <Typography noWrap sx={textStyles} className="artists-name" variant="body1">
       {content === "playlist" ? (
         <Link
-        // to={`/player/artist/${artists.display_name}`}
-        // state={{ data: artists, content: "artist" }}
+          to={`/player/profile/${artists.display_name}`}
+          state={{ data: artists, content: "profile" }}
         >
           {artists?.display_name}
         </Link>

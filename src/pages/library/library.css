@@ -61,6 +61,17 @@
     margin-left: 0.5em;
   }
 
+  .create-playlist-button {
+    width: 2.3em;
+    height: 2.3em;
+    margin-left: 0.8em !important;
+  }
+
+  .create-playlist-button img {
+    width: 0.8em;
+    height: 0.8em;
+  }
+
   .searched-content .music-card {
     margin: 1em;
   }

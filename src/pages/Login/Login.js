@@ -1,8 +1,22 @@
 import "./login.css";
 import { useRootContext } from "../../context/RootContextProvider";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
-  const { handleAuth } = useRootContext();
+  const { handleAuth, setAuthCode, setAccessToken } = useRootContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      sessionStorage.removeItem("access-token-timeout");
+      sessionStorage.removeItem("auth-code");
+      setAuthCode("");
+      sessionStorage.removeItem("access-token-key");
+      setAccessToken("")
+    }
+  }, [location.pathname, setAccessToken, setAuthCode]);
 
   return (
     <div className="login d-flex flex-column justify-content-center align-items-center">

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import MusicCard from "../components/card/MusicCard";
@@ -49,15 +43,8 @@ function RootContextProvider({ children }) {
       ? ""
       : sessionStorage.getItem("access-token-key")
   );
-  const [accessTokenTimeout, setAccessTokenTimeout] = useState(
-    sessionStorage.getItem("access-token-timeout") === null ||
-      sessionStorage.getItem("access-token-timeout") === undefined
-      ? ""
-      : sessionStorage.getItem("access-token-timeout")
-  );
   const [authCode, setAuthCode] = useState(
-    sessionStorage.getItem("auth-code") === null ||
-      sessionStorage.getItem("auth-code") === undefined
+    sessionStorage.getItem("auth-code") === null
       ? ""
       : sessionStorage.getItem("auth-code")
   );
@@ -176,22 +163,6 @@ function RootContextProvider({ children }) {
   }
 
   // ================= Set Global State ================= //
-  // GET Auth Code And Access Token
-  useEffect(() => {
-    const urlObj = new URL(window.location.href);
-    const code = urlObj.searchParams.get("code");
-    sessionStorage.setItem("auth-code", code);
-    setAuthCode(code);
-    if (code?.length > 0) {
-      getSpotifyAccessToken().then((res) => {
-        sessionStorage.setItem("access-token-key", res.access_token);
-        sessionStorage.setItem("access-token-timeout", res.expires_in);
-        setAccessToken(res.access_token);
-        setAccessTokenTimeout(res.expires_in.toString());
-      });
-    }
-  }, [getSpotifyAccessToken]);
-
   // GET User's Data
   const { data: user } = useQuery(
     "current-user",
@@ -210,11 +181,13 @@ function RootContextProvider({ children }) {
     <RootContext.Provider
       value={{
         accessToken,
-        accessTokenTimeout,
         baseApi,
         user,
         userPlaylist,
+        setAuthCode,
+        setAccessToken,
         handleAuth,
+        getSpotifyAccessToken,
         fetchData,
         handleDataKey,
         headerName,

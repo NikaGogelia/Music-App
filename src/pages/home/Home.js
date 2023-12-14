@@ -40,7 +40,13 @@ function Home() {
     "favorite-genres",
     () => fetchData(`${baseApi}/me/top/artists?limit=50`),
     {
-      select: (data) => randomGenre(data?.items),
+      select: (data) => {
+        if (data?.items.length > 0) {
+          return randomGenre(data?.items);
+        } else {
+          return "";
+        }
+      },
       enabled: !!accessToken,
       refetchOnWindowFocus: false,
       staleTime: 3000000,
@@ -94,7 +100,8 @@ function Home() {
     "music-items",
     option.recommendsData.name,
     option.recommendsData.apiPath,
-    option.recommendsData.dataKey
+    option.recommendsData.dataKey,
+    favGenres,
   );
 
   // GET Favorite Artists List of User

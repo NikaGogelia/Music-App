@@ -1,23 +1,23 @@
-/* Introduction */
+/* login */
 strong {
   color: var(--cyan);
 }
 
-.introduction {
+.login {
   position: relative;
   height: 100%;
   background: rgb(0, 255, 255);
   background: var(--gradient);
 }
 
-.introduction > div {
+.login > div {
   -webkit-animation: fadeIn;
   animation: fadeIn;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
 }
 
-.introduction-info-container {
+.login-info-container {
   position: relative;
 }
 
@@ -27,7 +27,7 @@ strong {
 
 .shape,
 .liquid-shape,
-.introduction-button {
+.login-button {
   position: absolute;
 }
 
@@ -74,7 +74,7 @@ strong {
   }
 }
 
-.introduction-button {
+.login-button {
   bottom: 2.5em;
   z-index: 4;
 }
@@ -86,7 +86,7 @@ strong {
     height: 70em;
   }
 
-  .introduction-info > img {
+  .login-info > img {
     width: 9em;
     height: 9em;
   }
@@ -101,19 +101,19 @@ strong {
     height: 55em;
   }
 
-  .introduction-info > * {
+  .login-info > * {
     margin: 0.5em 0;
   }
 
-  .introduction-info > h2 {
+  .login-info > h2 {
     font-size: 2.3em;
   }
 
-  .introduction-info > h1 {
+  .login-info > h1 {
     font-size: 2.6em;
   }
 
-  .introduction-button {
+  .login-button {
     font-size: 1em;
     padding: 1em 2em;
   }

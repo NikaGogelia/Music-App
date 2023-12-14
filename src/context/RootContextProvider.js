@@ -1,26 +1,114 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { useQuery } from "react-query";
+import axios from "axios";
 import MusicCard from "../components/card/MusicCard";
 import ArtistCard from "../components/card/ArtistCard";
 
 const RootContext = createContext();
 function RootContextProvider({ children }) {
   // Variables
-  const ACCESS_TOKEN_KEY = "spotifyAccessToken";
-  const AUTH_URL = "https://accounts.spotify.com/authorize";
-  const CLIENT_ID = "ca0efd4ec8794d6bbfa93dee3cc6485a";
-  const REDIRECT_URI = "http://localhost:3000/player/home";
-  const SCOPES =
-    "ugc-image-upload user-follow-modify playlist-modify-private playlist-modify-public user-library-modify user-read-currently-playing user-follow-read user-read-playback-position user-read-playback-state playlist-read-private user-read-recently-played user-top-read user-read-email user-library-read user-read-private app-remote-control user-modify-playback-state";
+  const auth_url = "https://accounts.spotify.com/authorize";
+  const token_url = "https://accounts.spotify.com/api/token";
+  const client_id = "ca0efd4ec8794d6bbfa93dee3cc6485a";
+  const client_secret = "fe359fdbaada44d8a4b1a47ad80d2a68";
+  const redirect_uri = "http://localhost:3000/player/home";
+  const scopes = [
+    "ugc-image-upload",
+    "user-read-recently-played",
+    "user-top-read",
+    "user-read-playback-position",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "user-read-currently-playing",
+    "app-remote-control",
+    "streaming",
+    "playlist-modify-public",
+    "playlist-modify-private",
+    "playlist-read-private",
+    "playlist-read-collaborative",
+    "user-follow-modify",
+    "user-follow-read",
+    "user-library-modify",
+    "user-library-read",
+    "user-read-email",
+    "user-read-private",
+  ];
 
   // Base URl
   const baseApi = "https://api.spotify.com/v1";
 
   // Global State
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(
+    sessionStorage.getItem("access-token-key") === null
+      ? ""
+      : sessionStorage.getItem("access-token-key")
+  );
+  const [accessTokenTimeout, setAccessTokenTimeout] = useState(
+    sessionStorage.getItem("access-token-timeout") === null ||
+      sessionStorage.getItem("access-token-timeout") === undefined
+      ? ""
+      : sessionStorage.getItem("access-token-timeout")
+  );
+  const [authCode, setAuthCode] = useState(
+    sessionStorage.getItem("auth-code") === null ||
+      sessionStorage.getItem("auth-code") === undefined
+      ? ""
+      : sessionStorage.getItem("auth-code")
+  );
 
   // ================= Functions ================= //
+  // Authenticate In Spotify
+  const handleAuth = () => {
+    const state = generateRandomString(16);
+    const scopeString = encodeURIComponent(scopes.join(" "));
+    const url = `${auth_url}?response_type=code&client_id=${client_id}&scope=${scopeString}&redirect_uri=${encodeURIComponent(
+      redirect_uri
+    )}&state=${state}`;
+
+    window.location.href = url;
+  };
+
+  const generateRandomString = (length) => {
+    let text = "";
+    const possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  };
+
+  // GET Access Token
+  const getSpotifyAccessToken = useCallback(async () => {
+    const basicAuth = btoa(`${client_id}:${client_secret}`);
+    try {
+      const response = await axios(token_url, {
+        method: "post",
+        data: {
+          grant_type: "authorization_code",
+          code: authCode.toString(),
+          redirect_uri: redirect_uri,
+        },
+        headers: {
+          Authorization: `Basic ${basicAuth}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching access token:", error);
+    }
+  }, [authCode]);
+
   // Fetch Data From Api
   async function fetchData(url, config) {
     try {
@@ -59,17 +147,6 @@ function RootContextProvider({ children }) {
     return genreString.replace(/\s/g, "-");
   }
 
-  // Authenticate In Spotify
-  function handleAuth() {
-    const params = new URLSearchParams({
-      response_type: "token",
-      client_id: CLIENT_ID,
-      redirect_uri: REDIRECT_URI,
-      scope: SCOPES,
-    });
-    window.location = `${AUTH_URL}?${params}`;
-  }
-
   // Convert "00-00-00" Date Type Into "month, day, year" Date Type
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -99,22 +176,21 @@ function RootContextProvider({ children }) {
   }
 
   // ================= Set Global State ================= //
-  // Set Access Token
+  // GET Auth Code And Access Token
   useEffect(() => {
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const token = hashParams.get("access_token");
-
-    if (token) {
-      setAccessToken(token);
-      localStorage.setItem(ACCESS_TOKEN_KEY, token);
-      window.location.hash = "";
-    } else {
-      const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-      if (storedToken) {
-        setAccessToken(storedToken);
-      }
+    const urlObj = new URL(window.location.href);
+    const code = urlObj.searchParams.get("code");
+    sessionStorage.setItem("auth-code", code);
+    setAuthCode(code);
+    if (code?.length > 0) {
+      getSpotifyAccessToken().then((res) => {
+        sessionStorage.setItem("access-token-key", res.access_token);
+        sessionStorage.setItem("access-token-timeout", res.expires_in);
+        setAccessToken(res.access_token);
+        setAccessTokenTimeout(res.expires_in.toString());
+      });
     }
-  }, [ACCESS_TOKEN_KEY, setAccessToken]);
+  }, [getSpotifyAccessToken]);
 
   // GET User's Data
   const { data: user } = useQuery(
@@ -134,6 +210,7 @@ function RootContextProvider({ children }) {
     <RootContext.Provider
       value={{
         accessToken,
+        accessTokenTimeout,
         baseApi,
         user,
         userPlaylist,

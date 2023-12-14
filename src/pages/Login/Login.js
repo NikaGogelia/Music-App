@@ -1,11 +1,11 @@
-import "./introduction.css";
+import "./login.css";
 import { useRootContext } from "../../context/RootContextProvider";
 
-function Introduction() {
+function Login() {
   const { handleAuth } = useRootContext();
 
   return (
-    <div className="introduction d-flex flex-column justify-content-center align-items-center">
+    <div className="login d-flex flex-column justify-content-center align-items-center">
       <div className="animate__fadeIn d-flex flex-column justify-content-center align-items-center">
         <img
           className="shape"
@@ -22,13 +22,13 @@ function Introduction() {
           src="/assets/icons/liquid.svg"
           alt="liquid-shape"
         />
-        <div className="introduction-info d-flex flex-column justify-content-center align-items-center">
+        <div className="login-info d-flex flex-column justify-content-center align-items-center">
           <h2>Feel The Beat</h2>
           <h2>Energize Your Day With Our App</h2>
           <img src="/assets/icons/brand-logo.svg" alt="brand-logo" />
           <h1>Music App</h1>
         </div>
-        <button onClick={handleAuth} className="introduction-button button">
+        <button onClick={handleAuth} className="login-button button">
           Start Listening
         </button>
       </div>
@@ -36,4 +36,4 @@ function Introduction() {
   );
 }
 
-export default Introduction;
+export default Login;

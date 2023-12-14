@@ -7,7 +7,7 @@ import {
 import RootLayout from "../layout/root-layout/RootLayout";
 // Page
 import NotFound from "../pages/not-found/NotFound";
-import Introduction from "../pages/Introduction/Introduction";
+import Login from "../pages/Login/Login";
 import Home from "../pages/home/Home";
 import Search from "../pages/search/Search";
 import Library from "../pages/library/Library";
@@ -22,7 +22,7 @@ import CategoryPlaylist from "../pages/category-playlist/CategoryPlaylist";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<Introduction />} />
+      <Route path="/" element={<Login />} />
       <Route path="player" element={<RootLayout />}>
         <Route path="home" element={<Home />} />
         <Route path="search" element={<Search />} />

@@ -82,7 +82,7 @@ function Playlist() {
   return (
     <div className="playlist">
       <div className="playlist-details-container d-flex">
-        {images[0]?.url === undefined ? (
+        {images === null ? (
           <div className="no-image d-flex justify-content-center align-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

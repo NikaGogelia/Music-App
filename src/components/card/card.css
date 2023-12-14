@@ -109,7 +109,6 @@
 
 .card .card-title,
 .card .card-text {
-  text-transform: capitalize;
   font-family: var(--manrope);
 }
 

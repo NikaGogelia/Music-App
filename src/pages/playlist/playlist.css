@@ -20,7 +20,6 @@
 
 .playlist-details > h1,
 .playlist-details > h6 {
-  text-transform: capitalize;
   margin: 0;
 }
 

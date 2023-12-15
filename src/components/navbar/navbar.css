@@ -34,21 +34,28 @@
   fill: var(--white);
 }
 
-.profile {
+.navbar-profile {
   overflow: hidden;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.navbar-profile > .MuiAvatar-root {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -o-object-fit: cover;
+}
+
+.navbar-profile > .MuiAvatar-root > img {
+  width: 70%;
+  height: 70%;
   border-radius: 100%;
 }
 
-.profile,
-.profile > span,
-.profile > span > img {
-  width: 100%;
-  height: 100%;
-}
-
-.profile > span > img {
-  -o-object-fit: cover;
-  object-fit: cover;
+.navbar-profile > .MuiAvatar-root {
+  font-family: var(--manrope);
+  font-weight: 600;
 }
 
 /* Desktop */
@@ -77,8 +84,8 @@
     margin-bottom: 0.3em;
   }
 
-  .profile {
-    width: 3em;
-    height: 2.9em;
+  .navbar-profile {
+    width: 3.2em;
+    height: 3.2em;
   }
 }

@@ -1,11 +1,26 @@
 import "./navbar.css";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useRootContext } from "../../context/RootContextProvider";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Avatar } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 function Navbar() {
   const { user } = useRootContext();
+
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <nav className="navigation d-flex flex-column align-items-center justify-content-between">
@@ -94,13 +109,53 @@ function Navbar() {
           </NavLink>
         </div>
       </div>
-      <div className="profile">
-        <LazyLoadImage
-          effect="blur"
-          src={user?.images[0]?.url}
-          alt="profile-img"
+      <div
+        className="navbar-profile"
+        aria-controls={open ? "profile-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        <Avatar
+          sx={{ bgcolor: "#0c0c0c" }}
+          alt={user?.display_name}
+          src={
+            user?.images.length > 0 ? user?.images[1]?.url : "/broken-image.jpg"
+          }
         />
       </div>
+      <Menu
+        id="profile-menu"
+        aria-labelledby="profile-menu-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem
+          onClick={() => {
+            navigate(`/player/profile/${user.id}`);
+            handleClose();
+          }}
+        >
+          My Profile
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/");
+            handleClose();
+          }}
+        >
+          Logout
+        </MenuItem>
+      </Menu>
     </nav>
   );
 }

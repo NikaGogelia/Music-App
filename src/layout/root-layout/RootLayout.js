@@ -51,9 +51,9 @@ function RootLayout() {
           </aside>
           <Outlet />
         </main>
-        <footer className="d-inline-flex">
+        {/* <footer className="d-inline-flex">
           <Player />
-        </footer>
+        </footer> */}
       </div>
       <AlertBar />
     </AlertBarContextProvider>

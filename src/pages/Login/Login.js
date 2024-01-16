@@ -10,11 +10,11 @@ function Login() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      sessionStorage.removeItem("access-token-timeout");
+      sessionStorage.removeItem("countdown");
       sessionStorage.removeItem("auth-code");
       setAuthCode("");
       sessionStorage.removeItem("access-token-key");
-      setAccessToken("")
+      setAccessToken("");
     }
   }, [location.pathname, setAccessToken, setAuthCode]);
 

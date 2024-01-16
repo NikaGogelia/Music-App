@@ -8,11 +8,11 @@ import Player from "../../components/player/Player";
 import AlertBar from "../../components/alert-bar/AlertBar";
 
 function RootLayout() {
-  const [accessTokenTimeout, setAccessTokenTimeout] = useState(
-    sessionStorage.getItem("access-token-timeout") === null ||
-      sessionStorage.getItem("access-token-timeout") === undefined
-      ? ""
-      : sessionStorage.getItem("access-token-timeout")
+  const [countDown, setCountdown] = useState(
+    sessionStorage.getItem("countdown") === null ||
+      sessionStorage.getItem("countdown") === undefined
+      ? null
+      : parseInt(sessionStorage.getItem("countdown"))
   );
 
   const { getSpotifyAccessToken, setAuthCode, setAccessToken } =
@@ -28,19 +28,29 @@ function RootLayout() {
     if (code?.length > 0) {
       getSpotifyAccessToken().then((res) => {
         sessionStorage.setItem("access-token-key", res.access_token);
-        sessionStorage.setItem("access-token-timeout", res.expires_in);
+        sessionStorage.setItem("countdown", res.expires_in.toString());
         setAccessToken(res.access_token);
-        setAccessTokenTimeout(res.expires_in.toString());
+        setCountdown(parseInt(res.expires_in));
       });
     }
   }, [getSpotifyAccessToken, setAccessToken, setAuthCode]);
 
+  // Count Down Before Log Out
   useEffect(() => {
-    if (accessTokenTimeout.length > 0) {
-      const timeout = parseInt(accessTokenTimeout) * 1000;
-      setTimeout(() => navigate("/"), timeout);
+    const timer = setInterval(() => {
+      sessionStorage.setItem("countdown", countDown - 1);
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    if (countDown === 0) {
+      clearInterval(timer);
+      sessionStorage.removeItem("countdown");
+      setCountdown(null);
+      navigate("/");
     }
-  }, [navigate, accessTokenTimeout]);
+
+    return () => clearInterval(timer);
+  }, [navigate, countDown]);
 
   return (
     <AlertBarContextProvider>
